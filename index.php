@@ -1,14 +1,15 @@
 <?php
-require('controllers/MainController.php');
+  require('controllers/MainController.php');
 
-  // Penggunaan dotenv
-  // START
-  require './utils/dotenv.php';
-  $dotenv = dotenv('./');
+  // Test Connection
+  $conn = $db->getConnection();
 
-  echo getenv('DATABASE_HOST');
-  // END
-
+  $sql = 'select * from user';
+  foreach ($conn->query($sql) as $row) {
+    echo $row['email'];
+  }
+  // SUCCESS
+  
 ?>
 
 <!DOCTYPE html>
@@ -24,7 +25,8 @@ require('controllers/MainController.php');
 <body>
   <div>
     <?php
-    include('templates/song_list_section.php');
+    // ini urg komen soalnya blm ada data di db
+    // include('templates/song_list_section.php');
     ?>
   </div>
 </body>
