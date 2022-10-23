@@ -27,22 +27,11 @@ if ($uploadOk == 0) {
   if (move_uploaded_file($_FILES["songToUpload"]["tmp_name"], $target_file_song) && move_uploaded_file($_FILES["imageToUpload"]["tmp_name"], $target_file_image)) {
     $song->insertSong($judul, $penyanyi, $tanggal, $genre, '10', $target_file_song, $target_file_image);
 
-    echo $_POST['judul'];
-    echo "<br>";
-    echo $_POST['penyanyi'];
-    echo "<br>";
-    echo $_POST['tanggal'];
-    echo "<br>";
-    echo $_POST['genre'];
+    echo "--------------------------------------";
     echo "<br>";
     echo "The file " . htmlspecialchars(basename($_FILES["songToUpload"]["name"])) . " has been uploaded.";
     echo "<br>";
     echo "The file " . htmlspecialchars(basename($_FILES["imageToUpload"]["name"])) . " has been uploaded.";
-    echo "<br>";
-    echo "<img src=\"{$target_file_image}\" height=100 width=100>";
-    echo "<audio controls>
-<source src=\"{$target_file_song}\" type=\"audio/ogg\">
-</audio>";
   } else {
     echo "Sorry, there was an error uploading your file.";
   }
