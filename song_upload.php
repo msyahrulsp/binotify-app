@@ -1,9 +1,9 @@
 <?php
-require '../controllers/MainController.php';
+require 'controllers/MainController.php';
 $songData = $song->getSong();
-foreach ($songData as $row) {
-  echo $row['judul'];
-}
+// foreach ($songData as $row) {
+//   echo $row['judul'];
+// }
 ?>
 
 <!DOCTYPE html>

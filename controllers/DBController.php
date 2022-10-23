@@ -1,7 +1,7 @@
 <?php
 class DBController
 {
-  private $con = null;
+  public $con = null;
 
   public function __construct($host, $dbname, $user, $password)
   {
@@ -15,16 +15,19 @@ class DBController
           PDO::ATTR_DEFAULT_FETCH_MODE => PDO::FETCH_NAMED
         ]
       );
+      echo isset($this->con);
     } catch (Exception $ex) {
       exit($ex->getMessage());
     }
   }
 
-  public function __destruct() {
+  public function __destruct()
+  {
     $this->closeConnection();
   }
 
-  public function getConnection() {
+  public function getConnection()
+  {
     return $this->con;
   }
 
