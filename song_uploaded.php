@@ -19,7 +19,7 @@ if (isset($_POST["submit"])) {
   echo "ukuran file: " . $checkSong . $checkImage . '<br>';
   // foreach ($song as $s) {
   //   echo "<div><p>" . $s['judul'] . "</p></div>";
-  // }
+  // } 
 }
 if ($uploadOk == 0) {
   echo "Sorry, your file was not uploaded.";
