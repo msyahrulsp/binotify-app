@@ -4,7 +4,7 @@ require('SongController.php');
 require('utils/dotenv.php');
 
 // DOTENV
-$dotenv = dotenv('./');
+$dotenv = dotenv('.env');
 
 $host = getenv('DATABASE_HOST');
 $dbname = getenv('DATABASE_NAME');

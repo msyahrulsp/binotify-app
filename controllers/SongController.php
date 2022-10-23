@@ -29,7 +29,7 @@ class SongController
     try {
       $this->db->con->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
       $sql = "INSERT INTO song (judul, penyanyi, tanggal_terbit, genre, duration, audio_path, image_path, album_id)
-      VALUES (:judul, :penyanyi, :tanggal, :genre, 10, :audio_path, :image_path, 0)";
+      VALUES (:judul, :penyanyi, :tanggal, :genre, 10, :audio_path, :image_path, NULL)";
       $this->db->con->prepare($sql)->execute(array(
         ':judul' => $judul,
         ':penyanyi' => $penyanyi,

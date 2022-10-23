@@ -2,7 +2,7 @@
 
   // Load environment variable
   function dotenv($path): void {
-    $lines = file($path . '.env');
+    $lines = file($path);
     foreach ($lines as $line) {
       [$key, $value] = explode('=', $line, 2);
       $key = trim($key);

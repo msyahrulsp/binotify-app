@@ -1,7 +1,7 @@
 <?php
 require "controllers/MainController.php";
-$target_dir_song = "assets/musics/";
-$target_dir_image = "assets/images/";
+$target_dir_song = "./assets/musics/";
+$target_dir_image = "./assets/images/";
 $target_file_song = $target_dir_song . basename($_FILES["songToUpload"]["name"]);
 $target_file_image = $target_dir_image . basename($_FILES["imageToUpload"]["name"]);
 $uploadOk = 1;

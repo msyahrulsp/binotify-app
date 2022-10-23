@@ -1,6 +1,32 @@
-version: '3.3'
+version: '3.8'
 services:
   web:
-    image: tubes-1:latest
+    build: .
+    container_name: tubes1-php
+    volumes:
+      - .:/var/www/html
+    networks:
+      - app-tier
     ports:
-      - 8008:80
+      - 8080:80
+    depends_on:
+      - database
+
+  database:
+    image: mysql
+    command: --default-authentication-plugin=mysql_native_password
+    ports:
+      - 3306:3306
+    volumes:
+      - ./database:/docker-entrypoint-initdb.d
+    environment:
+      MYSQL_ROOT_PASSWORD: <insert password here>
+      MYSQL_INITDB_SKIP_TZINFO: 1
+    container_name: tubes1-database
+    networks:
+      - app-tier
+    restart: always
+
+networks:
+  app-tier:
+    driver: bridge
