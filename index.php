@@ -1,15 +1,15 @@
 <?php
-  require('controllers/MainController.php');
+require('controllers/MainController.php');
 
-  // Test Connection
-  $conn = $db->getConnection();
+// Test Connection
+// $conn = $db->getConnection();
 
-  $sql = 'select * from user';
-  foreach ($conn->query($sql) as $row) {
-    echo $row['email'];
-  }
-  // SUCCESS
-  
+// $sql = 'select * from song';
+// foreach ($conn->query($sql) as $row) {
+//   echo $row['penyanyi'];
+// }
+// SUCCESS
+
 ?>
 
 <!DOCTYPE html>
