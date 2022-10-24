@@ -25,7 +25,6 @@ class SongController
 
   public function insertSong($judul, $penyanyi, $tanggal, $genre, $durasi, $audio_path, $image_path)
   {
-    echo '<br>inserting<br>';
     try {
       $this->db->con->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
       $sql = "INSERT INTO song (song_id, judul, penyanyi, tanggal_terbit, genre, duration, audio_path, image_path, album_id)

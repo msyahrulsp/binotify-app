@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <link rel="stylesheet" href="../css/song_list_section.css" />
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <div>
+      <table>
+        <tr>
+          <th class="rank">#</th>
+          <th>TITLE</th>
+          <th>DATE ADDED</th>
+          <th>GENRE</th>
+        </tr>
+        <tr>
+          
+          <td class="rank">1</td>
+          <td>
+            <div class="song-profile">
+              <img src="{$imagePath}" width="50" height="50" />
+              <div class="profile-text">
+                <p class="title"><a href="/song.php?song_id={$song_id}">{$judul}</a></p>
+                <p class="singer">{$penyanyi}</p>
+              </div>
+            </div>
+          </td>
+          <td>{$tanggal}</td>
+          <td>{$genre}</td>
+        </tr>
+      </table>
+    </div>
+  </body>
+</html>
