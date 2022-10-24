@@ -10,8 +10,7 @@ class SongController
     $this->db = $db;
   }
 
-
-  public function getSong()
+  public function getSongs()
   // fetch songs
   {
     if (isset($this->db->con)) {
@@ -29,7 +28,7 @@ class SongController
     try {
       $this->db->con->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
       $sql = "INSERT INTO song (judul, penyanyi, tanggal_terbit, genre, duration, audio_path, image_path, album_id)
-      VALUES (:judul, :penyanyi, :tanggal, :genre, 10, :audio_path, :image_path, NULL)";
+      VALUES (:judul, :penyanyi, :tanggal, :genre, 10, :audio_path, :image_path, 0)";
       $this->db->con->prepare($sql)->execute(array(
         ':judul' => $judul,
         ':penyanyi' => $penyanyi,
@@ -44,11 +43,35 @@ class SongController
     }
   }
 
-  public function getSingleSong($songId)
+  public function updateSong($judul, $penyanyi, $tanggal, $genre, $durasi, $audio_path, $image_path, $song_id)
+  {
+    try {
+      // updateSong($judul, $penyanyi, $tanggal, $genre, '10', $target_file_song, $target_file_image, $songID);
+
+      $this->db->con->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+      $sql = "UPDATE song SET judul=:judul, penyanyi=:penyanyi, tanggal_terbit=:tanggal, genre=:genre, duration=:duration, audio_path=:audio_path, image_path=:image_path, album_id=:album_id WHERE song_id=:song_id";
+      $this->db->con->prepare($sql)->execute(array(
+        'judul' => $judul,
+        'penyanyi' => $penyanyi,
+        'tanggal' => $tanggal,
+        'genre' => $genre,
+        'audio_path' => $audio_path,
+        'image_path' => $image_path,
+        'duration' => 10,
+        'album_id' => 0,
+        'song_id' => $song_id,
+      ));
+      echo "New record created successfully<br>";
+    } catch (PDOException $e) {
+      echo $sql . "<br>" . $e->getMessage();
+    }
+  }
+
+  public function getSingleSong($songID)
   {
     try {
       $this->db->con->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-      $sql = "SELECT * FROM song WHERE song_id={$songId}";
+      $sql = "SELECT * FROM song WHERE song_id={$songID}";
       $stmt = $this->db->con->prepare($sql);
       $stmt->execute();
       $song = $stmt->fetch();
@@ -58,22 +81,18 @@ class SongController
     }
   }
 
-  public function echoSongDetail($judul = 'ini judul', $penyanyi = 'ini penyanyi', $tanggal = 'ini tanggal', $genre = 'ini genre', $durasi = 'ini durasi', $imagePath = 'assets/images/defaultImage.jpg', $songPath = '', $tombol_album = 'ini tombol album')
-  {
-    $html = <<<"EOT"
-    <div>
-      <p>$judul</p>
-      <p>$penyanyi</p>
-      <p>$tanggal</p>
-      <p>$genre</p>
-      <p>$durasi</p>
-      <img src="{$imagePath}" height=100 width=100>
-    <audio controls>
-      <source src="{$songPath}" type="audio/ogg" />
-    </audio>
-      <p>$tombol_album</p>
-    </div>
-    EOT;
-    echo $html;
+  public function getLastSongID() {
+    try {
+      $this->db->con->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+      $sql = "SELECT * FROM song ORDER BY song_id DESC LIMIT 1";
+      $stmt = $this->db->con->prepare($sql);
+      $stmt->execute();
+      $lastSongID = $stmt->fetch();
+      return $lastSongID['song_id'];
+    } catch (PDOException $e) {
+      echo $sql . "<br>" . $e->getMessage();
+    }
   }
+
+
 }

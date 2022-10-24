@@ -1,9 +1,12 @@
 <?php
 require 'controllers/MainController.php';
-$songData = $song->getSong();
+$songData = $song->getSongs();
+$lastSongID = $song->getLastSongID();
 // foreach ($songData as $row) {
 //   echo $row['judul'];
 // }
+
+// function 
 ?>
 
 <!DOCTYPE html>
@@ -31,9 +34,10 @@ $songData = $song->getSong();
     <input type="file" name="songToUpload" id="songToUpload"><br>
     File gambar:
     <input type="file" name="imageToUpload" id="imageToUpload"><br>
+    <input type="hidden" name="lastSongID" value=<?php echo $lastSongID ?>>
     Album:
     <span>TBD s input selection for available album</span><br>
-    <input type="submit" value="Upload Song" name="submit">
+    <button type="submit" value="Upload Song" name="submit">Upload Song</button>
   </form>
 </body>
 
