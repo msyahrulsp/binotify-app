@@ -34,7 +34,7 @@ $lastSongID = $song->getLastSongID();
     <input type="file" name="songToUpload" id="songToUpload"><br>
     File gambar:
     <input type="file" name="imageToUpload" id="imageToUpload"><br>
-    <input type="hidden" name="lastSongID" value=<?php echo $lastSongID ?>>
+    <input type="text" name="lastSongID" value=<?php echo $lastSongID ?>>
     Album:
     <span>TBD s input selection for available album</span><br>
     <button type="submit" value="Upload Song" name="submit">Upload Song</button>
