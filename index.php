@@ -27,6 +27,7 @@ require('controllers/MainController.php');
     <?php
     // ini urg komen soalnya blm ada data di db
     // include('templates/song_list_section.php');
+    echo '<h1>Success</h1>';
     ?>
   </div>
 </body>
