@@ -15,7 +15,6 @@ class DBController
           PDO::ATTR_DEFAULT_FETCH_MODE => PDO::FETCH_NAMED
         ]
       );
-      echo isset($this->con);
     } catch (Exception $ex) {
       exit($ex->getMessage());
     }
