@@ -13,8 +13,15 @@
     try {
       $user = new UserController($db);
       if ($password === $confirm_password) {
-        echo "Nice";
-        // $user->register($name, $email, $username, $password);
+        if (preg_match('#^[a-zA-Z0-9_.-]*$#', $username) && preg_match('#[a-zA-z0-9.-]+\@[a-zA-z0-9.-]+.[a-zA-Z]+#', $email)) {
+            $user->register($name, $email, $username, $password);
+        }
+        if (!preg_match('#^[a-zA-Z0-9_.-]*$#', $username)) {
+          echo "Username can only contain alphabets, numbers, and underscore!";
+        }
+        if (!preg_match('#[a-zA-z0-9.-]+\@[a-zA-z0-9.-]+.[a-zA-Z]+#', $email)) {
+          echo "Email not valid!";
+        }
       } else {
         echo "Password not the same!";
       }
@@ -51,20 +58,13 @@
   </div>
 
   <script>
-    document.getElementById('sign-up').addEventListener('click', function(event) {
-      event.preventDefault();
-    })
-
     function checkUnique(str, field) {
       const xhttp = new XMLHttpRequest();
       xhttp.onreadystatechange = function() {
         if (this.readyState === 4 && this.status === 200) {
-          console.log(this.responseText)
           if (this.responseText) {
-            console.log("true")
             document.getElementById('sign-up').removeAttribute('disabled');
           } else {
-            console.log("false")
             document.getElementById('sign-up').setAttribute('disabled', true);
           }
           // document.getElementById('status').innerText = this.responseText;

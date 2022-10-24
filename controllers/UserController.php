@@ -8,10 +8,10 @@ class UserController {
     $this->db = $db;
   }
 
-  public function getUser($username, $password) {
+  public function getUser($username) {
     $conn = $this->db->getConnection();
-    $query = $conn->prepare("SELECT * FROM user WHERE username = ? AND password = ?");
-    $query->execute([$username, $password]);
+    $query = $conn->prepare("SELECT * FROM user WHERE username = ?");
+    $query->execute([$username]);
     $user = $query->fetch(PDO::FETCH_ASSOC);
     return $user;
   }
@@ -44,11 +44,11 @@ class UserController {
       VALUES (:email, :password, :username, 0, :name)";
       $conn->prepare($sql)->execute(array(
         ":email" => $email,
-        ":password" => $password,
+        ":password" => password_hash($password, PASSWORD_DEFAULT),
         ":username" => $username,
         ":name" => $name
       ));
-      echo "Registered successfully<br>";
+      echo "Account registered successfully!<br>";
     } catch (PDOException $e) {
       echo $sql . "<br>" . $e->getMessage();
     }
