@@ -27,6 +27,20 @@ services:
       - app-tier
     restart: always
 
+  phpmyadmin:
+    image: phpmyadmin/phpmyadmin
+    container_name: tubes1-phpmyadmin
+    environment:
+      PMA_HOST: database
+      PMA_PASSWORD: <insert password here>
+      MYSQL_ROOT_PASSWORD: <insert password here>
+    ports:
+      - 8081:80
+    depends_on:
+      - database
+    networks:
+      - app-tier
+
 networks:
   app-tier:
     driver: bridge
