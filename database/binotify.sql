@@ -38,3 +38,12 @@ CREATE TABLE `binotify`.`user` (
   PRIMARY KEY (`user_id`)
 );
 INSERT INTO `binotify`.`user` VALUES (1,'lorem@gmail.com','password','loremipsum',1),(2,'ipsum@gmail.com','password','ipsumlorem',1);
+
+INSERT INTO `binotify`.`song` VALUES (null,'Tokyo Drift','Teriyaki Boyz','2000-10-16','sedih','100','./assets/musics/song1.mp3','./assets/images/image1.png',1),
+(null,'Goosebumps','Travis Scott', '2000-10-11','sedih','100','./assets/musics/song2.mp3','./assets/images/image2.png',1),
+(null,'Semoga, Ya', 'Nosstress','2000-10-12','sedih','100','./assets/musics/song3.mp3','./assets/images/image3.png',1),
+(null,'cigarretes of ours','Ardhito Pramono', '2000-10-13','sedih','100','./assets/musics/song4.mp3','./assets/images/image4.png',1),
+(null,'Sesuatu Di Jogja','Adhitia Sofyan', '2000-10-14','sedih','100','./assets/musics/song5.mp3','./assets/images/image5.png',1),
+(null,'Rehat','Kunto Aji','2000-10-15','sedih','100','./assets/musics/song6.mp3','./assets/images/image6.png',1),
+(null,'Untuk Perempuan Yang Sedang Di Pelukan', 'Payung Teduh','2000-10-10','sedih','100','./assets/musics/song7.mp3','./assets/images/image7.png',1),
+(null,'Langit Abu-Abu','Tulus', '2000-10-11','sedih','100','./assets/musics/song8.mp3','./assets/images/image8.png',1);
