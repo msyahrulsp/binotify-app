@@ -5,6 +5,7 @@ services:
     container_name: tubes1-php
     volumes:
       - .:/var/www/html
+      - ./uploads.ini:/usr/local/etc/php/conf.d/uploads.ini
     networks:
       - app-tier
     ports:
@@ -20,7 +21,7 @@ services:
     volumes:
       - ./database:/docker-entrypoint-initdb.d
     environment:
-      MYSQL_ROOT_PASSWORD: <insert password here>
+      MYSQL_ROOT_PASSWORD: 123456
       MYSQL_INITDB_SKIP_TZINFO: 1
     container_name: tubes1-database
     networks:
@@ -32,8 +33,7 @@ services:
     container_name: tubes1-phpmyadmin
     environment:
       PMA_HOST: database
-      PMA_PASSWORD: <insert password here>
-      MYSQL_ROOT_PASSWORD: <insert password here>
+      MYSQL_ROOT_PASSWORD: 123456
     ports:
       - 8081:80
     depends_on:

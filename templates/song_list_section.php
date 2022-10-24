@@ -1,10 +1,10 @@
 <?php
-define("DEFAULT_IMG", "./assets/images/defaultImage.jpg");
+define("DEFAULT_IMG", "../assets/images/defaultImage.jpg");
 $songData = $song->getSongs();
 
 function echoSongCard($song)
 {
-  // judul, penyanyi, tahun, genre, durasi, audio path, image path,  album terkait dari lagu
+  $song_id = $song['song_id'];
   $judul = $song['judul'];
   $penyanyi = $song['penyanyi'];    // nullable
   $tanggal = $song['tanggal_terbit']; // di spek mintanya tahun
@@ -14,14 +14,21 @@ function echoSongCard($song)
   $imagePath = $song['image_path'] ?? DEFAULT_IMG; // nullable
   $album = $song['album_id'];       // nullable
   $html = <<<"EOT"
-  <div>
-    <img src={$imagePath} width=100 height=100>
-    <p>{$judul}</p>
-    <p>{$penyanyi}</p>
-    <p>{$tanggal}</p> 
-    <p>{$genre}</p>
-    <p>-----------------</p>
-  </div>
+      <a href="google.com">
+        <tr>
+          <td class="rank">1</td>
+          <td>
+            <div class="song-profile">
+              <img src="$imagePath" width="50" height="50" />
+              <div class="profile-text">
+                <p class="title"><a href="/song.php?song_id={$song_id}">{$judul}</a></p>
+                <p class="singer">{$penyanyi}</p>
+              </div>
+            </div>
+          </td>
+          <td>{$tanggal}</td>
+          <td>{$genre}</td>
+        </tr></a>
   EOT;
 
   echo $html;
@@ -31,10 +38,18 @@ function echoSongCard($song)
 <div>
   <h1>Top 10 Songs</h1>
   <div>
-    <?php
-    foreach ($songData as $row) {
-      echoSongCard($row);
-    }
-    ?>
+    <table>
+      <tr>
+        <th class="rank">#</th>
+        <th>TITLE</th>
+        <th>DATE ADDED</th>
+        <th>GENRE</th>
+      </tr>
+      <?php
+      foreach ($songData as $row) {
+        echoSongCard($row);
+      }
+      ?>
+    </table>
   </div>
 </div>

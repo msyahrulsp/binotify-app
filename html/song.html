@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <link rel="stylesheet" href="../css/song.css" />
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <main>
+      <div class="divider"> 
+        <div class="image">
+          <img src="{$imagePath}" height="200" width="200" />
+        </div>
+        <div class="info">
+          <p class="title">$judul</p>
+          <div class="singer-duration">
+            <p>$penyanyi</p>
+            <p>&nbsp;&nbsp;&nbsp;</p>
+            <p>$durasi</p>
+          </div>
+          <div class="genre-date">
+            <p>$genre</p>
+            <p>&nbsp;&nbsp;&nbsp;</p>
+            <p>$tanggal</p>
+          </div>
+          <div class="audio-player">
+            <audio controls>
+              <source src="{$songPath}" type="audio/ogg" />
+            </audio>
+          </div>
+        </div>
+        <p>$tombol_album</p>
+      </div>
+    </main>
+  </body>
+</html>

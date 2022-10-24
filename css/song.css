@@ -1,0 +1,65 @@
+* {
+  background-color: #121212;
+  color:white;
+}
+
+.divider {
+  display:flex;
+  flex-direction: column;
+}
+
+.image {
+  width:100%;
+  background-color: white;
+  display: flex;
+  justify-content: center;
+  padding: 3rem 0;
+}
+
+.info {
+  padding: 1rem;
+}
+
+.title {
+  font-weight:900;
+  font-size:3rem;
+  margin: 1rem 0;
+}
+
+.singer-duration {
+  display:flex;
+}
+
+.genre-date {
+  display:flex
+}
+
+.audio-player {
+  width:100%;
+  display: flex;
+  justify-content: center;
+  margin-top:2rem;
+}
+
+p {
+  margin: 0.5rem 0;
+}
+
+@media screen and (min-width: 768px) {
+  .divider {
+    display:flex;
+    flex-direction: row;
+  }
+
+  .divider > div:first-child {
+    width:30%;
+  }
+
+  .divider > div:nth-child(2) {
+    padding: 4rem 4rem;
+  }
+
+  .image {
+    align-items:center;
+  }
+}
