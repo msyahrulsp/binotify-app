@@ -8,9 +8,9 @@
     $password = $_POST['password'];
 
     $user = new UserController($db);
-    $curr_user = $user->getUser($username, $password);
+    $curr_user = $user->getUser($username);
 
-    if ($curr_user) {
+    if (password_verify($password, $curr_user['password'])) {
       echo "Login Berhasil!";
     } else {
       echo "Salah username atau password";
