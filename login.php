@@ -1,6 +1,6 @@
 <?php
   require 'controllers/MainController.php';
-
+  ob_start();
   session_start();
   
   if (isset($_POST['submit'])) {
@@ -16,6 +16,8 @@
       $_SESSION['user_id'] = $curr_user['user_id'];
       $_SESSION['user_name'] = $curr_user['name'];
       $_SESSION['isAdmin'] = $curr_user['isAdmin'];
+
+      redirect('/');
 
     } else {
       echo "Salah username atau password";

@@ -1,38 +1,39 @@
 <?php
   require 'controllers/MainController.php';
-
+  ob_start();
   session_start();
 
-  if (isset($_POST['submit'])) {
-    $name = $_POST['name'];
-    $email = $_POST['email'];
-    $username = $_POST['username'];
-    $password = $_POST['password'];
-    $confirm_password = $_POST['confirm_password'];
+  // if (isset($_POST['submit'])) {
+  //   $name = $_POST['name'];
+  //   $email = $_POST['email'];
+  //   $username = $_POST['username'];
+  //   $password = $_POST['password'];
+  //   $confirm_password = $_POST['confirm_password'];
 
-    try {
-      $user = new UserController($db);
-      if ($password === $confirm_password) {
-        if (preg_match('#^[a-zA-Z0-9_.-]*$#', $username) && preg_match('#[a-zA-z0-9.-]+\@[a-zA-z0-9.-]+.[a-zA-Z]+#', $email)) {
-            $user->register($name, $email, $username, $password);
-            $curr_user = $user->getUser($username);
-            $_SESSION['user_id'] = $curr_user['user_id'];
-            $_SESSION['user_name'] = $curr_user['name'];
-            $_SESSION['isAdmin'] = $curr_user['isAdmin'];
-        }
-        if (!preg_match('#^[a-zA-Z0-9_.-]*$#', $username)) {
-          echo "Username can only contain alphabets, numbers, and underscore!";
-        }
-        if (!preg_match('#[a-zA-z0-9.-]+\@[a-zA-z0-9.-]+.[a-zA-Z]+#', $email)) {
-          echo "Email not valid!";
-        }
-      } else {
-        echo "Password not the same!";
-      }
-    } catch (PDOException $e) {
-      echo $e->getMessage();
-    }
-  }
+  //   try {
+  //     $user = new UserController($db);
+  //     if ($password === $confirm_password) {
+  //       if (preg_match('#^[a-zA-Z0-9_.-]*$#', $username) && preg_match('#[a-zA-z0-9.-]+\@[a-zA-z0-9.-]+.[a-zA-Z]+#', $email)) {
+  //           $user->register($name, $email, $username, $password);
+  //           $curr_user = $user->getUser($username);
+  //           $_SESSION['user_id'] = $curr_user['user_id'];
+  //           $_SESSION['user_name'] = $curr_user['name'];
+  //           $_SESSION['isAdmin'] = $curr_user['isAdmin'];
+  //           redirect('/');
+  //       }
+  //       if (!preg_match('#^[a-zA-Z0-9_.-]*$#', $username)) {
+  //         echo "Username can only contain alphabets, numbers, and underscore!";
+  //       }
+  //       if (!preg_match('#[a-zA-z0-9.-]+\@[a-zA-z0-9.-]+.[a-zA-Z]+#', $email)) {
+  //         echo "Email not valid!";
+  //       }
+  //     } else {
+  //       echo "Password not the same!";
+  //     }
+  //   } catch (PDOException $e) {
+  //     echo $e->getMessage();
+  //   }
+  // }
   
 ?>
 
@@ -45,7 +46,7 @@
   <title>Document</title>
 </head>
 <body>
-  <form method="POST" action="">
+  <form method="POST" action="" id="register-form">
     <label>What is your name?</label>
     <input type="text" placeholder="Enter your name." name="name" />
     <label>What is your email?</label>
@@ -62,6 +63,19 @@
   </div>
 
   <script>
+    document.getElementById('register-form').addEventListener('submit', function(e) {
+      e.preventDefault();
+      const formData = new FormData(document.getElementById('register-form'));
+      const xhttp = new XMLHttpRequest();
+      xhttp.onreadystatechange = function() {
+        if (this.readyState === 4 && this.status === 200) {
+          console.log(JSON.parse(this.responseText));
+          // console.log(this.responseText);
+        }
+      }
+      xhttp.open('POST', 'api/register.php', true);
+      xhttp.send(formData);
+    })
     function checkUnique(str, field) {
       const xhttp = new XMLHttpRequest();
       xhttp.onreadystatechange = function() {
