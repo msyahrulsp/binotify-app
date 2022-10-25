@@ -47,9 +47,9 @@ class UserController {
         ":username" => $username,
         ":name" => $name
       ));
-      echo "Account registered successfully!<br>";
+      return TRUE;
     } catch (PDOException $e) {
-      echo $sql . "<br>" . $e->getMessage();
+      return FALSE;
     }
   }
 

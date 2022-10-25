@@ -1,11 +1,12 @@
 <?php
-require('DBController.php');
-require('SongController.php');
-require('UserController.php');
-require('utils/dotenv.php');
+define('ROOT_DIR', dirname(__FILE__) . '/../');
+require(ROOT_DIR . 'controllers/DBController.php');
+require(ROOT_DIR . 'controllers/SongController.php');
+require(ROOT_DIR . 'controllers/UserController.php');
+require(ROOT_DIR . 'utils/dotenv.php');
 
 // DOTENV
-$dotenv = dotenv('.env');
+$dotenv = dotenv(ROOT_DIR . '.env');
 
 $host = getenv('DATABASE_HOST');
 $dbname = getenv('DATABASE_NAME');
@@ -17,3 +18,9 @@ $db = new DBController($host, $dbname, $user, $password);
 
 // Song Object
 $song = new SongController($db);
+
+// Redirect function
+function redirect($url) {
+  header('Location: ' . $url);
+  die();
+}

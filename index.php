@@ -9,9 +9,18 @@ require('controllers/MainController.php');
 //   echo $row['penyanyi'];
 // }
 // SUCCESS
-
+ob_start();
 session_start();
-print_r($_SESSION);
+
+$logout = null;
+if (!empty($_SESSION)) {
+  $logout = '<button type="submit" name="logout">Log out</button>';
+}
+
+if (isset($_POST['logout'])) {
+  session_destroy();
+  redirect('/');
+}
 
 ?>
 
@@ -33,6 +42,9 @@ print_r($_SESSION);
     include('templates/song_list_section.php');
     echo '<h1>Success</h1>';
     ?>
+    <form method="POST">
+      <?php echo $logout ?>
+    </form>
   </div>
 </body>
 

@@ -1,7 +1,11 @@
 <?php
   require 'controllers/MainController.php';
-
+  ob_start();
   session_start();
+
+  if (!empty($_SESSION)) {
+    redirect('/');
+  }
   
   if (isset($_POST['submit'])) {
     $username = $_POST['username'];
@@ -16,6 +20,8 @@
       $_SESSION['user_id'] = $curr_user['user_id'];
       $_SESSION['user_name'] = $curr_user['name'];
       $_SESSION['isAdmin'] = $curr_user['isAdmin'];
+
+      redirect('/');
 
     } else {
       echo "Salah username atau password";
@@ -39,5 +45,11 @@
     <input type="password" placeholder="Enter password" name="password" />
     <button type="submit" name="submit">Sign Up</button>
   </form>
+  <div>
+    <p>Don't have an account?</p>
+    <a href="/register.php">
+      <button>SIGN UP FOR BINOTIFY</button>
+    </a>
+  </div>
 </body>
 </html>
