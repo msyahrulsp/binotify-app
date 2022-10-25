@@ -12,6 +12,11 @@
 
     if (password_verify($password, $curr_user['password'])) {
       echo "Login Berhasil!";
+      
+      $_SESSION['user_id'] = $curr_user['user_id'];
+      $_SESSION['user_name'] = $curr_user['name'];
+      $_SESSION['isAdmin'] = $curr_user['isAdmin'];
+
     } else {
       echo "Salah username atau password";
     }

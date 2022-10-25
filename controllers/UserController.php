@@ -10,26 +10,25 @@ class UserController {
 
   public function getUser($username) {
     $conn = $this->db->getConnection();
-    $query = $conn->prepare("SELECT * FROM user WHERE username = ?");
-    $query->execute([$username]);
-    $user = $query->fetch(PDO::FETCH_ASSOC);
+    $stmt = $conn->prepare("SELECT * FROM user WHERE username = ?");
+    $stmt->execute([$username]);
+    $user = $stmt->fetch(PDO::FETCH_ASSOC);
     return $user;
   }
 
   public function isUnique($value, $type) {
     $conn = $this->db->getConnection();
-    $query = $conn->prepare("SELECT * FROM user WHERE " . $type . " = ?");
-    $query->execute([$value]);
-    $user = $query->fetch(PDO::FETCH_ASSOC);
+    $stmt = $conn->prepare("SELECT * FROM user WHERE " . $type . " = ?");
+    $stmt->execute([$value]);
+    $user = $stmt->fetch(PDO::FETCH_ASSOC);
     if ($user) {
       return FALSE;
     }
     return TRUE;
   }
 
-  public function isAdmin($username, $password) {
-    $user = $this->getUser($username, $password);
-    if ($user['isAdmin'] == 1) {
+  public function isAdmin($isAdmin) {
+    if ($isAdmin == 1) {
       return TRUE;
     } else {
       return FALSE;

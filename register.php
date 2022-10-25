@@ -15,6 +15,10 @@
       if ($password === $confirm_password) {
         if (preg_match('#^[a-zA-Z0-9_.-]*$#', $username) && preg_match('#[a-zA-z0-9.-]+\@[a-zA-z0-9.-]+.[a-zA-Z]+#', $email)) {
             $user->register($name, $email, $username, $password);
+            $curr_user = $user->getUser($username);
+            $_SESSION['user_id'] = $curr_user['user_id'];
+            $_SESSION['user_name'] = $curr_user['name'];
+            $_SESSION['isAdmin'] = $curr_user['isAdmin'];
         }
         if (!preg_match('#^[a-zA-Z0-9_.-]*$#', $username)) {
           echo "Username can only contain alphabets, numbers, and underscore!";
@@ -45,9 +49,9 @@
     <label>What is your name?</label>
     <input type="text" placeholder="Enter your name." name="name" />
     <label>What is your email?</label>
-    <input type="email" placeholder="Enter your email." name="email" id="email" onchange="checkUnique(this.value, 'email')" />
+    <input type="email" placeholder="Enter your email." name="email" id="email" oninput="setTimeout(() => checkUnique(this.value, 'email'), 1000)" />
     <label>Create a username</label>
-    <input type="text" placeholder="Create a username." name="username" id="username" onchange="checkUnique(this.value, 'username')" />
+    <input type="text" placeholder="Create a username." name="username" id="username" oninput="setTimeout(() => checkUnique(this.value, 'username'), 1000)" />
     <label>Create a password</label>
     <input type="password" placeholder="Enter your password." name="password" />
     <label>Confirm your password</label>
