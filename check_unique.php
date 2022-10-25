@@ -1,8 +1,6 @@
 <?php
   require 'controllers/MainController.php';
   
-  session_start();
-  
   if (isset($_GET['username'])) {
     $username = $_GET['username'];
     $user = new UserController($db);
