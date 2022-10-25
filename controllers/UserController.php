@@ -35,6 +35,14 @@ class UserController {
     }
   }
 
+  public function getAll() {
+    $conn = $this->db->getConnection();
+    $stmt = $conn->prepare("SELECT user_id, email, name, username FROM user");
+    $stmt->execute();
+    $user = $stmt->fetchAll(PDO::FETCH_ASSOC);
+    return json_encode($user);
+  }
+
   public function register($name, $email, $username, $password) {
     try {
       $conn = $this->db->getConnection();
