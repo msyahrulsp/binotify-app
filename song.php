@@ -94,8 +94,8 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     echo '<br> song file name' . $songFile;
     echo '<br> image file name' . $imageFile;
     // null diganti current path
-    $target_file_song = $songFile ? $target_dir_song . 'song' . $songID . '.' . pathinfo($_FILES["songToUpload"]["name"], PATHINFO_EXTENSION) : $songData['audio_path'];
-    $target_file_image = $imageFile ? $target_dir_image . 'image' . $songID . '.' . pathinfo($_FILES["imageToUpload"]["name"], PATHINFO_EXTENSION) : $songData['image_path'];
+    $target_file_song = $songFile ? $target_dir_song . basename($_FILES["songToUpload"]["name"]) : $songData['audio_path'];
+    $target_file_image = $imageFile ? $target_dir_image . basename($_FILES["imageToUpload"]["name"]) : $songData['image_path'];
     $uploadOk = 1;
     // $musicFileType = strtolower(pathinfo($target_file_song, PATHINFO_EXTENSION));
 
@@ -122,8 +122,8 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
       try {
         if ($songFile && $imageFile) {
           echo '<br> song and image file <br>';
-          unlink($target_file_song);
-          unlink($target_file_image);
+          unlink($imagePath);
+          unlink($songPath);
           move_uploaded_file($_FILES["songToUpload"]["tmp_name"], $target_file_song);
           move_uploaded_file($_FILES["imageToUpload"]["tmp_name"], $target_file_image);
 
@@ -136,13 +136,13 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
           $imagePath = $_FILES["imageToUpload"]['name'] ? $target_file_image : $imagePath;
         } elseif ($songFile) {
           echo '<br> song file <br>';
-          unlink($target_file_song);
+          unlink($songPath);
           move_uploaded_file($_FILES["songToUpload"]["tmp_name"], $target_file_song);
           echo "The file " . htmlspecialchars(basename($_FILES["songToUpload"]["name"])) . " has been uploaded.";
           $songPath = $_FILES["songToUpload"]['name'] ? $target_file_song : $songPath;
         } elseif ($imageFile) {
           echo '<br> image file <br>';
-          unlink($target_file_image);
+          unlink($imagePath);
           move_uploaded_file($_FILES["imageToUpload"]["tmp_name"], $target_file_image);
           echo "The file " . htmlspecialchars(basename($_FILES["imageToUpload"]["name"])) . " has been uploaded.";
           $imagePath = $_FILES["imageToUpload"]['name'] ? $target_file_image : $imagePath;
