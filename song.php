@@ -94,8 +94,9 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     echo '<br> song file name' . $songFile;
     echo '<br> image file name' . $imageFile;
     // null diganti current path
-    $target_file_song = $songFile ? $target_dir_song . basename($_FILES["songToUpload"]["name"]) : $songData['audio_path'];
-    $target_file_image = $imageFile ? $target_dir_image . basename($_FILES["imageToUpload"]["name"]) : $songData['image_path'];
+    $target_file_song = $songFile ? $target_dir_song . 'song' . $songID . '_' . date('Y-m-d_H-i-s') . '.' . pathinfo($_FILES["songToUpload"]["name"], PATHINFO_EXTENSION) : $songData['audio_path'];
+    $target_file_image = $imageFile ? $target_dir_image . 'image' . $songID . '_' . date('Y-m-d_H-i-s') . '.' . pathinfo($_FILES["imageToUpload"]["name"], PATHINFO_EXTENSION) : $songData['image_path'];
+    
     $uploadOk = 1;
     // $musicFileType = strtolower(pathinfo($target_file_song, PATHINFO_EXTENSION));
 
