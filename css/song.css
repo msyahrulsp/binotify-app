@@ -3,7 +3,17 @@
   color:white;
 }
 
+main {
+  display:flex;
+  flex-direction: row;
+  align-items: center;
+  height:100vh;
+  padding:0;
+  margin:0;
+}
+
 .divider {
+  width:100%;
   display:flex;
   flex-direction: column;
 }
@@ -24,14 +34,6 @@
   font-weight:900;
   font-size:3rem;
   margin: 1rem 0;
-}
-
-.singer-duration {
-  display:flex;
-}
-
-.genre-date {
-  display:flex
 }
 
 .audio-player {
@@ -62,4 +64,12 @@ p {
   .image {
     align-items:center;
   }
+}
+
+input {
+  background-color: #121212;
+  color:white;
+  border: 2px solid chartreuse;
+  border-radius:0.5rem;
+  padding:0.5rem 0.8rem;
 }

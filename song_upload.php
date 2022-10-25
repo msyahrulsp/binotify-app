@@ -1,7 +1,6 @@
 <?php
 require 'controllers/MainController.php';
 $songData = $song->getSongs();
-$lastSongID = $song->getLastSongID();
 
 if ($_SERVER['REQUEST_METHOD'] == 'POST') {
   $lastSongID = $_POST['lastSongID'];
@@ -20,7 +19,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
   $tanggal = $_POST['tanggal'];
   $genre = $_POST['genre'];
 
-  if (isset($_POST["submit"])) {
+  if (isset($_POST["upload-song"])) {
     echo '$target_file_song ' . $target_file_song . '<br>';
     echo '$target_file_image ' . $target_file_image . '<br>';
 
@@ -76,10 +75,9 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     <input type="file" name="songToUpload" id="songToUpload"><br>
     File gambar:
     <input type="file" name="imageToUpload" id="imageToUpload"><br>
-    <input type="text" name="lastSongID" value=<?php echo $lastSongID ?>>
     Album:
     <span>TBD s input selection for available album</span><br>
-    <button type="submit" value="Upload Song" name="submit">Upload Song</button>
+    <button type="submit" value="Upload Song" name="upload-song">Upload Song</button>
   </form>
 </body>
 

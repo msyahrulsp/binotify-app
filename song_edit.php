@@ -2,6 +2,7 @@
 require 'controllers/MainController.php';
 $songData = $song->getSingleSong($_GET['song_id']);
 print_r($songData);
+
 $judul = $songData['judul'] ?? null;
 $penyanyi = $songData['penyanyi'] ?? null;
 $tanggal = $songData['tanggal_terbit'] ?? null;
@@ -65,9 +66,11 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST'){
           move_uploaded_file($_FILES["imageToUpload"]["tmp_name"], $target_file_image);
           echo "The file " . htmlspecialchars(basename($_FILES["imageToUpload"]["name"])) . " has been uploaded.";
         } else{
-          echo 'song updated';
+          echo '<br>song updated without file changes';
         }
-        $song->updateSong($judul, $penyanyi, $tanggal, $genre, '10', $target_file_song, $target_file_image, $songID);
+
+        $song->updateSong($judul, $penyanyi, $tanggal, $genre, 10, $target_file_song, $target_file_image, $songID);
+        
       } catch (PDOException $e) {
         echo $e->getMessage();
       }
