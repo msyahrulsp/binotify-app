@@ -87,8 +87,8 @@ class SongController
       $this->db->con->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
       $sql = "SELECT AUTO_INCREMENT
       FROM  INFORMATION_SCHEMA.TABLES
-      WHERE TABLE_SCHEMA = `binotify`
-      AND   TABLE_NAME   = `song`";
+      WHERE TABLE_SCHEMA = 'binotify'
+      AND   TABLE_NAME   = 'song'";
       $stmt = $this->db->con->prepare($sql);
       $stmt->execute();
       $lastSongID = $stmt->fetch();
