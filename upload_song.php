@@ -4,7 +4,6 @@ $songData = $song->getSongs();
 
 if ($_SERVER['REQUEST_METHOD'] == 'POST') {
   $lastSongID = $song->getLastSongID();
-  // echo 'last song id ' . $lastSongID . '<br>';
 
   $target_dir_song = "./assets/musics/";
   $target_dir_image = "./assets/images/";
@@ -18,28 +17,12 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
   $genre = $_POST['genre'];
 
   if (isset($_POST["upload-song"])) {
-    echo '$target_file_song ' . $target_file_song . '<br>';
-    echo '$target_file_image ' . $target_file_image . '<br>';
-
-    echo 'song <br>';
-    print_r($_FILES["songToUpload"]["tmp_name"]);
-    echo '<br> image <br>';
-    print_r($_FILES["imageToUpload"]["tmp_name"]);
-
     $movedSong = move_uploaded_file($_FILES["songToUpload"]["tmp_name"], $target_file_song) ?? null;
     $movedImage = move_uploaded_file($_FILES["imageToUpload"]["tmp_name"], $target_file_image) ?? null;
-    // echo '<br>move song' . ;
-    // echo '<br>move image' . ;
+
     try {
       if ($movedSong && $movedImage) {
-        echo 'check 1 <br>';
         $song->insertSong($judul, $penyanyi, $tanggal, $genre, 10, $target_file_song, $target_file_image);
-        echo 'check 2 <br>';
-        echo "--------------------------------------";
-        echo "<br>";
-        echo "The file " . htmlspecialchars(basename($_FILES["songToUpload"]["name"])) . " has been uploaded.";
-        echo "<br>";
-        echo "The file " . htmlspecialchars(basename($_FILES["imageToUpload"]["name"])) . " has been uploaded.";
       }
     } catch (PDOException $e) {
       echo $e->getMessage();
