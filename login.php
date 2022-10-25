@@ -6,27 +6,6 @@
   if (!empty($_SESSION)) {
     redirect('/');
   }
-  
-  if (isset($_POST['submit'])) {
-    $username = $_POST['username'];
-    $password = $_POST['password'];
-
-    $user = new UserController($db);
-    $curr_user = $user->getUser($username);
-
-    if (password_verify($password, $curr_user['password'])) {
-      echo "Login Berhasil!";
-      
-      $_SESSION['user_id'] = $curr_user['user_id'];
-      $_SESSION['user_name'] = $curr_user['name'];
-      $_SESSION['isAdmin'] = $curr_user['isAdmin'];
-
-      redirect('/');
-
-    } else {
-      echo "Salah username atau password";
-    }
-  }
 ?>
 
 <!DOCTYPE html>
@@ -35,21 +14,58 @@
   <meta charset="UTF-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" type="text/css" href="css/login.css">
   <title>Document</title>
 </head>
 <body>
-  <form method="POST" action="">
-    <label>Username</label>
-    <input type="text" placeholder="Enter username" name="username" />
-    <label>Password</label>
-    <input type="password" placeholder="Enter password" name="password" />
-    <button type="submit" name="submit">Sign Up</button>
-  </form>
-  <div>
-    <p>Don't have an account?</p>
-    <a href="/register.php">
-      <button>SIGN UP FOR BINOTIFY</button>
-    </a>
-  </div>
+  <header>
+    <h1>Binotify</h1>
+  </header>
+  <main class="container">
+    <form method="POST" action="" class="form__login" id="login-form">
+      <div id="error-container">
+      </div>
+      <div class="input-container">
+        <label>Email address or username</label>
+        <input type="text" placeholder="Email address or username" name="account" />
+      </div>
+      <div class="input-container">
+        <label>Password</label>
+        <input type="password" placeholder="Password" name="password" />
+      </div>
+      <div class=button-container__login>
+        <button type="submit" name="submit" class="button__login">LOG IN</button>
+      </div>
+    </form>
+    <div class="register-link">
+      <h3>Don't have an account?</h3>
+      <a href="/register.php">
+        <button>SIGN UP FOR BINOTIFY</button>
+      </a>
+    </div>
+  </main>
+  <script>
+    document.getElementById("login-form").addEventListener("submit", function(e) {
+      e.preventDefault();
+      const formData = new FormData(document.getElementById("login-form"));
+      const xhttp = new XMLHttpRequest();
+      xhttp.onreadystatechange = function() {
+        if (this.readyState === 4 && this.status === 200) {
+          const response = JSON.parse(this.responseText);
+          if (response.status === 200) {
+            window.location.href = '/';
+          } else {
+            document.getElementById('error-container').innerHTML = `
+              <div class="error-message">
+                <p>${response.message}</p>
+              </div>
+            `
+          }
+        }
+      }
+      xhttp.open("POST", "api/login.php", true);
+      xhttp.send(formData);
+    })
+  </script> 
 </body>
 </html>

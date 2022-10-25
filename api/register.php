@@ -1,6 +1,5 @@
 <?php
   require '../controllers/MainController.php';
-  ob_start();
   session_start();
 
   if (isset($_POST)) {
@@ -58,7 +57,7 @@
       if ($password === $confirm_password) {
         if (preg_match('#^[a-zA-Z0-9_.-]*$#', $username) && preg_match('#[a-zA-z0-9.-]+\@[a-zA-z0-9.-]+.[a-zA-Z]+#', $email)) {
             $registerStatus = $user->register($name, $email, $username, $password);
-            $curr_user = $user->getUser($username);
+            $curr_user = $user->getUser($username, 'username');
             $_SESSION['user_id'] = $curr_user['user_id'];
             $_SESSION['user_name'] = $curr_user['name'];
             $_SESSION['isAdmin'] = $curr_user['isAdmin'];

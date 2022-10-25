@@ -8,14 +8,6 @@ class UserController {
     $this->db = $db;
   }
 
-  public function getUser($username) {
-    $conn = $this->db->getConnection();
-    $stmt = $conn->prepare("SELECT * FROM user WHERE username = ?");
-    $stmt->execute([$username]);
-    $user = $stmt->fetch(PDO::FETCH_ASSOC);
-    return $user;
-  }
-
   public function isUnique($value, $type) {
     $conn = $this->db->getConnection();
     $stmt = $conn->prepare("SELECT * FROM user WHERE " . $type . " = ?");
@@ -41,6 +33,14 @@ class UserController {
     $stmt->execute();
     $user = $stmt->fetchAll(PDO::FETCH_ASSOC);
     return json_encode($user);
+  }
+
+  public function getUser($value, $type) {
+    $conn = $this->db->getConnection();
+    $stmt = $conn->prepare("SELECT * from user WHERE " . $type . " = ?");
+    $stmt->execute([$value]);
+    $user = $stmt->fetch(PDO::FETCH_ASSOC);
+    return $user;
   }
 
   public function register($name, $email, $username, $password) {

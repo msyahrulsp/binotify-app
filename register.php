@@ -47,26 +47,43 @@
   <meta charset="UTF-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" type="text/css" href="css/register.css">
   <title>Document</title>
 </head>
 <body>
-  <form method="POST" action="" id="register-form">
-    <label>What is your name?</label>
-    <input type="text" placeholder="Enter your name." name="name" />
-    <label>What is your email?</label>
-    <input type="email" placeholder="Enter your email." name="email" id="email" oninput="setTimeout(() => checkUnique(this.value, 'email'), 1000)" />
-    <label>Create a username</label>
-    <input type="text" placeholder="Create a username." name="username" id="username" oninput="setTimeout(() => checkUnique(this.value, 'username'), 1000)" />
-    <label>Create a password</label>
-    <input type="password" placeholder="Enter your password." name="password" />
-    <label>Confirm your password</label>
-    <input type="password" placeholder="Enter your password again." name="confirm_password" />
-    <p>By clicking on sign-up, you agree to Binotify's <a href="https://docs.google.com/document/d/1bdYy1bAk6tpwYCZfqUxErCIJuESzfYH-n8ijvaNP_Jg/edit" target="_blank">Terms and Condition of Use.</a></p>
-    <p>To learn more about how Spotify collects, uses, shares and protects your personal data, please see <a href="https://docs.google.com/spreadsheets/d/1w4bKjk8J9dxbIr7w8ZDGBT5rH2wovTMDWS43Mm3i16Q/edit#gid=1057932904" target="_blank">Binotify's Privacy Policy.</a></p>
-    <button type="submit" name="submit" id="sign-up">Sign Up</button>
-  </form>
-  <p>Have an account? <a href="/login.php">Log in.</a></p>
-  </div>
+  <header>
+    <h1>Binotify</h1>
+  </header>
+  <main class="container">
+    <form method="POST" action="" id="register-form" class="form__register">
+      <div class="input-container">
+        <label>What is your name?</label>
+        <input type="text" placeholder="Enter your name." name="name" />
+      </div>
+      <div class="input-container">
+        <label>What is your email?</label>
+        <input type="email" placeholder="Enter your email." name="email" id="email" oninput="setTimeout(() => checkUnique(this.value, 'email'), 1000)" />
+      </div>
+      <div class="input-container">
+        <label>Create a username</label>
+        <input type="text" placeholder="Create a username." name="username" id="username" oninput="setTimeout(() => checkUnique(this.value, 'username'), 1000)" />
+      </div>
+      <div class="input-container">
+        <label>Create a password</label>
+        <input type="password" placeholder="Create a password." name="password" />
+      </div>
+      <div class="input-container">
+        <label>Confirm your password</label>
+        <input type="password" placeholder="Enter your password again." name="confirm_password" />
+      </div>
+      <div class="information-container">
+        <p>By clicking on sign-up, you agree to Binotify's <a href="https://docs.google.com/document/d/1bdYy1bAk6tpwYCZfqUxErCIJuESzfYH-n8ijvaNP_Jg/edit" target="_blank">Terms and Condition of Use.</a></p>
+        <p>To learn more about how Spotify collects, uses, shares and protects your personal data, please see <a href="https://docs.google.com/spreadsheets/d/1w4bKjk8J9dxbIr7w8ZDGBT5rH2wovTMDWS43Mm3i16Q/edit#gid=1057932904" target="_blank">Binotify's Privacy Policy.</a></p>
+     </div>
+      <button type="submit" name="submit" id="sign-up" class="button__register">Sign Up</button>
+    </form>
+    <p class="login-link">Have an account? <a href="/login.php">Log in.</a></p>
+  </main>
 
   <script>
     document.getElementById('register-form').addEventListener('submit', function(e) {
