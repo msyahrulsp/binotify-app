@@ -3,6 +3,10 @@
   ob_start();
   session_start();
 
+  if (!empty($_SESSION)) {
+    redirect('/');
+  }
+
   // if (isset($_POST['submit'])) {
   //   $name = $_POST['name'];
   //   $email = $_POST['email'];
@@ -57,9 +61,11 @@
     <input type="password" placeholder="Enter your password." name="password" />
     <label>Confirm your password</label>
     <input type="password" placeholder="Enter your password again." name="confirm_password" />
+    <p>By clicking on sign-up, you agree to Binotify's <a href="https://docs.google.com/document/d/1bdYy1bAk6tpwYCZfqUxErCIJuESzfYH-n8ijvaNP_Jg/edit" target="_blank">Terms and Condition of Use.</a></p>
+    <p>To learn more about how Spotify collects, uses, shares and protects your personal data, please see <a href="https://docs.google.com/spreadsheets/d/1w4bKjk8J9dxbIr7w8ZDGBT5rH2wovTMDWS43Mm3i16Q/edit#gid=1057932904" target="_blank">Binotify's Privacy Policy.</a></p>
     <button type="submit" name="submit" id="sign-up">Sign Up</button>
   </form>
-  <div id="status">
+  <p>Have an account? <a href="/login.php">Log in.</a></p>
   </div>
 
   <script>
@@ -69,8 +75,10 @@
       const xhttp = new XMLHttpRequest();
       xhttp.onreadystatechange = function() {
         if (this.readyState === 4 && this.status === 200) {
-          console.log(JSON.parse(this.responseText));
-          // console.log(this.responseText);
+          const response = JSON.parse(this.responseText);
+          if (response.status === 200) {
+            window.location.href = '/'
+          }
         }
       }
       xhttp.open('POST', 'api/register.php', true);
