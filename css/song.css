@@ -1,75 +1,220 @@
-* {
-  background-color: #121212;
-  color:white;
+:root {
+  --primary: #121212;
+  --secondary: chartreuse;
+  --tertiary: darkgreen;
 }
 
-main {
-  display:flex;
+* {
+  background-color: var(--primary);
+  color: white;
+}
+
+.container {
+  display: flex;
   flex-direction: row;
   align-items: center;
-  height:100vh;
-  padding:0;
-  margin:0;
+  justify-content: center;
+  height: 100vh;
+  padding: 0;
+  margin: 0;
 }
 
 .divider {
-  width:100%;
-  display:flex;
+  width: 100%;
+  display: flex;
   flex-direction: column;
 }
 
+.divider > div:nth-child(2) {
+  padding: 2rem;
+}
+
 .image {
-  width:100%;
-  background-color: white;
+  width: 100%;
   display: flex;
   justify-content: center;
   padding: 3rem 0;
 }
 
-.info {
-  padding: 1rem;
-}
-
 .title {
-  font-weight:900;
-  font-size:3rem;
+  font-weight: 900;
+  font-size: 3rem;
   margin: 1rem 0;
 }
 
 .audio-player {
-  width:100%;
+  width: 100%;
   display: flex;
   justify-content: center;
-  margin-top:2rem;
+  margin-top: 2rem;
 }
 
 p {
   margin: 0.5rem 0;
 }
 
+.cancel-btn {
+  position: absolute;
+  bottom: 0;
+  left: 6rem;
+  margin-top: 2rem;
+  background-color: var(--primary);
+  color: var(--secondary);
+  padding: 6px 12px;
+  border-radius: 8px;
+  border: 1px solid var(--secondary);
+  font-weight: bold;
+  text-decoration: none;
+  font-family: Arial, Helvetica, sans-serif;
+  font-size: 13px;
+}
+
+.cancel-btn:hover {
+  transform: scale(1.1);
+}
+
+.save-btn {
+  position: absolute;
+  bottom: 0;
+  left: 2rem;
+  margin-top: 2rem;
+  background-color: var(--secondary);
+  color: var(--primary);
+  outline: none;
+  border: none;
+  padding: 6px 12px;
+  border-radius: 8px;
+  font-weight: bold;
+}
+
+.edit-btn {
+  position: absolute;
+  bottom: 0;
+  left: 2rem;
+  margin-top: 2rem;
+  background-color: var(--secondary);
+  color: var(--primary);
+  outline: none;
+  border: none;
+  padding: 6px 12px;
+  border-radius: 8px;
+  font-weight: bold;
+}
+
+.edit-btn:hover {
+  transform: scale(1.1);
+}
+
 @media screen and (min-width: 768px) {
   .divider {
-    display:flex;
+    display: flex;
     flex-direction: row;
+    margin: 0 3rem;
   }
 
   .divider > div:first-child {
-    width:30%;
+    width: 30%;
   }
 
   .divider > div:nth-child(2) {
-    padding: 4rem 4rem;
+    padding: 4rem;
   }
 
   .image {
-    align-items:center;
+    align-items: center;
+  }
+
+  .info {
+    width: 100%;
+  }
+
+  .edit-btn {
+    left: unset;
+    right: 1rem;
+    bottom: 1rem;
+  }
+
+  .save-btn {
+    left: unset;
+    right: 6rem;
+    bottom: 1rem;
+  }
+
+  .cancel-btn {
+    left: unset;
+    right: 1rem;
+    bottom: 1rem;
+  }
+
+  form {
+    max-width: 80%;
   }
 }
 
 input {
-  background-color: #121212;
-  color:white;
-  border: 2px solid chartreuse;
-  border-radius:0.5rem;
-  padding:0.5rem 0.8rem;
+  background-color: var(--primary);
+  color: white;
+  border: 1px solid var(--secondary);
+  border-radius: 0.5rem;
+  padding: 0.5rem 0.8rem;
+}
+
+form {
+  width: 100%;
+  position: relative;
+  padding-bottom: 1rem;
+}
+
+audio {
+  width: 100%;
+  border: 1px solid lightgray;
+  border-radius: 25px;
+}
+
+audio::-webkit-media-controls-panel {
+  background-color: var(--primary);
+}
+
+audio::-webkit-media-controls-mute-button {
+  background-color: var(--secondary);
+  border-radius: 50%;
+  margin-right: -1rem;
+  /* color:white; doesnt work */
+}
+
+audio::-webkit-media-controls-play-button {
+  background-color: var(--secondary);
+  border-radius: 50%;
+  margin-right: 1rem;
+  margin-left: 1rem;
+}
+
+audio::-webkit-media-controls-play-button:hover {
+  background-color: var(--secondary);
+  transform: scale(1.1);
+}
+
+audio::-webkit-media-controls-current-time-display {
+  color: white;
+}
+
+audio::-webkit-media-controls-time-remaining-display {
+  color: white;
+}
+
+audio::-webkit-media-controls-timeline {
+  background-color: lightgrey;
+  border-radius: 25px;
+  margin-left: 1rem;
+  margin-right: 0;
+  padding: 0;
+}
+
+audio::-webkit-media-controls-volume-slider {
+  background-color: var(--secondary);
+  border-radius: 25px;
+  margin-left: 1rem;
+  padding-left: 1rem;
+  margin-right: 1rem;
+  padding-right: 1rem;
 }

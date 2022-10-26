@@ -25,22 +25,19 @@ class SongController
 
   public function insertSong($judul, $penyanyi, $tanggal, $genre, $durasi, $audio_path, $image_path)
   {
-    try {
-      $this->db->con->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-      $sql = "INSERT INTO song (judul, penyanyi, tanggal_terbit, genre, duration, audio_path, image_path, album_id)
-      VALUES (:judul, :penyanyi, :tanggal, :genre, 10, :audio_path, :image_path, 1)";
-      $this->db->con->prepare($sql)->execute(array(
-        ':judul' => $judul,
-        ':penyanyi' => $penyanyi,
-        ':tanggal' => $tanggal,
-        ':genre' => $genre,
-        ':audio_path' => $audio_path,
-        ':image_path' => $image_path
-      ));
-      echo "New record created successfully<br>";
-    } catch (PDOException $e) {
-      echo $sql . "<br>" . $e->getMessage();
-    }
+    $this->db->con->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+    $sql = "INSERT INTO song (judul, penyanyi, tanggal_terbit, genre, duration, audio_path, image_path, album_id)
+      VALUES (:judul, :penyanyi, :tanggal, :genre, :duration, :audio_path, :image_path, 1)";
+    $this->db->con->prepare($sql)->execute(array(
+      ':judul' => $judul,
+      ':penyanyi' => $penyanyi,
+      ':tanggal' => $tanggal,
+      ':genre' => $genre,
+      ':duration' => $durasi,
+      ':audio_path' => $audio_path,
+      ':image_path' => $image_path
+    ));
+    echo "New record created successfully<br>";
   }
 
   public function updateSong($judul, $penyanyi, $tanggal, $genre, $durasi, $audio_path, $image_path, $song_id, $albumID)
@@ -82,7 +79,8 @@ class SongController
     }
   }
 
-  public function getLastSongID() {
+  public function getLastSongID()
+  {
     try {
       $this->db->con->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
       $sql = "SELECT AUTO_INCREMENT
