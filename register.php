@@ -63,22 +63,22 @@
       </div>
       <div class="input-container">
         <label>What is your email?</label>
-        <input type="email" placeholder="Enter your email." name="email" id="email" oninput="setTimeout(() => checkUnique(this.value, 'email'), 1000)" />
+        <input type="email" placeholder="Enter your email." name="email" id="email" oninput="setTimeout(() => checkUnique(this.value, 'email'), 2000)" />
         <span class="error-message" id="error-email"></span>
       </div>
       <div class="input-container">
         <label>Create a username</label>
-        <input type="text" placeholder="Create a username." name="username" id="username" oninput="setTimeout(() => checkUnique(this.value, 'username'), 1000)" />
+        <input type="text" placeholder="Create a username." name="username" id="username" oninput="setTimeout(() => checkUnique(this.value, 'username'), 2000)" />
         <span class="error-message" id="error-username"></span>
       </div>
       <div class="input-container">
         <label>Create a password</label>
-        <input type="password" placeholder="Create a password." name="password" />
+        <input type="password" placeholder="Create a password." name="password" id="password" />
         <span class="error-message" id="error-password"></span>
       </div>
       <div class="input-container">
         <label>Confirm your password</label>
-        <input type="password" placeholder="Enter your password again." name="confirm_password" />
+        <input type="password" placeholder="Enter your password again." name="confirm_password" id="confirm_password" />
         <span class="error-message" id="error-confirm-password"></span>
       </div>
       <div class="information-container">
@@ -110,43 +110,55 @@
       xhttp.onreadystatechange = function() {
         if (this.readyState === 4 && this.status === 200) {
           const response = JSON.parse(this.responseText);
-          console.log(response);
           if (response.status === 200) {
             window.location.href = '/'
           } else {
-            if (response.empty_name.is_empty) {
-              error_name.innerText = response.empty_name.message;
-              name_input.classList.add('error')
-            } else {
-              error_name.innerText = '';
-            }
-            if (response.empty_email.is_empty) {
-              error_email.innerText = response.empty_email.message;
-            } else {
-              if (response.email_error) {
-              error_email.innerText = response.email_error;
+            if (!response.exist) {
+              if (response.empty_name.is_empty) {
+                error_name.innerText = response.empty_name.message;
+                name_input.classList.add('error');
               } else {
-                error_email.innerText = '';
+                error_name.innerText = '';
+                name_input.classList.remove('error');
               }
-            }
-            if (response.empty_username.is_empty) {
-              error_username.innerText = response.empty_username.message;
-            } else {
-              if (response.username_error) {
-                error_username.innerText = response.username_error;
+              if (response.empty_email.is_empty) {
+                error_email.innerText = response.empty_email.message;
+                email_input.classList.add('error');
               } else {
-                error_username.innerText = '';
+                if (response.email_error) {
+                error_email.innerText = response.email_error;
+                email_input.classList.add('error');
+                } else {
+                  error_email.innerText = '';
+                  email_input.classList.remove('error');
+                }
               }
-            }
-            if (response.empty_password.is_empty) {
-              error_password.innerText = response.empty_password.message;
-            } else {
-              error_password.innerText = '';
-            }
-            if (response.empty_confirm_password.is_empty) {
-              error_confirm_password.innerText = response.empty_confirm_password.message;
-            } else {
-              error_confirm_password.innerText = '';
+              if (response.empty_username.is_empty) {
+                error_username.innerText = response.empty_username.message;
+                username_input.classList.add('error');
+              } else {
+                if (response.username_error) {
+                  error_username.innerText = response.username_error;
+                  username_input.classList.add('error');
+                } else {
+                  error_username.innerText = '';
+                  username_input.classList.remove('error');
+                }
+              }
+              if (response.empty_password.is_empty) {
+                error_password.innerText = response.empty_password.message;
+                password_input.classList.add('error');
+              } else {
+                error_password.innerText = '';
+                password_input.classList.remove('error');
+              }
+              if (response.empty_confirm_password.is_empty) {
+                error_confirm_password.innerText = response.empty_confirm_password.message;
+                confirm_password_input.classList.add('error');
+              } else {
+                error_confirm_password.innerText = '';
+                confirm_password_input.classList.remove('error');
+              }
             }
           }
         }
@@ -155,11 +167,20 @@
       xhttp.send(formData);
     })
     function checkUnique(str, field) {
+      const input = document.getElementById(field);
+      const error_input = document.getElementById(`error-${field}`);
+
       const xhttp = new XMLHttpRequest();
       xhttp.onreadystatechange = function() {
         if (this.readyState === 4 && this.status === 200) {
-          console.log(this.responseText);
-          // document.getElementById('status').innerText = this.responseText;
+          const response = JSON.parse(this.responseText);
+          if (response.status === 400) {
+            error_input.innerText = response.message;
+            input.classList.add('error');
+          } else {
+            error_input.innerText = '';
+            input.classList.remove('error');
+          }
         }
       };
       xhttp.open('GET', `check_unique.php?${field}=${str}`, true);

@@ -57,7 +57,8 @@
       if ($email != '' && $username != '') {
         if ($password === $confirm_password) {
           if (preg_match('#^[a-zA-Z0-9_.-]*$#', $username) && preg_match('#[a-zA-z0-9.-]+\@[a-zA-z0-9.-]+.[a-zA-Z]+#', $email)) {
-            if ($name != '' && $password != '' && $confirm_password != '') {
+            if ($name != '' && $password != '' && $confirm_password != '' && !$user->isExist($username, 'username') && !$user->isExist($email, 'email')) {
+              $response['exist'] = FALSE;
               $registerStatus = $user->register($name, $email, $username, $password);
               $curr_user = $user->getUser($username, 'username');
               $_SESSION['user_id'] = $curr_user['user_id'];
@@ -70,6 +71,11 @@
                 $response['status'] = 400;
                 $response['message'] = "Registration unsuccessfull.";
               }
+              echo json_encode($response);
+              return;
+            } else {
+              $response['status'] = 400;
+              $response['exist'] = TRUE;
               echo json_encode($response);
               return;
             }

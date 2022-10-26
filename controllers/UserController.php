@@ -43,6 +43,17 @@ class UserController {
     return $user;
   }
 
+  public function isExist($value, $type) {
+    $conn = $this->db->getConnection();
+    $stmt = $conn->prepare("SELECT * from user WHERE " . $type . " = ?");
+    $stmt->execute([$value]);
+    $user = $stmt->fetch(PDO::FETCH_ASSOC);
+    if ($user) {
+      return TRUE;
+    }
+    return FALSE;
+  }
+
   public function register($name, $email, $username, $password) {
     try {
       $conn = $this->db->getConnection();
