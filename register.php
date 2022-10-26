@@ -6,38 +6,6 @@
   if (!empty($_SESSION)) {
     redirect('/');
   }
-
-  // if (isset($_POST['submit'])) {
-  //   $name = $_POST['name'];
-  //   $email = $_POST['email'];
-  //   $username = $_POST['username'];
-  //   $password = $_POST['password'];
-  //   $confirm_password = $_POST['confirm_password'];
-
-  //   try {
-  //     $user = new UserController($db);
-  //     if ($password === $confirm_password) {
-  //       if (preg_match('#^[a-zA-Z0-9_.-]*$#', $username) && preg_match('#[a-zA-z0-9.-]+\@[a-zA-z0-9.-]+.[a-zA-Z]+#', $email)) {
-  //           $user->register($name, $email, $username, $password);
-  //           $curr_user = $user->getUser($username);
-  //           $_SESSION['user_id'] = $curr_user['user_id'];
-  //           $_SESSION['user_name'] = $curr_user['name'];
-  //           $_SESSION['isAdmin'] = $curr_user['isAdmin'];
-  //           redirect('/');
-  //       }
-  //       if (!preg_match('#^[a-zA-Z0-9_.-]*$#', $username)) {
-  //         echo "Username can only contain alphabets, numbers, and underscore!";
-  //       }
-  //       if (!preg_match('#[a-zA-z0-9.-]+\@[a-zA-z0-9.-]+.[a-zA-Z]+#', $email)) {
-  //         echo "Email not valid!";
-  //       }
-  //     } else {
-  //       echo "Password not the same!";
-  //     }
-  //   } catch (PDOException $e) {
-  //     echo $e->getMessage();
-  //   }
-  // }
   
 ?>
 
