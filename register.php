@@ -31,12 +31,12 @@
       </div>
       <div class="input-container">
         <label>What is your email?</label>
-        <input type="email" placeholder="Enter your email." name="email" id="email" oninput="setTimeout(() => checkUnique(this.value, 'email'), 2000)" />
+        <input type="email" placeholder="Enter your email." name="email" id="email" oninput="debounceInput(this.value, 'email')" />
         <span class="error-message" id="error-email"></span>
       </div>
       <div class="input-container">
         <label>Create a username</label>
-        <input type="text" placeholder="Create a username." name="username" id="username" oninput="setTimeout(() => checkUnique(this.value, 'username'), 2000)" />
+        <input type="text" placeholder="Create a username." name="username" id="username" onkeyup="debounceInput(this.value, 'username')" />
         <span class="error-message" id="error-username"></span>
       </div>
       <div class="input-container">
@@ -134,6 +134,13 @@
       xhttp.open('POST', 'api/register.php', true);
       xhttp.send(formData);
     })
+    function debounce(func, timeout) {
+      let timer;
+      return (...args) => {
+        clearTimeout(timer);
+        timer = setTimeout(() => { func.apply(this, args) }, timeout);
+      }
+    }
     function checkUnique(str, field) {
       const input = document.getElementById(field);
       const error_input = document.getElementById(`error-${field}`);
@@ -151,9 +158,10 @@
           }
         }
       };
-      xhttp.open('GET', `check_unique.php?${field}=${str}`, true);
+      xhttp.open('GET', `api/check_unique.php?${field}=${str}`, true);
       xhttp.send();
     }
+    const debounceInput = debounce((str, field) => checkUnique(str, field), 300);
   </script>
 </body>
 </html>
