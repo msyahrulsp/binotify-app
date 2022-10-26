@@ -28,7 +28,9 @@ if (isset($_POST['logout'])) {
 <html lang="en">
 
 <head>
-  <link rel="stylesheet" type="text/css" href="css/song_list_section.css">
+<link rel="stylesheet" type="text/css" href="css/index.css">
+<link rel="stylesheet" type="text/css" href="css/song_list_section.css">
+<link rel="stylesheet" type="text/css" href="css/navbar.css">
   <meta charset="UTF-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -37,11 +39,12 @@ if (isset($_POST['logout'])) {
 
 <body>
   <div>
-    <?php
-    include('templates/song_list_section.php');
-    echo '<h1>Success</h1>';
-
-    ?>
+    <div class="container">
+      <?php
+        include('templates/navbar.php');
+        include('templates/song_list_section.php');
+      ?>
+    </div>
     <form method="POST">
       <?php echo $logout ?>
     </form>
