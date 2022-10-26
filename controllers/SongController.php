@@ -23,6 +23,18 @@ class SongController
     }
   }
 
+  public function getHomePageSongs()
+  {
+    if (isset($this->db->con)) {
+      $stmt = $this->db->con->prepare("SELECT * FROM song ORDER BY judul LIMIT 10");
+      $stmt->execute();
+      $songs = $stmt->fetchAll(PDO::FETCH_ASSOC);
+      return $songs;
+    } else {
+      echo 'db not set';
+    }
+  }
+
   public function insertSong($judul, $penyanyi, $tanggal, $genre, $durasi, $audio_path, $image_path)
   {
     $this->db->con->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
@@ -54,7 +66,7 @@ class SongController
         'genre' => $genre,
         'audio_path' => $audio_path,
         'image_path' => $image_path,
-        'duration' => 10,
+        'duration' => $durasi,
         'album_id' => $albumID,
         'song_id' => $song_id,
       ));
@@ -91,6 +103,18 @@ class SongController
       $stmt->execute();
       $lastSongID = $stmt->fetch();
       return $lastSongID['AUTO_INCREMENT'];
+    } catch (PDOException $e) {
+      echo $sql . "<br>" . $e->getMessage();
+    }
+  }
+
+  public function deleteSong($songID)
+  {
+    try {
+      $this->db->con->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+      $sql = "DELETE FROM song WHERE song_id={$songID}";
+      $stmt = $this->db->con->prepare($sql);
+      $stmt->execute();
     } catch (PDOException $e) {
       echo $sql . "<br>" . $e->getMessage();
     }
