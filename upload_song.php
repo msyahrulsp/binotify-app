@@ -2,14 +2,6 @@
 require 'controllers/MainController.php';
 $songData = $song->getSongs();
 
-$test = "PIE";
-// FIXME: ini test buat upload song ke album
-if ($test === "PIE") {
-  $html = "<h1>PIE</h1>";
-} else {
-  $html = "<h1>NOT PIE</h1>";
-}
-
 if ($_SERVER['REQUEST_METHOD'] == 'POST') {
   $lastSongID = $song->getLastSongID();
 
@@ -23,17 +15,14 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
   $penyanyi = $_POST['penyanyi'];
   $tanggal = $_POST['tanggal'];
   $genre = $_POST['genre'];
+  $duration = $_POST['duration'];
 
   if (isset($_POST["upload-song"])) {
     $movedSong = move_uploaded_file($_FILES["songToUpload"]["tmp_name"], $target_file_song) ?? null;
     $movedImage = move_uploaded_file($_FILES["imageToUpload"]["tmp_name"], $target_file_image) ?? null;
 
-    try {
-      if ($movedSong && $movedImage) {
-        $song->insertSong($judul, $penyanyi, $tanggal, $genre, 10, $target_file_song, $target_file_image);
-      }
-    } catch (PDOException $e) {
-      echo $e->getMessage();
+    if ($movedSong && $movedImage) {
+      $song->insertSong($judul, $penyanyi, $tanggal, $genre, $duration, $target_file_song, $target_file_image);
     }
   }
 }
@@ -47,11 +36,11 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Document</title>
+
 </head>
 
 <body>
-  <form method="post" enctype="multipart/form-data">
-    <!-- auto count duration -->
+  <form id="upload-form" method="post" enctype="multipart/form-data">
     Judul:
     <input type="text" name='judul'><br>
     Penyanyi:
@@ -66,11 +55,28 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     <input type="file" name="imageToUpload" id="imageToUpload" accept="image/*"><br>
     Album:
     <span>TBD s input selection for available album</span><br>
-    <button type="submit" value="Upload Song" name="upload-song">Upload Song</button>
-    <?php
-      echo $html;
-    ?>
+    <input type="text" hidden name="duration" id="duration">
+    <button onClick="uploadSong()" value="Upload Song" name="upload-song">Upload Song</button>
   </form>
 </body>
+<script>
+  document.getElementById("songToUpload").addEventListener('change', function() {
+    const file = this.files[0];
+    console.log('path', file)
+    const reader = new FileReader();
+    reader.onload = function(event) {
+      const audioContext = new(window.AudioContext || window.webkitAudioContext)();
+      audioContext.decodeAudioData(event.target.result, function(buffer) {
+        const duration = buffer.duration;
+        document.getElementById("duration").value = parseInt(duration)
+      })
+    }
+    reader.onerror = function(event) {
+      console.error("Error saat membaca file.", event);
+    };
+
+    reader.readAsArrayBuffer(file);
+  });
+</script>
 
 </html>

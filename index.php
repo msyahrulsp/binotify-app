@@ -28,7 +28,7 @@ if (isset($_POST['logout'])) {
 <html lang="en">
 
 <head>
-<link rel="stylesheet" type="text/css" href="css/song_list_section.css">
+  <link rel="stylesheet" type="text/css" href="css/song_list_section.css">
   <meta charset="UTF-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -38,9 +38,9 @@ if (isset($_POST['logout'])) {
 <body>
   <div>
     <?php
-    // ini urg komen soalnya blm ada data di db
     include('templates/song_list_section.php');
     echo '<h1>Success</h1>';
+
     ?>
     <form method="POST">
       <?php echo $logout ?>
