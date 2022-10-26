@@ -1,6 +1,5 @@
 <?php
 require 'controllers/MainController.php';
-$songData = $song->getSongs();
 
 if ($_SERVER['REQUEST_METHOD'] == 'POST') {
   $lastSongID = $song->getLastSongID();
