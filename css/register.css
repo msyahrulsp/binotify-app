@@ -1,0 +1,115 @@
+body {
+  font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+  margin: 0;
+  padding: 0;
+}
+
+header h1 {
+  text-align: center;
+}
+
+.container {
+  padding-inline: 3em;
+}
+
+.form__register {
+  display: flex;
+  flex-direction: column;
+  gap: 0.75em;
+  margin-top: 1em;
+}
+
+.input-container {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.input-container label {
+  font-weight: 700;
+  font-size: 14px;
+}
+
+.input-container input {
+  box-sizing: border-box;
+  padding: 14px;
+  font-size: 1rem;
+  border-radius: 4px;
+  outline: none;
+  border: 1px solid #707070;
+}
+
+.input-container input:hover {
+  border: 1px solid black;
+}
+
+.input-container input:focus {
+  box-shadow: inset 0 0 0 2px black;
+}
+
+.information-container {
+  text-align: center;
+  font-size: 13px;
+}
+
+.button__register {
+  margin: 0 auto;
+  border-radius: 500px;
+  padding: 20px 46px;
+  background: #1ed760;
+  font-weight: 700;
+  outline: none;
+  border: none;
+  font-size: 1rem;
+  width: fit-content;
+  margin-top: -0.75em;
+  cursor: pointer;
+}
+
+.button__register:hover {
+  transform: scale(1.05);
+  background: #23e066;
+}
+
+.login-link {
+  text-align: center;
+}
+
+.input-container .error {
+  border: 1px solid #e91429;
+}
+
+.input-container .error:hover {
+  border: 1px solid #e91429;
+}
+
+.input-container .error:focus {
+  box-shadow: inset 0 0 0 2px #e91429;
+}
+
+.error-message {
+  color: #e91429;
+  padding: 0;
+  font-size: 14px;
+}
+
+@media only screen and (min-width: 768px) {
+  .container {
+    width: 55%;
+    margin: 0 auto;
+  }
+}
+
+@media only screen and (min-width: 1024px) {
+  .container {
+    width: 32%;
+    margin: 0 auto;
+  }
+}
+
+@media only screen and (min-width: 1440px) {
+  .container {
+    width: 28%;
+    margin: 0 auto;
+  }
+}
