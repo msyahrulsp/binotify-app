@@ -58,23 +58,28 @@
     <form method="POST" action="" id="register-form" class="form__register">
       <div class="input-container">
         <label>What is your name?</label>
-        <input type="text" placeholder="Enter your name." name="name" />
+        <input type="text" placeholder="Enter your name." name="name" id="name" />
+        <span class="error-message" id="error-name"></span>
       </div>
       <div class="input-container">
         <label>What is your email?</label>
         <input type="email" placeholder="Enter your email." name="email" id="email" oninput="setTimeout(() => checkUnique(this.value, 'email'), 1000)" />
+        <span class="error-message" id="error-email"></span>
       </div>
       <div class="input-container">
         <label>Create a username</label>
         <input type="text" placeholder="Create a username." name="username" id="username" oninput="setTimeout(() => checkUnique(this.value, 'username'), 1000)" />
+        <span class="error-message" id="error-username"></span>
       </div>
       <div class="input-container">
         <label>Create a password</label>
         <input type="password" placeholder="Create a password." name="password" />
+        <span class="error-message" id="error-password"></span>
       </div>
       <div class="input-container">
         <label>Confirm your password</label>
         <input type="password" placeholder="Enter your password again." name="confirm_password" />
+        <span class="error-message" id="error-confirm-password"></span>
       </div>
       <div class="information-container">
         <p>By clicking on sign-up, you agree to Binotify's <a href="https://docs.google.com/document/d/1bdYy1bAk6tpwYCZfqUxErCIJuESzfYH-n8ijvaNP_Jg/edit" target="_blank">Terms and Condition of Use.</a></p>
@@ -88,13 +93,61 @@
   <script>
     document.getElementById('register-form').addEventListener('submit', function(e) {
       e.preventDefault();
+      const name_input = document.getElementById('name');
+      const email_input = document.getElementById('email');
+      const username_input = document.getElementById('username');
+      const password_input = document.getElementById('password');
+      const confirm_password_input = document.getElementById('confirm_password');
+
+      const error_name = document.getElementById('error-name');
+      const error_email = document.getElementById('error-email');
+      const error_username = document.getElementById('error-username');
+      const error_password = document.getElementById('error-password');
+      const error_confirm_password = document.getElementById('error-confirm-password');
+
       const formData = new FormData(document.getElementById('register-form'));
       const xhttp = new XMLHttpRequest();
       xhttp.onreadystatechange = function() {
         if (this.readyState === 4 && this.status === 200) {
           const response = JSON.parse(this.responseText);
+          console.log(response);
           if (response.status === 200) {
             window.location.href = '/'
+          } else {
+            if (response.empty_name.is_empty) {
+              error_name.innerText = response.empty_name.message;
+              name_input.classList.add('error')
+            } else {
+              error_name.innerText = '';
+            }
+            if (response.empty_email.is_empty) {
+              error_email.innerText = response.empty_email.message;
+            } else {
+              if (response.email_error) {
+              error_email.innerText = response.email_error;
+              } else {
+                error_email.innerText = '';
+              }
+            }
+            if (response.empty_username.is_empty) {
+              error_username.innerText = response.empty_username.message;
+            } else {
+              if (response.username_error) {
+                error_username.innerText = response.username_error;
+              } else {
+                error_username.innerText = '';
+              }
+            }
+            if (response.empty_password.is_empty) {
+              error_password.innerText = response.empty_password.message;
+            } else {
+              error_password.innerText = '';
+            }
+            if (response.empty_confirm_password.is_empty) {
+              error_confirm_password.innerText = response.empty_confirm_password.message;
+            } else {
+              error_confirm_password.innerText = '';
+            }
           }
         }
       }
@@ -105,11 +158,7 @@
       const xhttp = new XMLHttpRequest();
       xhttp.onreadystatechange = function() {
         if (this.readyState === 4 && this.status === 200) {
-          if (this.responseText) {
-            document.getElementById('sign-up').removeAttribute('disabled');
-          } else {
-            document.getElementById('sign-up').setAttribute('disabled', true);
-          }
+          console.log(this.responseText);
           // document.getElementById('status').innerText = this.responseText;
         }
       };

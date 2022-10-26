@@ -1,13 +1,18 @@
 <?php
   require 'controllers/MainController.php';
+
+  $response = null;
   
   if (isset($_GET['username'])) {
     $username = $_GET['username'];
     $user = new UserController($db);
     if ($user->isUnique($username, 'username')) {
-      echo TRUE;
+      $response['status'] = 200;
+      echo json_encode($response);
     } else {
-      echo FALSE;
+      $response['status'] = 400;
+      $response['message'] = "Username already exist.";
+      echo json_encode($response);
     }
   }
 
@@ -16,9 +21,12 @@
     $user = new UserController($db);
   
     if ($user->isUnique($email, 'email')) {
-      echo TRUE;
+      $response['status'] = 200;
+      echo json_encode($response);
     } else {
-      echo FALSE;
+      $response['status'] = 400;
+      $response['message'] = "email already exist.";
+      echo json_encode($response);
     }
   }
 

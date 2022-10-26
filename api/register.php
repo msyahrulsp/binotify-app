@@ -11,7 +11,6 @@
     $response = null;
 
     if ($name == '' || $email == '' || $username == '' || $password == '' || $confirm_password == '') {
-      $response['status'] = 400;
       if ($name == '') {
         $empty_name['message'] = "You need to enter your name.";
         $empty_name['is_empty'] = TRUE;
@@ -27,14 +26,14 @@
         $response['empty_email'] = FALSE;
       }
       if ($username == '') {
-        $empty_username['message'] = "You need to entar a username.";
+        $empty_username['message'] = "You need to enter a username.";
         $empty_username['is_empty'] = TRUE;
         $response['empty_username'] = $empty_username;
       } else {
         $response['empty_username'] = FALSE;
       }
       if ($password == '') {
-        $empty_password['message'] = "You need to entar a password.";
+        $empty_password['message'] = "You need to enter a password.";
         $empty_password['is_empty'] = TRUE;
         $response['empty_password'] = $empty_password;
       } else {
@@ -47,42 +46,47 @@
       } else {
         $response['empty_confirm_password'] = FALSE;
       }
-      echo json_encode($response);
-      return;
     }
 
 
     try {
       $user = new UserController($db);
-      if ($password === $confirm_password) {
-        if (preg_match('#^[a-zA-Z0-9_.-]*$#', $username) && preg_match('#[a-zA-z0-9.-]+\@[a-zA-z0-9.-]+.[a-zA-Z]+#', $email)) {
-            $registerStatus = $user->register($name, $email, $username, $password);
-            $curr_user = $user->getUser($username, 'username');
-            $_SESSION['user_id'] = $curr_user['user_id'];
-            $_SESSION['user_name'] = $curr_user['name'];
-            $_SESSION['isAdmin'] = $curr_user['isAdmin'];
-            if ($registerStatus) {
-              $response['status'] = 200;
-              $response['message'] = "Registration successfull.";
-            } else {
-              $response['status'] = 400;
-              $response['message'] = "Registration unsuccessfull.";
+      if ($email == '' || $username == '') {
+        $response['status'] = 400;
+      }
+      if ($email != '' && $username != '') {
+        if ($password === $confirm_password) {
+          if (preg_match('#^[a-zA-Z0-9_.-]*$#', $username) && preg_match('#[a-zA-z0-9.-]+\@[a-zA-z0-9.-]+.[a-zA-Z]+#', $email)) {
+            if ($name != '' && $password != '' && $confirm_password != '') {
+              $registerStatus = $user->register($name, $email, $username, $password);
+              $curr_user = $user->getUser($username, 'username');
+              $_SESSION['user_id'] = $curr_user['user_id'];
+              $_SESSION['user_name'] = $curr_user['name'];
+              $_SESSION['isAdmin'] = $curr_user['isAdmin'];
+              if ($registerStatus) {
+                $response['status'] = 200;
+                $response['message'] = "Registration successfull.";
+              } else {
+                $response['status'] = 400;
+                $response['message'] = "Registration unsuccessfull.";
+              }
+              echo json_encode($response);
+              return;
             }
-            echo json_encode($response);
-            return;
+          }
+          $response["status"] = 400;
+          if (!preg_match('#^[a-zA-Z0-9_.-]*$#', $username)) {
+            $response["username_error"] = "Username can only contain alphabets, numbers, and underscore.";
+          }
+          if (!preg_match('#[a-zA-z0-9.-]+\@[a-zA-z0-9.-]+.[a-zA-Z]+#', $email)) {
+            $response["email_error"] = "Email not valid.";
+          }
+        } else {
+          $response = array(
+            "status" => 400,
+            "password_error" => "The passwords don't match."
+          );
         }
-        $response["status"] = 400;
-        if (!preg_match('#^[a-zA-Z0-9_.-]*$#', $username)) {
-          $response["username_error"] = "Username can only contain alphabets, numbers, and underscore.";
-        }
-        if (!preg_match('#[a-zA-z0-9.-]+\@[a-zA-z0-9.-]+.[a-zA-Z]+#', $email)) {
-          $response["email_error"] = "Email not valid.";
-        }
-      } else {
-        $response = array(
-          "status" => 400,
-          "password_error" => "The passwords don't match."
-        );
       }
     } catch (PDOException $e) {
       $response = array(
