@@ -47,6 +47,6 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     Image:
     <input type="file" name="imageToUpload" id="imageToUpload" accept="image/*"><br>
     <div>TBD Input song kudu gimana</div>
-    <input type="submit" value="Upload Image" name="upload-album">
+    <input type="submit" value="Upload Album" name="upload-album">
 </body>
 </html>
