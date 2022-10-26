@@ -1,5 +1,5 @@
 <?php
-  require 'controllers/MainController.php';
+  require '../controllers/MainController.php';
 
   $response = null;
   
