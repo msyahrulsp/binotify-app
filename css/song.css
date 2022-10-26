@@ -87,6 +87,10 @@ p {
   font-weight: bold;
 }
 
+.save-btn:hover {
+  transform: scale(1.1);
+}
+
 .edit-btn {
   position: absolute;
   bottom: 0;
