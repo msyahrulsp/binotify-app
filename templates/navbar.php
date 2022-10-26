@@ -7,7 +7,7 @@ function echoNavbar() {
   $list = $path . 'list.png';
   $logout = $path . 'logout.png';
   $isAdmin = $_SESSION['isAdmin'] ?? false;
-  if (!$isAdmin) {
+  if ($isAdmin) {
     $html = <<<"EOT"
     <a href="index.php">
       <nav class="nav-logo">
