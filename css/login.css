@@ -114,9 +114,33 @@ header h1 {
   font-weight: 500;
 }
 
-@media only screen and (min-width: 1080px) {
+@media only screen and (min-width: 768px) {
   .container {
-    width: 32%;
+    width: 55%;
+    margin: 0 auto;
+  }
+}
+
+@media only screen and (min-width: 1024px) {
+  .container {
+    width: 35%;
+    margin: 0 auto;
+  }
+
+  .button-container__login {
+    display: flex;
+    justify-content: flex-end;
+  }
+
+  .button__login {
+    width: fit-content;
+    float: right;
+  }
+}
+
+@media only screen and (min-width: 1440px) {
+  .container {
+    width: 30%;
     margin: 0 auto;
   }
 

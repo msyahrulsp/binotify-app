@@ -40,4 +40,5 @@ CREATE TABLE `binotify`.`user` (
   `isAdmin` tinyint(1) NOT NULL,
   PRIMARY KEY (`user_id`)
 );
-INSERT INTO `binotify`.`user` VALUES (1,'lorem@gmail.com','password','loremipsum','loremipsum',1),(2,'ipsum@gmail.com','password','ipsumlorem','ipsumlorem',1);
+
+INSERT INTO `user` (`user_id`, `email`, `password`, `name`, `username`, `isAdmin`) VALUES (NULL, 'halo@gmail.com', '$2y$10$KHFOPrd1l6EjwkNJEkyGx.Kn8tTukczRHFHwZK6eco6OsbAvknp9O', 'halo', 'halohalo', '0')
