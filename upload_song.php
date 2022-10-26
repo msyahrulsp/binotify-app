@@ -2,6 +2,14 @@
 require 'controllers/MainController.php';
 $songData = $song->getSongs();
 
+$test = "PIE";
+// FIXME: ini test buat upload song ke album
+if ($test === "PIE") {
+  $html = "<h1>PIE</h1>";
+} else {
+  $html = "<h1>NOT PIE</h1>";
+}
+
 if ($_SERVER['REQUEST_METHOD'] == 'POST') {
   $lastSongID = $song->getLastSongID();
 
@@ -53,12 +61,15 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     Genre:
     <input type="text" name='genre'><br>
     File lagu:
-    <input type="file" name="songToUpload" id="songToUpload"><br>
+    <input type="file" name="songToUpload" id="songToUpload" accept="audio/*"><br>
     File gambar:
-    <input type="file" name="imageToUpload" id="imageToUpload"><br>
+    <input type="file" name="imageToUpload" id="imageToUpload" accept="image/*"><br>
     Album:
     <span>TBD s input selection for available album</span><br>
     <button type="submit" value="Upload Song" name="upload-song">Upload Song</button>
+    <?php
+      echo $html;
+    ?>
   </form>
 </body>
 
