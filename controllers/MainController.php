@@ -3,6 +3,7 @@ define('ROOT_DIR', dirname(__FILE__) . '/../');
 require(ROOT_DIR . 'controllers/DBController.php');
 require(ROOT_DIR . 'controllers/SongController.php');
 require(ROOT_DIR . 'controllers/UserController.php');
+require(ROOT_DIR . 'controllers/AlbumController.php');
 require(ROOT_DIR . 'utils/dotenv.php');
 
 // DOTENV
