@@ -2,7 +2,7 @@
 define("DEFAULT_IMG", "../assets/images/defaultImage.jpg");
 $songData = $song->getHomePageSongs();
 
-function echoSongCard($index,$song)
+function echoSongCard($index, $song)
 {
   $song_id = $song['song_id'];
   $judul = $song['judul'];
@@ -14,7 +14,6 @@ function echoSongCard($index,$song)
   $imagePath = $song['image_path'] ?? DEFAULT_IMG; // nullable
   $album = $song['album_id'];       // nullable
   $html = <<<"EOT"
-      <a href="google.com">
         <tr>
           <td class="rank">$index</td>
           <td>
@@ -28,25 +27,25 @@ function echoSongCard($index,$song)
           </td>
           <td>{$tanggal}</td>
           <td>{$genre}</td>
-        </tr></a>
+        </tr>
   EOT;
 
   echo $html;
 }
 ?>
 
-  <div>
-    <table>
-      <tr>
-        <th class="rank">#</th>
-        <th>TITLE</th>
-        <th>DATE ADDED</th>
-        <th>GENRE</th>
-      </tr>
-      <?php
-      foreach ($songData as $key => $value) {
-        echoSongCard($key+1,$value);
-      }
-      ?>
-    </table>
-  </div>
+<div class="song-list">
+  <table>
+    <tr>
+      <th class="rank">#</th>
+      <th>TITLE</th>
+      <th>DATE ADDED</th>
+      <th>GENRE</th>
+    </tr>
+    <?php
+    foreach ($songData as $key => $value) {
+      echoSongCard($key + 1, $value);
+    }
+    ?>
+  </table>
+</div>
