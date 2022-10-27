@@ -28,30 +28,25 @@ if (isset($_POST['logout'])) {
 <html lang="en">
 
 <head>
-<link rel="stylesheet" type="text/css" href="css/index.css">
-<link rel="stylesheet" type="text/css" href="css/song_list_section.css">
-<link rel="stylesheet" type="text/css" href="css/navbar.css">
+  <link rel="stylesheet" type="text/css" href="css/index.css">
+  <link rel="stylesheet" type="text/css" href="css/song_list_section.css">
+  <link rel="stylesheet" type="text/css" href="css/navbar.css">
   <meta charset="UTF-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>
     <?php
-      echo "Binotify · Home";
+    echo "Binotify · Home";
     ?>
   </title>
 </head>
 
 <body>
-  <div>
-    <div class="container">
-      <?php
-        include('templates/navbar.php');
-        include('templates/song_list_section.php');
-      ?>
-    </div>
-    <form method="POST">
-      <?php echo $logout ?>
-    </form>
+  <div class="container">
+    <?php
+    include('templates/navbar.php');
+    include('templates/song_list_section.php');
+    ?>
   </div>
 </body>
 
