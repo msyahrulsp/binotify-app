@@ -20,26 +20,28 @@ $durasi = $songData['duration'] ?? null;
 $imagePath = $songData['image_path'] ?? null;
 $songPath = $songData['audio_path'] ?? null;
 $albumID = $songData['album_id'] ?? null;
-$tombol_album = 'ini tombol album';
 
-function echoSongDetail($judul, $penyanyi, $tanggal, $genre, $durasi, $imagePath, $songPath)
+function echoSongDetail($judul, $penyanyi, $tanggal, $genre, $durasi, $imagePath, $songPath, $albumID)
 {
   $durasiMenit = floor(($durasi / 60) % 60);
   $durasiDetik = $durasi % 60;
   $time = strtotime($tanggal);
   $newDate = date('d-m-Y',$time);
+  // ./album.php?album_id={$albumID}
+  $echoLihatAlbumBtn = $albumID ? "<a href='./album.php?album_id={$albumID}'><button type='button' class='detail-album-btn'>Lihat Album</button></a>" : null;
   $html = <<<"EOT"
   <div class="divider"> 
         <div class="image">
           <img src="{$imagePath}" height="200" width="200" />
         </div>
         <div class="info">
-          <p class="title">$judul</p>
+          <p class="title">$judul $albumID</p>
           <div class="rest-info">
             <p>$penyanyi</p>
             <p>$durasiMenit menit $durasiDetik detik</p>
             <p>$genre</p>
             <p>$newDate</p>
+            $echoLihatAlbumBtn
           </div>
           <div id="audio-player-wrapper">
             <audio id="audio-player" controls source src="{$songPath}" type="audio/ogg">
@@ -164,7 +166,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         } elseif (isset($_POST['save-edit-song'])) {
           echoSongEdit($judul, $penyanyi, $tanggal, $genre, $durasi, $imagePath, $songPath);
         } else {
-          echoSongDetail($judul, $penyanyi, $tanggal, $genre, $durasi, $imagePath, $songPath);
+          echoSongDetail($judul, $penyanyi, $tanggal, $genre, $durasi, $imagePath, $songPath, $albumID);
         }
         ?>
         <?php if ($isAdmin && (isset($_POST['edit-song']) or isset($_POST['save-edit-song']))) {
