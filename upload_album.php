@@ -1,31 +1,31 @@
 <?php
-require 'controllers/MainController.php';
+  require 'controllers/MainController.php';
 
-if ($_SERVER['REQUEST_METHOD'] == 'POST') {
-  $album = new AlbumController($db);
+  if ($_SERVER['REQUEST_METHOD'] == 'POST') {
+    $album = new AlbumController($db);
 
-  $lastAlbumId = $album->getLastAlbumID();
-  $target_dir_image = "./assets/images/album/";
-  $target_file_image = $target_dir_image  . $lastAlbumId+1 . '.' . pathinfo($_FILES['imageToUpload']['name'], PATHINFO_EXTENSION);
+    $lastAlbumId = $album->getLastAlbumID();
+    $target_dir_image = "./assets/images/album/";
+    $target_file_image = $target_dir_image  . $lastAlbumId+1 . '.' . pathinfo($_FILES['imageToUpload']['name'], PATHINFO_EXTENSION);
 
-  $judul = $_POST['judul'];
-  $penyanyi = $_POST['penyanyi'];
-  $tanggal_terbit = date('Y-m-d');
-  $total_duration = 0;
-  $genre = $_POST['genre'];
+    $judul = $_POST['judul'];
+    $penyanyi = $_POST['penyanyi'];
+    $tanggal_terbit = date('Y-m-d');
+    $total_duration = 0;
+    $genre = $_POST['genre'];
 
-  if (isset($_POST['upload-album'])) {
-    $movedImage = move_uploaded_file($_FILES['imageToUpload']['tmp_name'], $target_file_image) ?? null;
+    if (isset($_POST['upload-album'])) {
+      $movedImage = move_uploaded_file($_FILES['imageToUpload']['tmp_name'], $target_file_image) ?? null;
 
-    try {
-      if ($movedImage) {
-        $album->insertAlbum($judul, $penyanyi, $total_duration, $target_file_image, $tanggal_terbit, $genre);
+      try {
+        if ($movedImage) {
+          $album->insertAlbum($judul, $penyanyi, $total_duration, $target_file_image, $tanggal_terbit, $genre);
+        }
+      } catch (PDOException $e) {
+        echo $e->getMessage();
       }
-    } catch (PDOException $e) {
-      echo $e->getMessage();
     }
   }
-}
 ?>
 
 <!DOCTYPE html>

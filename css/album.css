@@ -1,0 +1,75 @@
+*, html {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+.container {
+  display: flex;
+  flex-direction: row;
+}
+
+h1 {
+  font-size: 7ch;
+  margin-bottom: 1ch;
+  margin-top: 1ch;
+}
+
+.album-container {
+  padding-left: 4ch;
+  padding-top: 6ch;
+  padding-bottom: 2ch;
+  padding-right: 8ch;
+  flex: 1;
+}
+
+.album-header {
+  display: flex;
+  flex-direction: row;
+  gap: 20px;
+}
+
+.album-header-info {
+  align-self: flex-end;
+}
+
+.album-header-info-inline {
+  display: flex;
+  flex-direction: row;
+  gap: 10px;
+}
+
+.penyanyi {
+  font-weight: 800;
+}
+
+.duration {
+  opacity: 0.5;
+}
+
+.album-song {
+  margin-top: 4ch;
+  font-size: 2.2ch;
+  display: flex;
+  flex-direction: column;
+  gap: 1.5ch;
+}
+
+.special {
+  font-weight: 700;
+}
+
+.song-title {
+  display: flex;
+  flex-direction: row;
+}
+
+.title {
+  margin-left: 4ch;
+  flex-wrap: wrap;
+}
+
+.song-container {
+  display: flex;
+  justify-content: space-between;
+}
