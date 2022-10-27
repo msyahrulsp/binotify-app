@@ -32,7 +32,15 @@ class UserController {
     $stmt = $conn->prepare("SELECT user_id, email, name, username FROM user");
     $stmt->execute();
     $user = $stmt->fetchAll(PDO::FETCH_ASSOC);
-    return json_encode($user);
+    return $user;
+  }
+
+  public function countUser() {
+    $conn = $this->db->getConnection();
+    $stmt = $conn->prepare("SELECT COUNT(*) as total_user from user WHERE isAdmin = 0");
+    $stmt->execute();
+    $total_user = $stmt->fetch(PDO::FETCH_ASSOC);
+    return $total_user['total_user'];
   }
 
   public function getUser($value, $type) {
