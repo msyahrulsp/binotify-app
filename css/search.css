@@ -1,16 +1,28 @@
-body {
-  font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+*,
+html {
   margin: 0;
   padding: 0;
-  background: #000;
-  color: white;
+  box-sizing: border-box;
 }
 
 .container {
   display: flex;
+}
+
+body {
+  font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+  background: #242424;
+  color: white;
+  padding: 0;
+  margin: 0;
+}
+
+.content {
+  display: flex;
   flex-direction: column;
   padding: 1.5em 1.25em;
   gap: 8px;
+  width: 100%;
 }
 
 header h2 {
@@ -42,10 +54,6 @@ header h2 {
 }
 
 .song-list {
-  width: 100%;
-}
-
-.song-list table {
   width: 100%;
 }
 
@@ -112,7 +120,7 @@ a {
 }
 
 th:first-child {
-  padding: 0;
+  padding: 5px;
 }
 
 .sort {

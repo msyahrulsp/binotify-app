@@ -1,6 +1,8 @@
 <?php
   require "controllers/MainController.php";
 
+  session_start();
+
   $total_songs = $song->countSongs('', '');
   $total_page = 1;
   while ($total_songs > 10) {
@@ -56,6 +58,7 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <link rel="stylesheet" type="text/css" href="css/search.css">
+  <link rel="stylesheet" type="text/css" href="css/navbar.css">
   <title>
     <?php
       echo 'Binotify · Search';
@@ -64,40 +67,45 @@
 </head>
 <body>
   <main class="container">
-    <header>
-      <h2>Search</h2>
-    </header>
-    <input type="text" placeholder="What do you want to listen to?" name="search" id="search" onkeyup="debounceInput(this.value)" class="input__search" />
-    <select name="genre" id="genre" class="select-genre" onchange="onSelectGenre(this.value)">
-      <option value="" selected>All Genre</option>
-      <option value="Pop">Pop</option>
-      <option value="Rock">Rock</option>
-      <option value="Blues">Blues</option>
-      <option value="Electronic">Electronic</option>
-      <option value="Classic">Classic</option>
-      <option value="Sedih">Sedih</option>
-    </select>
-    <section class="song-list">
-      <table id="song-list">
-        <tr>
-          <th class="rank">No.</th>
-          <th class="sort" onclick="sortOrder('judul')">TITLE</th>
-          <th class="sort" onclick="sortOrder('tanggal_terbit')">DATE ADDED</th>
-          <th>GENRE</th>
-        </tr>
+    <?php
+      include('templates/navbar.php');
+    ?>
+    <section class="content">
+      <header>
+        <h2>Search</h2>
+      </header>
+      <input type="text" placeholder="What do you want to listen to?" name="search" id="search" onkeyup="debounceInput(this.value)" class="input__search" />
+      <select name="genre" id="genre" class="select-genre" onchange="onSelectGenre(this.value)">
+        <option value="" selected>All Genre</option>
+        <option value="Pop">Pop</option>
+        <option value="Rock">Rock</option>
+        <option value="Blues">Blues</option>
+        <option value="Electronic">Electronic</option>
+        <option value="Classic">Classic</option>
+        <option value="Sedih">Sedih</option>
+      </select>
+      <section class="song-list">
+        <table id="song-list">
+          <tr>
+            <th class="rank">No.</th>
+            <th class="sort" onclick="sortOrder('judul')">TITLE</th>
+            <th class="sort" onclick="sortOrder('tanggal_terbit')">DATE ADDED</th>
+            <th>GENRE</th>
+          </tr>
+          <?php
+            for ($i = 1; $i <= $total_songs; $i++) {
+              echoSongCard($songs[$i-1], $i);
+            }
+          ?>
+        </table>
+      </section>
+      <section class="pagination" id="pagination">
         <?php
-          for ($i = 1; $i <= $total_songs; $i++) {
-            echoSongCard($songs[$i-1], $i);
+          for ($i = 1; $i <= $total_page; $i++) {
+            createPagination($i);
           }
         ?>
-      </table>
-    </section>
-    <section class="pagination" id="pagination">
-      <?php
-        for ($i = 1; $i <= $total_page; $i++) {
-          createPagination($i);
-        }
-      ?>
+      </section>
     </section>
   </main>
 

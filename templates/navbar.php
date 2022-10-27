@@ -8,6 +8,19 @@ function echoNavbar() {
   $list = $path . 'list.png';
   $logout = $path . 'logout.png';
   $isAdmin = $_SESSION['isAdmin'] ?? false;
+  $destroySession = session_destroy();
+  $logoutButton = null;
+  if (!empty($_SESSION)) {
+    $logoutButton = <<<"EOT"
+    <a href="login.php" onclick="$destroySession">
+      <nav class="nav-link">
+        <img src=$logout alt="logout" />
+        <text>Logout</text>
+      </nav>
+    </a>
+    EOT;
+  }
+
   if (!$isAdmin) {
     $html = <<<"EOT"
     <a href="index.php">
@@ -40,12 +53,7 @@ function echoNavbar() {
         <text>Daftar User</text>
       </nav>
     </a>
-    <a href="index.php">
-      <nav class="nav-link">
-        <img src=$logout alt="logout" />
-        <text>Logout</text>
-      </nav>
-    </a>
+    $logoutButton
     EOT;
   } else {
     $html = <<<"EOT"
@@ -67,12 +75,7 @@ function echoNavbar() {
           <text>Daftar Album</text>
         </nav>
       </a>
-      <a href="index.php">
-        <nav class="nav-link">
-          <img src=$logout alt="logout" />
-          <text>Logout</text>
-        </nav>
-      </a>
+      $logoutButton
     EOT;
   }
   echo $html;
