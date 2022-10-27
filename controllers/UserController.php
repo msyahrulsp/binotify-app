@@ -29,7 +29,7 @@ class UserController {
 
   public function getAll() {
     $conn = $this->db->getConnection();
-    $stmt = $conn->prepare("SELECT user_id, email, name, username FROM user");
+    $stmt = $conn->prepare("SELECT user_id, email, name, username FROM user WHERE isAdmin = 0");
     $stmt->execute();
     $user = $stmt->fetchAll(PDO::FETCH_ASSOC);
     return $user;
