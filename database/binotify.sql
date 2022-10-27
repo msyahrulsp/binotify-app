@@ -36,7 +36,9 @@ INSERT INTO `binotify`.`song` VALUES
 (5,'Sesuatu Di Jogja','Adhitia Sofyan', '2000-10-14','sedih','100','./assets/musics/song5.mp3','./assets/images/image5.png',1),
 (6,'Rehat','Kunto Aji','2000-10-15','sedih','100','./assets/musics/song6.mp3','./assets/images/image6.png',1),
 (7,'Untuk Perempuan Yang Sedang Di Pelukan', 'Payung Teduh','2000-10-10','sedih','100','./assets/musics/song7.mp3','./assets/images/image7.png',1),
-(8,'Langit Abu-Abu','Tulus', '2000-10-11','sedih','100','./assets/musics/song8.mp3','./assets/images/image8.png',1);
+(8,'Langit Abu-Abu','Tulus', '2000-10-11','sedih','100','./assets/musics/song8.mp3','./assets/images/image8.png',1),
+(9,'Langit Abu-Abu 2','Tulus', '2000-10-11','sedih','100','./assets/musics/song8.mp3','./assets/images/image8.png',1),
+(10,'Langit Abu-Abu 3','Tulus', '2000-10-11','sedih','100','./assets/musics/song8.mp3','./assets/images/image8.png',1);
 
 DROP TABLE IF EXISTS `binotify`.`user`;
 CREATE TABLE `binotify`.`user` (
