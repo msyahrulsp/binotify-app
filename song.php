@@ -122,7 +122,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
       echo $e->getMessage();
     }
   } elseif (isset($_POST['delete-song'])) {
-    $songData = $song->deleteSong($_GET['song_id'],$durasi,$albumID);
+    $songData = $song->deleteSong($_GET['song_id'], $durasi, $albumID);
     redirect('/');
   }
 }
@@ -133,39 +133,45 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 <html lang="en">
 
 <head>
+  <link rel="stylesheet" type="text/css" href="css/navbar.css">
   <link rel="stylesheet" href="css/song.css">
   <meta charset="UTF-8" />
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>
     <?php
-      echo $songData['judul'] . ' · ' . $songData['penyanyi'];
+    echo $songData['judul'] . ' · ' . $songData['penyanyi'];
     ?>
   </title>
 </head>
 
 <body>
-
   <div class="container">
-    <form method="post" action="<?php echo 'song.php?song_id=' . $_GET['song_id'] ?>" enctype="multipart/form-data">
-      <?php if (isset($_POST['edit-song'])) {
-        echoSongEdit($judul, $penyanyi, $tanggal, $genre, $durasi, $imagePath, $songPath);
-      } elseif (isset($_POST['save-edit-song'])) {
-        echoSongEdit($judul, $penyanyi, $tanggal, $genre, $durasi, $imagePath, $songPath);
-      } else {
-        echoSongDetail($judul, $penyanyi, $tanggal, $genre, $durasi, $imagePath, $songPath);
-      }
-      ?>
-      <?php if ($isAdmin && (isset($_POST['edit-song']) or isset($_POST['save-edit-song']))) {
-        echo '<button class="save-btn" type="submit" name="save-edit-song">Save</button>';
-        echo "<a class=\"cancel-btn\" href='./song.php?song_id={$_GET['song_id']}'>Cancel</a>";
-      } elseif ($isAdmin && !isset($_POST['edit-song'])) {
-        echo '<button class="edit-btn" type="submit" name="edit-song">Edit</button>';
-        echo '<button class="delete-btn" type="submit" name="delete-song">Delete</button>';
-      }
-      ?>
-    </form>
+    <?php
+    include('templates/navbar.php'); 
+    ?>
+    <div class="container-song">
+      <form method="post" action="<?php echo 'song.php?song_id=' . $_GET['song_id'] ?>" enctype="multipart/form-data">
+        <?php if (isset($_POST['edit-song'])) {
+          echoSongEdit($judul, $penyanyi, $tanggal, $genre, $durasi, $imagePath, $songPath);
+        } elseif (isset($_POST['save-edit-song'])) {
+          echoSongEdit($judul, $penyanyi, $tanggal, $genre, $durasi, $imagePath, $songPath);
+        } else {
+          echoSongDetail($judul, $penyanyi, $tanggal, $genre, $durasi, $imagePath, $songPath);
+        }
+        ?>
+        <?php if ($isAdmin && (isset($_POST['edit-song']) or isset($_POST['save-edit-song']))) {
+          echo '<button class="save-btn" type="submit" name="save-edit-song">Save</button>';
+          echo "<a class=\"cancel-btn\" href='./song.php?song_id={$_GET['song_id']}'>Cancel</a>";
+        } elseif ($isAdmin && !isset($_POST['edit-song'])) {
+          echo '<button class="edit-btn" type="submit" name="edit-song">Edit</button>';
+          echo '<button class="delete-btn" type="submit" name="delete-song">Delete</button>';
+        }
+        ?>
+      </form>
+    </div>
   </div>
+
 </body>
 <script>
   function getCookie(cname) {
