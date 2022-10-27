@@ -8,5 +8,11 @@ html {
 
 .container {
   display: flex;
-  flex-direction: row;
+  flex-direction: column;
+}
+
+@media screen and (min-width: 768px) {
+  .container {
+    flex-direction: row;
+  }
 }

@@ -16,13 +16,35 @@
   padding-left: 4ch;
   padding-right: 10ch;
   display: flex;
-  flex-direction: column;
+  flex-direction: row;
   gap: 25px;
-  min-height: 100vh;
+  justify-content: space-between;
+  align-items: center;
   border-right: 1px solid #000;
   background: #000;
-  min-width: 18rem;
-  max-width: 18rem;
+  min-width: 100%;
+  max-width:100%;
+  min-height:5rem;
+  max-height:5rem;
+}
+
+.nav-link > img {
+  display:none;
+}
+
+@media screen and (min-width: 768px) {
+  .navbar {
+    min-width: 18rem;
+    max-width: 18rem;
+    min-height: 100vh;
+    flex-direction: column;
+    justify-content: unset;
+    align-items: unset;
+  }
+  .nav-link > img {
+    display:unset;
+  }
+  
 }
 
 .navbar a {
