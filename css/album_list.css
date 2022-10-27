@@ -41,7 +41,7 @@ h1 {
   margin-top: 4ch;
   display: flex;
   flex-direction: column;
-  gap: 2ch;
+  gap: 3ch;
 }
 
 .album-list {
@@ -55,7 +55,6 @@ h1 {
 }
 
 .album-title > img {
-  width: 100px;
   object-fit: contain;
 }
 

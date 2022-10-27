@@ -18,7 +18,7 @@
   <link rel="stylesheet" type="text/css" href="css/register.css">
   <title>
     <?php
-      echo "Register";
+      echo "Binotify · Register";
     ?>
   </title>
 </head>

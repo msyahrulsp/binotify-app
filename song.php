@@ -139,7 +139,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>
     <?php
-      echo $songData['judul'];
+      echo $songData['judul'] . ' · ' . $songData['penyanyi'];
     ?>
   </title>
 </head>

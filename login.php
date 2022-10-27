@@ -17,7 +17,7 @@
   <link rel="stylesheet" type="text/css" href="css/login.css">
   <title>
     <?php
-      echo "Login";
+      echo "Binotify · Login";
     ?>
   </title>
 </head>

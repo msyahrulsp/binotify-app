@@ -22,7 +22,7 @@
         <a href=\"album.php?album_id={$album['album_id']}\">     
           <div class=\"album-list\">
             <div class=\"album-title\">
-              <img src=\"{$album['image_path']}\" alt=\"cover\" />
+              <img src=\"{$album['image_path']}\" width=\"100\" height=\"100\" alt=\"cover\" />
               <div class=\"title\">
                 <p class=\"album-name\">{$album['judul']}</p>
                 <p class=\"album-artist special\">{$album['penyanyi']}</p>
@@ -60,7 +60,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>
     <?php
-      echo 'Daftar Album';
+      echo 'Binotify · Daftar Album';
     ?>
   </title>
 </head>

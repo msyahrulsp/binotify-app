@@ -1,0 +1,27 @@
+*, html {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+  
+.container {
+  display: flex;
+  flex-direction: row;
+}
+
+.form-container {
+  display: flex;
+  flex-direction: column;
+  padding-top: 3ch;
+  padding-left: 4ch;
+  padding-bottom: 2ch;
+  padding-right: 8ch;
+  flex: 1;
+  background: linear-gradient(to bottom, #87be8e, rgb(49, 48, 48), #000);
+}
+
+.form-header {
+  color: white;
+  padding-bottom: 3ch;
+  border-bottom: 1px solid rgba(0, 0, 0, 0.2);
+}

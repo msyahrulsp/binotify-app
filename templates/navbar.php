@@ -8,7 +8,7 @@ function echoNavbar() {
   $list = $path . 'list.png';
   $logout = $path . 'logout.png';
   $isAdmin = $_SESSION['isAdmin'] ?? false;
-  if ($isAdmin) {
+  if (!$isAdmin) {
     $html = <<<"EOT"
     <a href="index.php">
       <nav class="nav-logo">
@@ -32,6 +32,12 @@ function echoNavbar() {
       <nav class="nav-link">
         <img src=$list alt="list" />
         <text>Daftar Album</text>
+      </nav>
+    </a>
+    <a href="daftar_user.php">
+      <nav class="nav-link">
+        <img src=$list alt="list" />
+        <text>Daftar User</text>
       </nav>
     </a>
     <a href="index.php">

@@ -58,7 +58,7 @@
   <link rel="stylesheet" type="text/css" href="css/search.css">
   <title>
     <?php
-      echo 'Search';
+      echo 'Binotify · Search';
     ?>
   </title>
 </head>

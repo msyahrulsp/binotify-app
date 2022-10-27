@@ -31,26 +31,57 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+  <link rel="stylesheet" type="text/css" href="css/upload_album.css">
+  <link rel="stylesheet" type="text/css" href="css/navbar.css">
   <meta charset="UTF-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>
     <?php
-      echo 'Upload Album';
+      echo 'Binotify · Tambah Album';
     ?>
   </title>
 </head>
 <body>
-  <form method="post" enctype="multipart/form-data">
-    Judul:
-    <input type="text" name="judul"><br>
-    Penyanyi:
-    <input type="text" name="penyanyi"><br>
-    Genre:
-    <input type="text" name="genre"><br>
-    Image:
-    <input type="file" name="imageToUpload" id="imageToUpload" accept="image/*"><br>
-    <div>TBD Input song kudu gimana</div>
-    <input type="submit" value="Upload Album" name="upload-album">
+  <div class="container">
+    <?php
+      include('templates/navbar.php');
+    ?>
+    <div class="form-container">
+      <div class="form-header">
+        <h1>Tambah Album</h1>
+      </div>
+      <form method="POST" id="form-upload" enctype="multipart/form-data" class="form-wrapper">
+        <div id="error-container">
+        </div>
+        <div class="input-container">
+          <label>Judul</label>
+          <input type="text" placeholder="Racing Into The Night"  name="judul" />
+        </div>
+        <div class="input-container">
+          <label>Penyanyi</label>
+          <input type="text" placeholder="Yoasobi" name="penyanyi" />
+        </div>
+        <div class="input-container">
+          <label>Genre</label>
+          <select name="genre" class="select-genre">
+            <option value="Pop">Pop</option>
+            <option value="Rock">Rock</option>
+            <option value="Blues">Blues</option>
+            <option value="Electronic">Electronic</option>
+            <option value="Classic">Classic</option>
+            <option value="Sedih">Sedih</option>
+          </select>
+        </div>
+        <div class="input-container">
+          <label>Image</label>
+          <input type="file" accept="image/*" placeholder="Yoasobi" id="imageToUpload" name="imageToUpload" />
+        </div>
+        <div class="button-container">
+          <input type="submit" value="Upload Album" name="upload-album">
+        </div>
+      </form>
+    </div>
+  </div>
 </body>
 </html>
