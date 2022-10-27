@@ -47,10 +47,10 @@ function echoNavbar() {
         <text>Daftar Album</text>
       </nav>
     </a>
-    <a href="daftar_user.php">
+    <a href="user_list.php">
       <nav class="nav-link">
         <img src=$list alt="list" />
-        <text>Daftar User</text>
+        <text>User List</text>
       </nav>
     </a>
     $logoutButton
