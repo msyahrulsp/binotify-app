@@ -108,6 +108,33 @@ class SongController
     }
   }
 
+  public function countSongs($keyword, $genre) {
+    try {
+      $this->db->con->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+      $sql = "SELECT count(*) AS total_songs FROM song WHERE judul LIKE '%{$keyword}%' AND genre LIKE '%{$genre}%'";
+      $stmt = $this->db->con->prepare($sql);
+      $stmt->execute();
+      $total_songs = $stmt->fetch(PDO::FETCH_ASSOC);
+      return $total_songs['total_songs'];
+    } catch (PDOException $e) {
+      echo $sql . "<br>" . $e->getMessage();
+    }
+  }
+
+  public function searchSongs($keyword, $genre, $page, $limit, $sort, $order_type) {
+    $page = $page - 1;
+    try {
+      $this->db->con->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+      $sql = "SELECT * from song WHERE judul LIKE '%{$keyword}%' AND genre LIKE '%{$genre}%' ORDER BY {$sort} {$order_type} LIMIT {$page}, {$limit}";
+      $stmt = $this->db->con->prepare($sql);
+      $stmt->execute();
+      $songs = $stmt->fetchAll(PDO::FETCH_ASSOC);
+      return $songs;
+    } catch (PDOException $e) {
+      echo $sql . "<br>" . $e->getMessage();
+    }
+  }
+  
   public function deleteSong($songID)
   {
     try {

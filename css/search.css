@@ -1,0 +1,120 @@
+body {
+  font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+  margin: 0;
+  padding: 0;
+  background: #000;
+  color: white;
+}
+
+.container {
+  display: flex;
+  flex-direction: column;
+  padding: 1.5em 1.25em;
+  gap: 8px;
+}
+
+header h2 {
+  margin: 0;
+}
+
+.input__search {
+  border: none;
+  outline: none;
+  border-radius: 3px;
+  font-size: 14px;
+  padding: 10px 14px;
+  margin-top: 1em;
+}
+
+.input__search::placeholder {
+  font-weight: 700;
+  color: #424242;
+}
+
+.select-genre {
+  padding: 3px;
+  outline: none;
+}
+
+.filter {
+  display: flex;
+  gap: 2em;
+}
+
+.song-list {
+  width: 100%;
+}
+
+.song-list table {
+  width: 100%;
+}
+
+.song-profile {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+}
+
+table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+th {
+  background-color: #1ed760;
+  color: black;
+  text-align: left;
+  padding-top: 0.7rem;
+  padding-bottom: 0.7rem;
+}
+
+td {
+  background-color: #121212;
+  color: white;
+  padding-block: 10px;
+}
+
+th:first-child {
+  padding: 0.7rem;
+}
+
+.rank {
+  text-align: center;
+}
+
+.profile-text {
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+}
+
+a {
+  color: white;
+}
+
+.singer,
+.title {
+  margin: 0;
+  font-weight: 500;
+}
+
+a {
+  text-decoration: none;
+}
+
+.title {
+  font-size: 16px;
+}
+
+.singer {
+  font-size: 14px;
+  color: #c5c5c5;
+}
+
+th:first-child {
+  padding: 0;
+}
+
+.sort {
+  cursor: pointer;
+}
