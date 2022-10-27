@@ -34,12 +34,13 @@ class SongController
       echo 'db not set';
     }
   }
-
   public function insertSong($judul, $penyanyi, $tanggal, $genre, $durasi, $audio_path, $image_path)
+  // fix album id
   {
     $this->db->con->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
     $sql = "INSERT INTO song (judul, penyanyi, tanggal_terbit, genre, duration, audio_path, image_path, album_id)
-      VALUES (:judul, :penyanyi, :tanggal, :genre, :duration, :audio_path, :image_path, 1)";
+      VALUES (:judul, :penyanyi, :tanggal, :genre, :duration, :audio_path, :image_path, 1);
+      UPDATE album SET total_duration=total_duration+:duration WHERE album_id=1";
     $this->db->con->prepare($sql)->execute(array(
       ':judul' => $judul,
       ':penyanyi' => $penyanyi,
@@ -135,15 +136,16 @@ class SongController
     }
   }
   
-  public function deleteSong($songID)
+  public function deleteSong($songID,$duration,$albumID)
   {
     try {
       $this->db->con->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-      $sql = "DELETE FROM song WHERE song_id={$songID}";
+      $sql = "DELETE FROM song WHERE song_id=$songID;
+      UPDATE album SET total_duration=total_duration-$duration WHERE album_id=$albumID";
       $stmt = $this->db->con->prepare($sql);
       $stmt->execute();
     } catch (PDOException $e) {
       echo $sql . "<br>" . $e->getMessage();
     }
-  }
+  }  
 }

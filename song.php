@@ -122,7 +122,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
       echo $e->getMessage();
     }
   } elseif (isset($_POST['delete-song'])) {
-    $songData = $song->deleteSong($_GET['song_id']);
+    $songData = $song->deleteSong($_GET['song_id'],$durasi,$albumID);
     redirect('/');
   }
 }
