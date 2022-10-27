@@ -18,4 +18,52 @@ Berikut adalah hal yang harus diperhatikan untuk pengumpulan tugas ini:
     * Cara instalasi
     * Cara menjalankan server
     * Screenshot tampilan aplikasi (tidak perlu semua kasus, minimal 1 per halaman), dan 
-    * Penjelasan mengenai pembagian tugas masing-masing anggota (lihat formatnya pada bagian pembagian tugas).
+    * Penjelasan mengenai pembagian tugas masing-masing anggota (lihat formatnya pada bagian pembagian tugas).  
+
+Server-side  
+| Task        | NIM           |
+| ------------- |-------------|
+|Home            | 13520002, 13520002, 13520080  |
+|Login           | 13520080  |
+|Register        | 13520080  |
+|Search          | 13520080  |
+|Search Filter   | 13520080  |
+|Search Pagination   | 13520080  |
+|User List       | 13520080  |
+|Album List      | 13520161  |
+|Detail Album    | 13520161  |
+|Add Album    | 13520161  |
+|Edit Album      | 13520161  |
+|Delete Album    | 13520161  |
+|Song List       | 13520002  |
+|Detail Song     | 13520002  |
+|Add Song     | 13520002  |
+|Edit Song       | 13520002  |
+|Delete Song     | 13520002  |
+|Song Limit Per Day | 13520002  |
+|Access Level | 13520002, 13520002, 13520080  |
+|Setup Database           | 13520080  |
+|Setup Docker    | 13520161  |
+  
+Client-side  
+| Task        | NIM           |
+| ------------- |-------------|
+|Home            | 13520002, 13520002, 13520080  |
+|Login           | 13520080  |
+|Register        | 13520080  |
+|Search          | 13520080  |
+|Search Filter   | 13520080  |
+|Search Pagination   | 13520080  |
+|User List       | 13520080  |
+|Album List      | 13520161  |
+|Detail Album    | 13520161  |
+|Add Album    | 13520161  |
+|Edit Album      | 13520161  |
+|Delete Album    | 13520161  |
+|Song List       | 13520002  |
+|Detail Song     | 13520002  |
+|Add Song     | 13520002  |
+|Edit Song       | 13520002  |
+|Delete Song     | 13520002  |
+|Song Limit Per Day | 13520002  |
+|Access Level | 13520002, 13520002, 13520080  |
