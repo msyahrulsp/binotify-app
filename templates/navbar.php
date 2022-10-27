@@ -4,6 +4,7 @@ function echoNavbar() {
   $add = $path . 'add.png';
   $logo = $path . 'spotify.png';
   $home = $path . 'home.png';
+  $search = $path . 'search.png';
   $list = $path . 'list.png';
   $logout = $path . 'logout.png';
   $isAdmin = $_SESSION['isAdmin'] ?? false;
@@ -50,7 +51,7 @@ function echoNavbar() {
       </a>
       <a href="index.php">
         <nav class="nav-link">
-          <img src=$home alt="home" />
+          <img src=$search alt="search" />
           <text>Search</text>
         </nav>
       </a>

@@ -3,21 +3,21 @@
   $album = new AlbumController($db);
   $albumData = $album->getSingleAlbum($_GET['album_id']);
   $albumSong = $album->getAlbumSong($_GET['album_id']);
-  $isAdmin = $_SESSION['isAdmin'] ?? false;
-
+  
   $judul = $albumData['judul'] ?? null;
   $penyanyi = $albumData['penyanyi'] ?? null;
   $total_duration = $albumData['total_duration'] ?? null;
   $image_path = $albumData['image_path'] ?? null;
   $tanggal_terbit = $albumData['tanggal_terbit'] ?? null;
   $genre = $albumData['genre'] ?? null;
-
+  
   function echoAlbumDetail($judul, $penyanyi, $total_duration, $image_path, $tanggal_terbit, $genre, $albumSong) {
+    $isAdmin = $_SESSION['isAdmin'] ?? false;
     $minutes = floor($total_duration / 60) . " menit";
     $seconds = $total_duration % 60 == 0 ? null : $total_duration % 60 . " detik";
     $qty = count($albumSong);
     $songList = "
-      <div class=\"song-container\">
+      <div class=\"song-container w-border\">
         <div class=\"song-title\">
           <p class=\"order special\">#</p>
           <p class=\"title special\">Judul</p>

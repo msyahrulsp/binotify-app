@@ -69,7 +69,7 @@ class AlbumController {
     try {
       $conn = $this->db->getConnection();
       $conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-      $sql = "SELECT * FROM song WHERE album_id = :album_id";
+      $sql = "SELECT * FROM song WHERE album_id = :album_id ORDER BY judul ASC";
       $stmt = $conn->prepare($sql);
       $stmt->execute(array(
         ':album_id' => $albumID
