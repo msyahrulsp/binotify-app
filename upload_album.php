@@ -40,7 +40,7 @@
         </div>
         <div class="input-container">
           <label>Judul</label>
-          <input type="text" placeholder="Racing Into The Night"  name="judul" />
+          <input type="text" placeholder="Racing Into The Night" name="judul" />
         </div>
         <div class="input-container">
           <label>Penyanyi</label>

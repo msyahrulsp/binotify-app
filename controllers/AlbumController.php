@@ -108,5 +108,23 @@
         echo $sql . "<br>" . $e->getMessage();
       }
     }
+
+    public function updateAlbum($album_id, $judul, $genre, $tanggal_terbit, $image_path) {
+      try {
+        $conn = $this->db->getConnection();
+        $conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+        $sql = "UPDATE album SET judul = :judul, genre = :genre, tanggal_terbit = :tanggal_terbit, image_path = :image_path WHERE album_id = :album_id";
+        $stmt = $conn->prepare($sql);
+        $stmt->execute(array(
+          ':album_id' => $album_id,
+          ':judul' => $judul,
+          ':genre' => $genre,
+          ':tanggal_terbit' => $tanggal_terbit,
+          ':image_path' => $image_path
+        ));
+      } catch (PDOException $e) {
+        echo $sql . "<br>" . $e->getMessage();
+      }
+    }
   }
 ?>

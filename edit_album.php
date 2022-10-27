@@ -11,27 +11,36 @@
   $image_path = $albumData['image_path'] ?? null;
   $tanggal_terbit = $albumData['tanggal_terbit'] ?? null;
   $genre = $albumData['genre'] ?? null;
-  $listValidSong = $song->getValidSong('tulus');
+  $listValidSong = $song->getValidSong($penyanyi);
 
-  function convertSecToFullTime($duration) {
-    $temp = gmdate("H:i:s", $duration);
-    $temp = explode(':', $temp);
-    $dur = '';
-    if ($temp[0] != '00') {
-      $dur .= ltrim($temp[0], '0') . ' jam ';
+  if ($_SERVER['REQUEST_METHOD'] == 'POST') {
+    if(isset($_POST['update-album'])) {
+      $album = new AlbumController($db);
+      $albumData = $album->getSingleAlbum($_GET['album_id']);
+      $target_dir_image = "./assets/images/album/";
+      $imageFile = $_FILES['imageToUpload']['name'] ?? null;
+      $target_file_image = $imageFile ? $target_dir_image . $_GET['album_id'] . '_' . date('Y-m-d_H-i-s') . '.' . pathinfo($_FILES["imageToUpload"]["name"], PATHINFO_EXTENSION) : $albumData['image_path'];
+
+      $judulForm = $_POST['judul'];
+      $genreForm = $_POST['genre'];
+      $tanggal_terbit_form = $_POST['tanggal_terbit'];
+
+      try {
+        if ($imageFile) {
+          unlink($image_path);
+          move_uploaded_file($_FILES["imageToUpload"]["tmp_name"], $target_file_image);
+          $image_path = $_FILES["imageToUpload"]["name"] ? $target_file_image : $image_path;
+        }
+        $album->updateAlbum($_GET['album_id'], $judulForm, $genreForm, $tanggal_terbit_form, $image_path);
+        redirect('album.php?album_id=' . $_GET['album_id']);
+      } catch (Exception $e) {
+        echo "<script>alert('{$e->getMessage()}')</script>";
+      }
     }
-    if ($temp[1] != '00') {
-      $dur .= ltrim($temp[1], '0') . ' menit ';
-    }
-    if ($temp[2] != '00') {
-      $dur .= ltrim($temp[2], '0'). ' detik';
-    }
-    return $dur;
   }
 
   function echoEditAlbum($judul, $penyanyi, $total_duration, $image_path, $tanggal_terbit, $genre, $albumSong, $listValidSong) {
     $isAdmin = $_SESSION['isAdmin'] ?? false;
-    $total_time = convertSecToFullTime($total_duration);
     $qty = count($albumSong);
     $songList = '';
     $deleteSrc = './assets/images/component/trash.png';
@@ -52,8 +61,9 @@
     }
     if (count($listValidSong) > 0) {
       $listSelect = "
-        <select name='songAlbum' id='songAlbum' class='song-select'>
-          <option value=''>Pilih Lagu</option>
+        <div class='valid-song-wrapper' id='dropdown-wrapper'>
+          <select name='songAlbum' id='songAlbum' class='song-select'>
+            <option value=''>Pilih Lagu</option>
       ";
       foreach ($listValidSong as $song) {
         $listSelect .= "
@@ -62,28 +72,25 @@
       }
 
       $listSelect .= "
-            </option>
-          </select>
-        <img src='{$plusSrc}' id='butPlus' height='30' class='song-add' onClick='addSong()' />
-      ";
+              </option>
+            </select>
+          <img src='{$plusSrc}' id='butPlus' height='30' class='song-add' onClick='addSong()' />
+        </div>
+        ";
     } else {
       $listSelect = NULL;
     }
     $html = <<<"EOT"
       <div class="edit-container">
         <div class="edit-header">
-          <img src=$image_path height="200" alt="cover" />
+          <img src=$image_path height="200" alt="cover" id='image-content' />
           <div class="edit-header-info">
             <h5>ALBUM</h5>
-            <h1>$judul</h1>
+            <h1 id='judul-content'>$judul</h1>
             <div class="edit-header-info-inline">
               <p class="penyanyi" id="singer">$penyanyi</p>
-              <p> · $tanggal_terbit · </p>
-              <p>$qty,
-                <p class="duration">
-                  $total_time
-                </p>
-              </p>
+              <p id='date-content'> · $tanggal_terbit · </p>
+              <p id='qty-content'>$qty</p>
             </div>
             <div class='btn-container'>
               <a href='/album.php?album_id={$_GET['album_id']}'>
@@ -104,33 +111,31 @@
           </div>
           <div class="input-container">
             <label>Judul</label>
-            <input type="text" placeholder="Racing Into The Night" name="judul" value="{$judul}" />
+            <input id='judul-form' type="text" placeholder="Racing Into The Night" name="judul" value="{$judul}" />
           </div>
           <div class="input-container">
             <label>Genre</label>
-            <input type="text" placeholder="Pop" name="genre" value="{$genre}" />
+            <input id='genre-form' type="text" placeholder="Pop" name="genre" value="{$genre}" />
           </div>
           <div class="input-container">
             <label>Tanggal Terbit</label>
-            <input type="date" name="tanggal_terbit" value={$tanggal_terbit} />
+            <input id='date-form' type="date" name="tanggal_terbit" value={$tanggal_terbit} />
           </div>
           <div class="input-container">
             <label>Image</label>
             <input type="file" accept="image/*" id="imageToUpload" name="imageToUpload" />
           </div>
           <div class="button-container">
-            <button class="form-button" type="submit" name="upload-album">Save</button>
+            <button class="form-button" type="submit" name="update-album">Save</button>
           </div>
         </form>
         <div class="song-wrapper" id="song-wrapper">
           $songList
         </div>
-        <div class="valid-song-wrapper" id="dropdown-wrapper">
-          $listSelect
-        </div>
+        $listSelect
       </div>
     EOT;
-    echo $html; 
+    echo $html;
   }
 ?>
 
@@ -189,6 +194,7 @@
             this.responseText.split("<br>")[1] : this.responseText;
           const response = JSON.parse(res);
           if (response.status == 200) {
+            document.getElementById('qty-content').innerHTML = parseInt(document.getElementById('qty-content').innerHTML) + 1;
             document.getElementById(songId).remove();
             var newDiv = document.createElement("div");
             newDiv.setAttribute('class', 'song-container');
@@ -228,7 +234,8 @@
           const response = JSON.parse(res);
           if (response.status == 200) {
             document.getElementById(song_id).remove();
-            const singer = document.getElementById('singer').value;
+            document.getElementById('qty-content').innerHTML = parseInt(document.getElementById('qty-content').innerHTML) - 1;
+            const singer = document.getElementById('singer').textContent;
             if (singer.toLowerCase() === penyanyi.toLowerCase()) {
               var newDiv = document.createElement('option');
               newDiv.setAttribute('value', song_id);

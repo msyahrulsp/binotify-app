@@ -1,5 +1,6 @@
 <?php
 require 'controllers/MainController.php';
+$curDate = date('Y-m-d');
 
 $isAdmin = $_SESSION['isAdmin'] ?? false;
 // $isAdmin = true;
@@ -43,21 +44,20 @@ window.location.href='/';
       <form id="upload-form" method="POST" enctype="multipart/form-data" class="form-wrapper" action="">
         <div class="input-container">
           <label>Judul</label>
-          <input type="text" name='judul'>
+          <input type="text" placeholder="Racing Into The Night" name='judul'>
         </div>
         <div class="input-container">
           <label>Penyanyi</label>
-          <input type="text" name='penyanyi'>
-        </div>
-        <div class="input-container">
-          <label>Tanggal</label>
-          <input type="date" name='tanggal'>
+          <input type="text" placeholder="Yoasobi" name='penyanyi'>
         </div>
         <div class="input-container">
           <label>Genre</label>
-          <input type="text" name='genre'>
+          <input type="text" placeholder="Pop" name='genre'>
         </div>
-
+        <div class="input-container">
+          <label>Tanggal</label>
+          <input type="date" name='tanggal' value=<?php echo $curDate ?> />
+        </div>
         <div class="input-container">
           <label>File lagu</label>
           <input type="file" name="songToUpload" id="songToUpload" accept="audio/*">

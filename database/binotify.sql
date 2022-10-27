@@ -11,8 +11,8 @@ CREATE TABLE `binotify`.`album` (
   `genre` varchar(64) DEFAULT NULL,
   PRIMARY KEY (`album_id`)
 );
-INSERT INTO `binotify`.`album` VALUES (1,'The Best of Me','Westlife',120,'./assets/images/album/1.jpg','2010-01-01','Pop');
-INSERT INTO `binotify`.`album` VALUES (2,'The Worst of Me','Badlife',120,'./assets/images/album/1.jpg','2010-01-01','Pop');
+INSERT INTO `binotify`.`album` VALUES (1,'The Best of Me','Ardhito Pramono',749,'./assets/images/album/1.jpg','2010-01-01','Pop');
+INSERT INTO `binotify`.`album` VALUES (2,'The Worst of Me','Badlife',935,'./assets/images/album/2.jpg','2010-01-01','Pop');
 
 DROP TABLE IF EXISTS `binotify`.`song`;
 CREATE TABLE `binotify`.`song` (
@@ -30,21 +30,15 @@ CREATE TABLE `binotify`.`song` (
 );
 SET PERSIST information_schema_stats_expiry=0;
 INSERT INTO `binotify`.`song` VALUES
-(1,'Tokyo Drift','Teriyaki Boyz','2000-10-16','sedih','100','./assets/musics/song1.mp3','./assets/images/image1.png',1),
-(2,'Goosebumps','Travis Scott', '2000-10-11','sedih','100','./assets/musics/song2.mp3','./assets/images/image2.png',1),
-(3,'Semoga, Ya', 'Nosstress','2000-10-12','sedih','100','./assets/musics/song3.mp3','./assets/images/image3.png',1),
-(4,'cigarretes of ours','Ardhito Pramono', '2000-10-13','sedih','100','./assets/musics/song4.mp3','./assets/images/image4.png',1),
-(5,'Sesuatu Di Jogja','Adhitia Sofyan', '2000-10-14','sedih','100','./assets/musics/song5.mp3','./assets/images/image5.png',1),
-(6,'Rehat','Kunto Aji','2000-10-15','sedih','100','./assets/musics/song6.mp3','./assets/images/image6.png',1),
-(7,'Untuk Perempuan Yang Sedang Di Pelukan', 'Payung Teduh','2000-10-10','sedih','100','./assets/musics/song7.mp3','./assets/images/image7.png',1),
-(8,'Langit Abu-Abu','Tulus', '2000-10-11','sedih','100','./assets/musics/song8.mp3','./assets/images/image8.png',1),
-(9,'Langit Abu-Abu 2','Tulus', '2000-10-11','sedih','100','./assets/musics/song8.mp3','./assets/images/image8.png',1),
-(10,'Langit Abu-Abu 3','Tulus', '2000-10-11','sedih','100','./assets/musics/song8.mp3','./assets/images/image8.png',1),
-(11,'Langit Abu-Abu 4','Tulus1', '2000-10-12','sedih','100','./assets/musics/song8.mp3','./assets/images/image8.png',1),
-(12,'Langit Abu-Abu 5','Tulus2', '2000-10-13','sedih','100','./assets/musics/song8.mp3','./assets/images/image8.png',1),
-(13,'Langit Abu-Abu 6','Tulus3', '2000-10-14','sedih','100','./assets/musics/song8.mp3','./assets/images/image8.png',1),
-(14,'Langit Abu-Abu 7','Tulus4', '2000-10-15','sedih','100','./assets/musics/song8.mp3','./assets/images/image8.png',1),
-(15,'Langit Abu-Abu 8','Tulus4', '2000-10-15','sedih','100','./assets/musics/song8.mp3','./assets/images/image8.png',1);
+(1,'Tokyo Drift','Ardhito Pramono','2000-10-16','sedih',257,'./assets/musics/song1.mp3','./assets/images/image1.png',1),
+(2,'Goosebumps','Ardhito Pramono', '2000-10-11','sedih',164,'./assets/musics/song2.mp3','./assets/images/image2.png',1),
+(3,'Semoga, Ya', 'NArdhito Pramono','2000-10-12','sedih',164,'./assets/musics/song3.mp3','./assets/images/image3.png',1),
+(4,'cigarretes of ours','Ardhito Pramono', '2000-10-13','sedih',164,'./assets/musics/song4.mp3','./assets/images/image4.png',1),
+(5,'Sesuatu Di Jogja','Badlife', '2000-10-14','sedih',164,'./assets/musics/song5.mp3','./assets/images/image5.png',2),
+(6,'Rehat','Badlife','2000-10-15','sedih',257,'./assets/musics/song6.mp3','./assets/images/image6.png',2),
+(7,'Untuk Perempuan Yang Sedang Di Pelukan', 'Badlife','2000-10-10','sedih',257,'./assets/musics/song7.mp3','./assets/images/image7.png',2),
+(8,'Langit Abu-Abu','Badlife', '2000-10-11','sedih',257,'./assets/musics/song8.mp3','./assets/images/image8.png',2),
+(9,'HAHA HIHI','Badlife', '2000-10-11','sedih',257,'./assets/musics/song9.mp3','./assets/images/image9.jpg',NULL);
 
 DROP TABLE IF EXISTS `binotify`.`user`;
 CREATE TABLE `binotify`.`user` (
@@ -57,4 +51,6 @@ CREATE TABLE `binotify`.`user` (
   PRIMARY KEY (`user_id`)
 );
 
-INSERT INTO `binotify`.`user` (`user_id`, `email`, `password`, `name`, `username`, `isAdmin`) VALUES (1, 'halo@gmail.com', '$2y$10$KHFOPrd1l6EjwkNJEkyGx.Kn8tTukczRHFHwZK6eco6OsbAvknp9O', 'halo', 'halohalo', 0);
+INSERT INTO `binotify`.`user` (`user_id`, `email`, `password`, `name`, `username`, `isAdmin`) VALUES
+  (1, 'user@gmail.com', '$2y$10$KHFOPrd1l6EjwkNJEkyGx.Kn8tTukczRHFHwZK6eco6OsbAvknp9O', 'halo', 'halohalo', 0),
+  (2, 'admin@gmail.com', '$2y$10$KHFOPrd1l6EjwkNJEkyGx.Kn8tTukczRHFHwZK6eco6OsbAvknp9O', 'halo', 'halohalo', 1);

@@ -191,8 +191,7 @@ h1 {
   flex-direction: column;
   gap: 2ch;
   color: white;
-  padding-bottom: 25px;
-  border-bottom: 1px solid #c5c5c5;
+  padding-bottom: 1.5em;
 }
 
 .song-title {
@@ -231,6 +230,8 @@ h1 {
   gap: 1ch;
   margin-top: 1em;
   padding-bottom: 1.5em;
+  padding-top: 25px;
+  border-top: 1px solid #c5c5c5;
 }
 
 .song-select {
