@@ -1,5 +1,6 @@
 <?php
   require('controllers/MainController.php');
+  session_start();
   $isAdmin = $_SESSION['isAdmin'] ?? null;
   $album = new AlbumController($db);
   $albumData = $album->getSingleAlbum($_GET['album_id']);

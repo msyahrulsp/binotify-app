@@ -21,7 +21,7 @@ function echoNavbar() {
     EOT;
   }
 
-  if (!$isAdmin) {
+  if ($isAdmin) {
     $html = <<<"EOT"
     <a href="index.php">
       <nav class="nav-logo">

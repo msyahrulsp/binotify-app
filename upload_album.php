@@ -1,5 +1,6 @@
 <?php
   $curDate = date('Y-m-d');
+  session_start();
 
   $isAdmin = $_SESSION['isAdmin'] ?? false;
   if ($isAdmin) {

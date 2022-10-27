@@ -1,5 +1,6 @@
 <?php
 require 'controllers/MainController.php';
+session_start();
 
 $isAdmin = true;
 
