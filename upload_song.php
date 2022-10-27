@@ -40,36 +40,70 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 <html lang="en">
 
 <head>
+  <link rel="stylesheet" href="css/navbar.css">
+  <link rel="stylesheet" href="css/upload_song.css">
   <meta charset="UTF-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>
     <?php
-      echo 'Binotify · Tambah Lagu';
+    echo 'Binotify · Tambah Lagu';
     ?>
   </title>
 
 </head>
 
 <body>
-  <form id="upload-form" method="post" enctype="multipart/form-data">
-    Judul:
-    <input type="text" name='judul'><br>
-    Penyanyi:
-    <input type="text" name='penyanyi'><br>
-    Tanggal:
-    <input type="date" name='tanggal'><br>
-    Genre:
-    <input type="text" name='genre'><br>
-    File lagu:
-    <input type="file" name="songToUpload" id="songToUpload" accept="audio/*"><br>
-    File gambar:
-    <input type="file" name="imageToUpload" id="imageToUpload" accept="image/*"><br>
-    Album:
-    <span>TBD s input selection for available album</span><br>
-    <input type="text" hidden name="duration" id="duration">
-    <button onClick="uploadSong()" value="Upload Song" name="upload-song">Upload Song</button>
-  </form>
+  <div class="container">
+    <?php
+    include('templates/navbar.php');
+    ?>
+    <div class="form-container">
+      <div class="form-header">
+        <h1>Tambah Lagu</h1>
+      </div>
+      <form id="upload-form" method="post" enctype="multipart/form-data" class="form-wrapper">
+        <div class="input-container">
+          <label>Judul:</label>
+          <input type="text" name='judul'>
+        </div>
+        <div class="input-container">
+          <label>Penyanyi:</label>
+          <input type="text" name='penyanyi'>
+        </div>
+        <div class="input-container">
+          <label>Tanggal:</label>
+          <input type="date" name='tanggal'>
+        </div>
+        <div class="input-container">
+          <label>Genre:</label>
+          <input type="text" name='genre'>
+        </div>
+
+        <div class="input-container">
+          <label>File lagu:</label>
+          <input type="file" name="songToUpload" id="songToUpload" accept="audio/*">
+        </div>
+        <div class="input-container">
+          <label>File gambar:</label>
+          <input type="file" name="imageToUpload" id="imageToUpload" accept="image/*">
+        </div>
+
+
+        <div class="input-container">
+          <label>Album:</label>
+          <label>TBD s input selection for available album</label>
+        </div>
+
+        <input type="text" hidden name="duration" id="duration">
+        <div class="button-container">
+          <button class="form-button" onClick="uploadSong()" value="Upload Song" name="upload-song">Upload Song</button>
+        </div>
+
+      </form>
+    </div>
+  </div>
+
 </body>
 <script>
   document.getElementById("songToUpload").addEventListener('change', function() {
