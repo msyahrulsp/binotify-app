@@ -1,12 +1,12 @@
 .navbar {
-  padding-top: 5ch;
-  padding-left: 2ch;
-  padding-right: 3ch;
+  padding-top: 3ch;
+  padding-left: 4ch;
+  padding-right: 10ch;
   display: flex;
   flex-direction: column;
-  gap: 10px;
-  width: 15%;
-  height: 100%;
+  gap: 25px;
+  height: 100vh;
+  border-right: 1px solid;
 }
 
 .navbar a {

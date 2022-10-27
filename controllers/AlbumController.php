@@ -48,6 +48,38 @@ class AlbumController {
       echo $sql . "<br>" . $e->getMessage();
     }
   }
+
+  public function getSingleAlbum($albumID) {
+    try {
+      $conn = $this->db->getConnection();
+      $conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+      $sql = "SELECT * FROM album WHERE album_id = :album_id";
+      $stmt = $conn->prepare($sql);
+      $stmt->execute(array(
+        ':album_id' => $albumID
+      ));
+      $album = $stmt->fetch(PDO::FETCH_ASSOC);
+      return $album;
+    } catch (PDOException $e) {
+      echo $sql . "<br>" . $e->getMessage();
+    }
+  }
+
+  public function getAlbumSong($albumID) {
+    try {
+      $conn = $this->db->getConnection();
+      $conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+      $sql = "SELECT * FROM song WHERE album_id = :album_id";
+      $stmt = $conn->prepare($sql);
+      $stmt->execute(array(
+        ':album_id' => $albumID
+      ));
+      $songs = $stmt->fetchAll(PDO::FETCH_ASSOC);
+      return $songs;
+    } catch (PDOException $e) {
+      echo $sql . "<br>" . $e->getMessage();
+    }
+  }
 }
 
 ?>
