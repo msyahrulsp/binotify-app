@@ -19,9 +19,16 @@ function echoNavbar() {
       </nav>
     </a>
     EOT;
+  } else {
+    echo "
+      <script>
+        alert('Silahkan login terlebih dahulu');
+        window.location.href = '/login.php';
+      </script>
+    ";
   }
 
-  if ($isAdmin) {
+  if (!$isAdmin) {
     $html = <<<"EOT"
     <a href="index.php">
       <nav class="nav-logo">
