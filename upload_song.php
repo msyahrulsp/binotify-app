@@ -66,34 +66,34 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
       </div>
       <form id="upload-form" method="post" enctype="multipart/form-data" class="form-wrapper">
         <div class="input-container">
-          <label>Judul:</label>
+          <label>Judul</label>
           <input required type="text" name='judul'>
         </div>
         <div class="input-container">
-          <label>Penyanyi:</label>
+          <label>Penyanyi</label>
           <input required type="text" name='penyanyi'>
         </div>
         <div class="input-container">
-          <label>Tanggal:</label>
+          <label>Tanggal</label>
           <input required type="date" name='tanggal'>
         </div>
         <div class="input-container">
-          <label>Genre:</label>
+          <label>Genre</label>
           <input required type="text" name='genre'>
         </div>
 
         <div class="input-container">
-          <label>File lagu:</label>
+          <label>File lagu</label>
           <input required type="file" name="songToUpload" id="songToUpload" accept="audio/*">
         </div>
         <div class="input-container">
-          <label>File gambar:</label>
+          <label>File gambar</label>
           <input required type="file" name="imageToUpload" id="imageToUpload" accept="image/*">
         </div>
 
 
         <div class="input-container">
-          <label>Album:</label>
+          <label>Album</label>
           <select required name="albumID">
             <option value="1">Album 1</option>
             <option value="2">Album 2</option>
