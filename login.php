@@ -22,7 +22,9 @@
 </head>
 <body>
   <header>
-    <h1>Binotify</h1>
+    <a href="/">
+      <h1>Binotify</h1>
+    </a>
   </header>
   <main class="container">
     <form method="POST" action="" class="form__login" id="login-form">

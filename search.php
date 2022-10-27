@@ -21,7 +21,7 @@
   
   function createPagination($page) {
     $html = <<<"EOT"
-      <p onclick="changePage(this.innerText)" id="page">{$page}</p>
+      <p onclick="changePage(this.innerText)">{$page}</p>
     EOT;
 
     echo $html;
