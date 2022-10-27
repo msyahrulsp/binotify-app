@@ -1,6 +1,5 @@
 <?php
   require '../controllers/MainController.php';
-  session_start();
 
   if (isset($_POST)) {
     $name = $_POST['name'];

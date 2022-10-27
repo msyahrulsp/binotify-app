@@ -1,7 +1,15 @@
 <?php
   require "controllers/MainController.php";
 
-  session_start();
+
+  if (empty($_SESSION)) {
+    echo "
+      <script>
+        alert('Silahkan login terlebih dahulu');
+        window.location.href = '/login.php';
+      </script>
+    ";
+  }
 
   $total_songs = $song->countSongs('', '');
   $total_page = 1;

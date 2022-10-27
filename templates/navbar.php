@@ -1,4 +1,5 @@
 <?php
+
 function echoNavbar() {
   $path = './assets/images/component/';
   $add = $path . 'add.png';
@@ -8,11 +9,10 @@ function echoNavbar() {
   $list = $path . 'list.png';
   $logout = $path . 'logout.png';
   $isAdmin = $_SESSION['isAdmin'] ?? false;
-  $destroySession = session_destroy();
   $logoutButton = null;
   if (!empty($_SESSION)) {
     $logoutButton = <<<"EOT"
-    <a href="login.php" onclick="$destroySession">
+    <a href="api/logout.php">
       <nav class="nav-link">
         <img src=$logout alt="logout" />
         <text>Logout</text>
@@ -21,7 +21,7 @@ function echoNavbar() {
     EOT;
   }
 
-  if (!$isAdmin) {
+  if ($isAdmin) {
     $html = <<<"EOT"
     <a href="index.php">
       <nav class="nav-logo">

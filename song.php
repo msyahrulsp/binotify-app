@@ -3,7 +3,6 @@ require('controllers/MainController.php');
 $songData = $song->getSingleSong($_GET['song_id']);
 
 // FOR AUTENTIKASI ADMIN
-session_start();
 $isAdmin = $_SESSION['isAdmin'] ?? false;
 // $isAdmin = true;
 

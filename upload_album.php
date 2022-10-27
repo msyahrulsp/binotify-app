@@ -1,9 +1,9 @@
 <?php
+  require 'controllers/MainController.php';
   $curDate = date('Y-m-d');
-  session_start();
 
   $isAdmin = $_SESSION['isAdmin'] ?? false;
-  if ($isAdmin) {
+  if (!$isAdmin) {
     echo "
     <script>
       alert('Unauthorized access');
