@@ -32,11 +32,12 @@
         <div class=\"song-container\">
           <div class=\"song-title\">
             <p class=\"order\">$index</p>
-            <p class=\"title\">
+            <div class=\"title\">
               <a href=\"song.php?song_id={$song['song_id']}\">
                 {$song['judul']}
               </a>
-            </p>
+              <p class=\"song-artist\">{$song['penyanyi']}</p>
+            </div>
           </div>
           <p class=\"song-duration\">$dur</p>
         </div>
@@ -58,7 +59,6 @@
                   $minutes $seconds
                 </p>
               </p>
-              
             </div>
           </div>
         </div>

@@ -1,0 +1,92 @@
+*, html {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+.container {
+  display: flex;
+  flex-direction: row;
+}
+
+h1 {
+  font-size: 5ch;
+  margin-top: 0.5ch;
+  margin-bottom: 1ch;
+}
+
+.album-container {
+  display: flex;
+  flex-direction: column;
+  padding-top: 3ch;
+  padding-left: 4ch;
+  padding-bottom: 2ch;
+  padding-right: 8ch;
+  flex: 1;
+  background: linear-gradient(to bottom, #87be8e, rgb(49, 48, 48), #000);
+}
+
+.album-container a {
+  text-decoration: none;
+  color: white;
+}
+
+.album-header {
+  color: white;
+  padding-bottom: 3ch;
+  border-bottom: 1px solid rgba(0, 0, 0, 0.2);
+}
+
+.album-list-container {
+  margin-top: 4ch;
+  display: flex;
+  flex-direction: column;
+  gap: 2ch;
+}
+
+.album-list {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+}
+
+.cover {
+  width: 100px;
+}
+
+.album-title > img {
+  width: 100px;
+  object-fit: contain;
+}
+
+.album-title {
+  display: flex;
+  flex-direction: row;
+  gap: 15ch;
+  align-items: center;
+}
+
+.title {
+  font-size: 2.2ch;
+}
+
+.album-artist {
+  font-size: 1.5ch;
+  margin-top: 0.5ch;
+}
+
+.album-util {
+  display: flex;
+  flex-direction: row;
+  margin-left: auto;
+}
+
+.genre, .date {
+  display: flex;
+  width: 150px;
+  flex-wrap: wrap;
+}
+
+.special {
+  color: #c5c5c5;
+}

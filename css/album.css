@@ -15,7 +15,7 @@ h1 {
   margin-bottom: 1ch;
 }
 
-p > a {
+.title > a {
   text-decoration: none;
   color: white;
 }
@@ -30,7 +30,7 @@ p > a {
   padding-bottom: 2ch;
   padding-right: 8ch;
   flex: 1;
-  background: linear-gradient(to bottom, #87be8e, rgb(49, 48, 48), #000);
+  background: linear-gradient(to bottom, #87be8e, #1a1a1a);
 }
 
 .album-header {
@@ -55,7 +55,7 @@ p > a {
 }
 
 .duration {
-  opacity: 0.5;
+  color: #c5c5c5;
 }
 
 .album-song {
@@ -65,16 +65,16 @@ p > a {
   flex-direction: column;
   gap: 2ch;
   color: white;
-  opacity: 0.8;
 }
 
 .order, .song-duration {
-  opacity: 0.6;
+  color: #c5c5c5;
+  align-self: center;
 }
 
 .special {
   font-weight: 700;
-  opacity: 0.6;
+  color: #c5c5c5;
 }
 
 .song-title {
@@ -85,6 +85,14 @@ p > a {
 .title {
   margin-left: 4ch;
   flex-wrap: wrap;
+  display: flex;
+  flex-direction: column;
+}
+
+.song-artist {
+  font-size: 1.5ch;
+  margin-top: 0.5ch;
+  color: #c5c5c5;
 }
 
 .song-container {
