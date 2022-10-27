@@ -1,6 +1,14 @@
 <?php
 require 'controllers/MainController.php';
-$songData = $song->getSongs();
+
+$isAdmin = true;
+
+if (!$isAdmin) {
+  echo "<script>
+alert('Unauthorized access.');
+window.location.href='/';
+</script>";
+}
 
 if ($_SERVER['REQUEST_METHOD'] == 'POST') {
   $lastSongID = $song->getLastSongID();

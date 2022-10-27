@@ -1,6 +1,6 @@
 <?php
 define("DEFAULT_IMG", "../assets/images/defaultImage.jpg");
-$songData = $song->getSongs();
+$songData = $song->getHomePageSongs();
 
 function echoSongCard($song)
 {

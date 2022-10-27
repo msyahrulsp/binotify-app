@@ -2,7 +2,10 @@
 require('controllers/MainController.php');
 $songData = $song->getSingleSong($_GET['song_id']);
 
+// FOR AUTENTIKASI ADMIN
 $isAdmin = true;
+session_start();
+$isAuthenticated = !empty($_SESSION['user_id']); // 1 when session is defined
 
 $judul = $songData['judul'] ?? null;
 $penyanyi = $songData['penyanyi'] ?? null;
@@ -32,10 +35,10 @@ function echoSongDetail($judul, $penyanyi, $tanggal, $genre, $durasi, $imagePath
             <p>$genre</p>
             <p>$tanggal</p>
           </div>
-          <div class="audio-player">
-            <audio controls>
-              <source src="{$songPath}" type="audio/ogg" />
+          <div id="audio-player-wrapper">
+            <audio id="audio-player" controls source src="{$songPath}" type="audio/ogg">
             </audio>
+            <p id="count-limit"></p>
           </div>
         </div>
       </div>
@@ -53,7 +56,10 @@ function echoSongEdit($judul, $penyanyi, $tanggal, $genre, $durasi, $imagePath, 
         <div class="info">
         <p>Judul</p><input type="text" name="judul" value="$judul">
           <div class="rest-info">
-          <p>Penyanyi</p><input type="text" name="penyanyi" value="$penyanyi">
+          <p>Durasi $durasi</p>
+          <input hidden type="text" name="durasi" value="$durasi">
+          <p>Penyanyi $penyanyi</p>
+          <input hidden type="text" name="penyanyi" value="$penyanyi">
             <p>Genre</p><input type="text" name="genre" value="$genre">
             
             <p>Tanggal</p><input type="date" name="tanggal" value="$tanggal">
@@ -87,6 +93,8 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     $penyanyi = $_POST['penyanyi'];
     $tanggal = $_POST['tanggal'];
     $genre = $_POST['genre'];
+    $durasi = $_POST['durasi'];
+    $penyanyi = $_POST['penyanyi'];
 
     try {
       if ($songFile && $imageFile) {
@@ -109,10 +117,13 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         $imagePath = $_FILES["imageToUpload"]['name'] ? $target_file_image : $imagePath;
       }
 
-      $song->updateSong($judul, $penyanyi, $tanggal, $genre, 10, $target_file_song, $target_file_image, $_GET['song_id'], $albumID);
+      $song->updateSong($judul, $penyanyi, $tanggal, $genre, $durasi, $target_file_song, $target_file_image, $_GET['song_id'], $albumID);
     } catch (PDOException $e) {
       echo $e->getMessage();
     }
+  } elseif (isset($_POST['delete-song'])) {
+    $songData = $song->deleteSong($_GET['song_id']);
+    redirect('/');
   }
 }
 
@@ -146,10 +157,82 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         echo "<a class=\"cancel-btn\" href='./song.php?song_id={$_GET['song_id']}'>Cancel</a>";
       } elseif ($isAdmin && !isset($_POST['edit-song'])) {
         echo '<button class="edit-btn" type="submit" name="edit-song">Edit</button>';
+        echo '<button class="delete-btn" type="submit" name="delete-song">Delete</button>';
       }
       ?>
     </form>
   </div>
 </body>
+<script>
+  function getCookie(cname) {
+    // get cookie based on key
+    let name = cname + "=";
+    let decodedCookie = decodeURIComponent(document.cookie);
+    let ca = decodedCookie.split(';');
+    for (let i = 0; i < ca.length; i++) {
+      let c = ca[i];
+      while (c.charAt(0) == ' ') {
+        c = c.substring(1);
+      }
+      if (c.indexOf(name) == 0) {
+        return c.substring(name.length, c.length);
+      }
+    }
+    return "";
+  }
+
+  function setCookie(cname, cvalue, second) {
+    // set cookie based on name, value, and expire time
+    const d = new Date();
+    d.setTime(d.getTime() + (second * 1000));
+    let expires = "expires=" + d.toUTCString();
+    document.cookie = cname + "=" + cvalue + ";" + expires + ";path=/";
+    console.log('cookie set', cname + "=" + cvalue + ";" + expires + ";path=/")
+  }
+
+  function setCookieEndDay(cname, cvalue, second) {
+    // set cookie based on name, value, and expire time at the end of the day
+    const date = new Date();
+    const midnight = new Date(date.getFullYear(), date.getMonth(), date.getDate(), 23, 59, 59);
+    let expires = "expires=" + midnight.toUTCString();
+    document.cookie = cname + "=" + cvalue + ";" + expires + ";path=/";
+    console.log('cookie set', cname + "=" + cvalue + ";" + expires + ";path=/")
+  }
+
+  let playedSong = [];
+  const isAuthenticated = '<?php echo $isAuthenticated; ?>';
+  // empty string if is not authenticated, '1' if authenticated
+  window.addEventListener("load", function() {
+    console.log('session', isAuthenticated === '')
+    if (!getCookie('playedSong')) {
+      setCookieEndDay('playedSong', JSON.stringify(playedSong), 60);
+    } else {
+      const arrPlayedSong = JSON.parse(getCookie('playedSong'))
+      console.log('current played', arrPlayedSong);
+      if (isAuthenticated !== '1') {
+        if (arrPlayedSong.length > 3) {
+          document.getElementById("audio-player").style.pointerEvents = 'none';
+          document.getElementById('count-limit').innerHTML = 'Kamu telah mendengarkan lagu sebanyak 3 kali. Coba lagi di hari selanjutnya.';
+        }
+      }
+    }
+  })
+  // TODO: prevent from running if editing
+  document.getElementById("audio-player").addEventListener("play", function() {
+    const currentSong = document.getElementById("audio-player").src;
+    let cookie = JSON.parse(getCookie('playedSong'));
+    if (isAuthenticated !== '1') {
+      if (cookie.length > 3) {
+        document.getElementById("audio-player").pause();
+        document.getElementById("audio-player").style.pointerEvents = 'none';
+        document.getElementById('count-limit').innerHTML = 'Kamu telah mendengarkan lagu sebanyak 3 kali. Coba lagi di hari selanjutnya.';
+      }
+    }
+    if (!cookie.includes(currentSong)) {
+      cookie.push(currentSong);
+      setCookieEndDay('playedSong', JSON.stringify(cookie), 60);
+    }
+  })
+</script>
 
 </html>
