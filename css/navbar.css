@@ -1,3 +1,16 @@
+::-webkit-scrollbar {
+  width: 10px;
+}
+
+::-webkit-scrollbar-track {
+  background: rgb(49, 48, 48);
+}
+
+::-webkit-scrollbar-thumb {
+  background: #5a5a5a;
+  border-radius: 15px;
+}
+
 .navbar {
   padding-top: 3ch;
   padding-left: 4ch;
