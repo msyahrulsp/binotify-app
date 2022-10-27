@@ -6,7 +6,7 @@ $songData = $song->getSingleSong($_GET['song_id']);
 $isAdmin = $_SESSION['isAdmin'] ?? false;
 // $isAdmin = true;
 
-$isAuthenticated = !empty($_SESSION['user_id']); // 1 when session is defined
+$isAuthenticated = !empty($_SESSION); // 1 when session is defined
 // $isAuthenticated = 1;
 // echo 'isAdmin'.$isAdmin."<br>";
 // echo 'isAuthenticated'.$isAuthenticated;

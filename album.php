@@ -48,7 +48,7 @@
     $total_time = convertSecToFullTime($total_duration);
     $qty = count($albumSong);
     // TODO: access
-    $editButton = !$isAdmin ? "
+    $editButton = $isAdmin ? "
       <div class='edit-btn'>
         <a href='/edit_album.php?album_id={$_GET['album_id']}'>
           <button class='btn'>

@@ -12,6 +12,7 @@ CREATE TABLE `binotify`.`album` (
   PRIMARY KEY (`album_id`)
 );
 INSERT INTO `binotify`.`album` VALUES (1,'The Best of Me','Westlife',120,'./assets/images/album/1.jpg','2010-01-01','Pop');
+INSERT INTO `binotify`.`album` VALUES (2,'The Worst of Me','Badlife',120,'./assets/images/album/1.jpg','2010-01-01','Pop');
 
 DROP TABLE IF EXISTS `binotify`.`song`;
 CREATE TABLE `binotify`.`song` (
@@ -38,7 +39,12 @@ INSERT INTO `binotify`.`song` VALUES
 (7,'Untuk Perempuan Yang Sedang Di Pelukan', 'Payung Teduh','2000-10-10','sedih','100','./assets/musics/song7.mp3','./assets/images/image7.png',1),
 (8,'Langit Abu-Abu','Tulus', '2000-10-11','sedih','100','./assets/musics/song8.mp3','./assets/images/image8.png',1),
 (9,'Langit Abu-Abu 2','Tulus', '2000-10-11','sedih','100','./assets/musics/song8.mp3','./assets/images/image8.png',1),
-(10,'Langit Abu-Abu 3','Tulus', '2000-10-11','sedih','100','./assets/musics/song8.mp3','./assets/images/image8.png',1);
+(10,'Langit Abu-Abu 3','Tulus', '2000-10-11','sedih','100','./assets/musics/song8.mp3','./assets/images/image8.png',1),
+(11,'Langit Abu-Abu 4','Tulus1', '2000-10-12','sedih','100','./assets/musics/song8.mp3','./assets/images/image8.png',1),
+(12,'Langit Abu-Abu 5','Tulus2', '2000-10-13','sedih','100','./assets/musics/song8.mp3','./assets/images/image8.png',1),
+(13,'Langit Abu-Abu 6','Tulus3', '2000-10-14','sedih','100','./assets/musics/song8.mp3','./assets/images/image8.png',1),
+(14,'Langit Abu-Abu 7','Tulus4', '2000-10-15','sedih','100','./assets/musics/song8.mp3','./assets/images/image8.png',1),
+(15,'Langit Abu-Abu 8','Tulus4', '2000-10-15','sedih','100','./assets/musics/song8.mp3','./assets/images/image8.png',1);
 
 DROP TABLE IF EXISTS `binotify`.`user`;
 CREATE TABLE `binotify`.`user` (
@@ -51,4 +57,4 @@ CREATE TABLE `binotify`.`user` (
   PRIMARY KEY (`user_id`)
 );
 
-INSERT INTO `binotify`.`user` (`user_id`, `email`, `password`, `name`, `username`, `isAdmin`) VALUES (1, 'halo@gmail.com', '$2y$10$KHFOPrd1l6EjwkNJEkyGx.Kn8tTukczRHFHwZK6eco6OsbAvknp9O', 'halo', 'halohalo', 0)
+INSERT INTO `binotify`.`user` (`user_id`, `email`, `password`, `name`, `username`, `isAdmin`) VALUES (1, 'halo@gmail.com', '$2y$10$KHFOPrd1l6EjwkNJEkyGx.Kn8tTukczRHFHwZK6eco6OsbAvknp9O', 'halo', 'halohalo', 0);

@@ -101,7 +101,7 @@
             <th>GENRE</th>
           </tr>
           <?php
-            for ($i = 1; $i <= $total_songs; $i++) {
+            for ($i = 1; $i <= 10; $i++) {
               echoSongCard($songs[$i-1], $i);
             }
           ?>
