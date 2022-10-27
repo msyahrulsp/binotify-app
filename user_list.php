@@ -1,6 +1,5 @@
 <?php
   require "controllers/MainController.php";
-  session_start();
   $user = new UserController($db);
   $user_list = $user->getAll();
   $total_user = $user->countUser();

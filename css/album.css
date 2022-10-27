@@ -119,6 +119,7 @@ h1 {
 
 .btn {
   border-radius: 500px;
+  background: #1ed760;
   font-weight: 700;
   outline: none;
   border: none;
@@ -126,14 +127,7 @@ h1 {
   letter-spacing: 2px;
   color: white;
   padding: 5px 32px;
-}
-
-.primary {
-  background: #1ed760;
-}
-
-.secondary {
-  background: #e91429;
+  width: 15ch;
 }
 
 .btn:hover {

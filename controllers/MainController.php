@@ -1,4 +1,5 @@
 <?php
+session_start();
 define('ROOT_DIR', dirname(__FILE__) . '/../');
 require(ROOT_DIR . 'controllers/DBController.php');
 require(ROOT_DIR . 'controllers/SongController.php');

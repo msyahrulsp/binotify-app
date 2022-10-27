@@ -1,28 +1,5 @@
 <?php
 require('controllers/MainController.php');
-
-// Test Connection
-// $conn = $db->getConnection();
-
-// $sql = 'select * from song';
-// foreach ($conn->query($sql) as $row) {
-//   echo $row['penyanyi'];
-// }
-// SUCCESS
-ob_start();
-session_start();
-
-$logout = null;
-if (!empty($_SESSION)) {
-  // print_r($_SESSION);
-  $logout = '<button type="submit" name="logout">Log out</button>';
-}
-
-if (isset($_POST['logout'])) {
-  session_destroy();
-  redirect('/');
-}
-
 ?>
 
 <!DOCTYPE html>

@@ -1,6 +1,5 @@
 <?php
   require('controllers/MainController.php');
-  session_start();
   $album = new AlbumController($db);
   $albumList = $album->getAllAlbum();
   
