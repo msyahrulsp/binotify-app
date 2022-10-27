@@ -10,11 +10,41 @@
   $image_path = $albumData['image_path'] ?? null;
   $tanggal_terbit = $albumData['tanggal_terbit'] ?? null;
   $genre = $albumData['genre'] ?? null;
+
+  function convertSecToFullTime($duration) {
+    $temp = gmdate("H:i:s", $duration);
+    $temp = explode(':', $temp);
+    $dur = '';
+    if ($temp[0] != '00') {
+      $dur .= ltrim($temp[0], '0') . ' jam ';
+    }
+    if ($temp[1] != '00') {
+      $dur .= ltrim($temp[1], '0') . ' menit ';
+    }
+    if ($temp[2] != '00') {
+      $dur .= ltrim($temp[2], '0'). ' detik';
+    }
+    return $dur;
+  }
+
+  function convertSecToTime($duration) {
+    $temp = gmdate("i:s", $duration);
+    $temp = explode(":", $temp);
+    $dur = '';
+    if ($temp[0] != '00') {
+      $dur .= ltrim($temp[0], '0') . ':';
+    } else {
+      $dur .= '0:';
+    }
+    if ($temp[1] != '00') {
+      $dur .= $temp[1];
+    }
+    return $dur;
+  }
   
   function echoAlbumDetail($judul, $penyanyi, $total_duration, $image_path, $tanggal_terbit, $genre, $albumSong) {
     $isAdmin = $_SESSION['isAdmin'] ?? false;
-    $minutes = floor($total_duration / 60) . " menit";
-    $seconds = $total_duration % 60 == 0 ? null : $total_duration % 60 . " detik";
+    $total_time = convertSecToFullTime($total_duration);
     $qty = count($albumSong);
     $songList = "
       <div class=\"song-container w-border\">
@@ -27,7 +57,7 @@
     ";
     $index = 1;
     foreach ($albumSong as $song) {
-      $dur = floor($song['duration'] / 60) . ":" . $song['duration'] % 60;
+      $dur = convertSecToTime($song['duration']);
       $songList .= "
         <div class=\"song-container\">
           <div class=\"song-title\">
@@ -56,7 +86,7 @@
               <p>$tanggal_terbit · </p>
               <p>$qty,
                 <p class="duration">
-                  $minutes $seconds
+                  $total_time
                 </p>
               </p>
             </div>
