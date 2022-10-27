@@ -3,8 +3,9 @@ require('controllers/MainController.php');
 $songData = $song->getSingleSong($_GET['song_id']);
 
 // FOR AUTENTIKASI ADMIN
-$isAdmin = true;
 session_start();
+$isAdmin = $_SESSION['isAdmin'] ?? false;
+
 $isAuthenticated = !empty($_SESSION['user_id']); // 1 when session is defined
 
 $judul = $songData['judul'] ?? null;

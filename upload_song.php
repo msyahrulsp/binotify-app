@@ -2,7 +2,7 @@
 require 'controllers/MainController.php';
 session_start();
 
-$isAdmin = true;
+$isAdmin = $_SESSION['isAdmin'] ?? false;
 
 if (!$isAdmin) {
   echo "<script>
@@ -26,13 +26,12 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     $tanggal = $_POST['tanggal'];
     $genre = $_POST['genre'];
     $duration = $_POST['duration'];
-    $albumID = $_POST['albumID'];
 
     $movedSong = move_uploaded_file($_FILES["songToUpload"]["tmp_name"], $target_file_song) ?? null;
     $movedImage = move_uploaded_file($_FILES["imageToUpload"]["tmp_name"], $target_file_image) ?? null;
 
     if ($movedSong && $movedImage) {
-      $song->insertSong($judul, $penyanyi, $tanggal, $genre, $duration, $target_file_song, $target_file_image, $albumID);
+      $song->insertSong($judul, $penyanyi, $tanggal, $genre, $duration, $target_file_song, $target_file_image, null);
     }
   }
 }
@@ -90,16 +89,6 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
           <label>File gambar</label>
           <input required type="file" name="imageToUpload" id="imageToUpload" accept="image/*">
         </div>
-
-
-        <div class="input-container">
-          <label>Album</label>
-          <select required name="albumID">
-            <option value="1">Album 1</option>
-            <option value="2">Album 2</option>
-          </select>
-        </div>
-
         <input type="text" hidden name="duration" id="duration">
         <div class="button-container">
           <button class="form-button" onClick="uploadSong()" value="Upload Song" name="upload-song">Upload Song</button>
