@@ -10,6 +10,7 @@
     $response = null;
 
     if ($name == '' || $email == '' || $username == '' || $password == '' || $confirm_password == '') {
+      $response['status'] = 400;
       if ($name == '') {
         $empty_name['message'] = "You need to enter your name.";
         $empty_name['is_empty'] = TRUE;

@@ -107,13 +107,17 @@
           ?>
         </table>
       </section>
-      <section class="pagination" id="pagination">
-        <?php
-          for ($i = 1; $i <= $total_page; $i++) {
-            createPagination($i);
-          }
-        ?>
-      </section>
+      <div class="pagination-container">
+        <span id="prev"><</span>
+        <section class="pagination" id="pagination">
+          <?php
+            for ($i = 1; $i <= $total_page; $i++) {
+              createPagination($i);
+            }
+          ?>
+        </section>
+        <span id="next">></span>
+      </div>
     </section>
   </main>
 
@@ -122,6 +126,7 @@
     const pagination = document.getElementById('pagination');
     const judul = document.getElementById('judul');
     const tanggal_terbit = document.getElementById('tanggal_terbit');
+    const total_page = <?php echo $total_page ?>;
     let genre = '';
     let current_page = 1;
     let sort = {
@@ -175,7 +180,7 @@
             return (
             `<a href="google.com">
               <tr>
-                <td class="rank">${index + 1}</td>
+                <td class="rank">${((page - 1) * 10) + index + 1}</td>
                 <td>
                   <div class="song-profile">
                     <img src="${el.image_path}" width="50" height="50" />
@@ -221,7 +226,7 @@
             return (
             `<a href="google.com">
               <tr>
-                <td class="rank">${index + 1}</td>
+                <td class="rank">${((page - 1) * 10) + index + 1}</td>
                 <td>
                   <div class="song-profile">
                     <img src="${el.image_path}" width="50" height="50" />
@@ -254,6 +259,17 @@
       xhttp.open("GET",`api/pagination.php?keyword=${keyword}&genre=${genre}&page=${page}&limit=10&sort=${sort.type}&order_type=${getOrderType(sort.type === 'judul' ? sort.judul_asc : sort.tanggal_asc)}`, true);
       xhttp.send();
     }
+
+    document.getElementById('prev').addEventListener('click', function() {
+      if (current_page > 1) {
+        changePage(current_page - 1);
+      }
+    })
+    document.getElementById('next').addEventListener('click', function() {
+      if (current_page < parseInt(total_page)) {
+        changePage(current_page + 1);
+      }
+    })
 
   </script>
 </body>
