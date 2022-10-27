@@ -159,4 +159,39 @@ class SongController
       echo $sql . "<br>" . $e->getMessage();
     }
   }
+
+  public function getValidSong($penyanyi) {
+    try {
+      $this->db->con->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+      $sql = "SELECT * FROM song WHERE album_id IS NULL AND LOWER(penyanyi) = LOWER('{$penyanyi}')";
+      $stmt = $this->db->con->prepare($sql);
+      $stmt->execute();
+      $songs = $stmt->fetchAll(PDO::FETCH_ASSOC);
+      return $songs;
+    } catch (PDOException $e) {
+      echo $sql . "<br>" . $e->getMessage();
+    }
+  }
+
+  public function addSongToAlbum($song_id, $album_id) {
+    try {
+      $this->db->con->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+      $sql = "UPDATE song SET album_id={$album_id} WHERE song_id = {$song_id}";
+      $stmt = $this->db->con->prepare($sql);
+      $stmt->execute();
+    } catch (PDOException $e) {
+      echo $sql . "<br>" . $e->getMessage();
+    }
+  }
+
+  public function removeSongFromAlbum($song_id) {
+    try {
+      $this->db->con->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+      $sql = "UPDATE song SET album_id=NULL WHERE song_id={$song_id}";
+      $stmt = $this->db->con->prepare($sql);
+      $stmt->execute();
+    } catch (PDOException $e) {
+      echo $sql . "<br>" . $e->getMessage();
+    }
+  }
 }
