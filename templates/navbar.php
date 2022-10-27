@@ -9,13 +9,22 @@ function echoNavbar() {
   $list = $path . 'list.png';
   $logout = $path . 'logout.png';
   $isAdmin = $_SESSION['isAdmin'] ?? false;
-  $logoutButton = null;
+  $authenticateButton = null;
   if (!empty($_SESSION)) {
-    $logoutButton = <<<"EOT"
+    $authenticateButton = <<<"EOT"
     <a href="api/logout.php">
       <nav class="nav-link">
         <img src=$logout alt="logout" />
         <text>Logout</text>
+      </nav>
+    </a>
+    EOT;
+  } else {
+    $authenticateButton = <<<"EOT"
+    <a href="login.php">
+      <nav class="nav-link">
+        <img src=$logout alt="login" />
+        <text>Login</text>
       </nav>
     </a>
     EOT;
@@ -28,6 +37,12 @@ function echoNavbar() {
         <img src=$logo alt="logo" />
         <text class="logo-text">Binotify</text>
       </nav>
+    </a>
+    <a href="search.php">
+    <nav class="nav-link">
+      <img src=$search alt="search" />
+      <text>Search</text>
+    </nav>
     </a>
     <a href="upload_song.php">
       <nav class="nav-link">
@@ -53,7 +68,7 @@ function echoNavbar() {
         <text>User List</text>
       </nav>
     </a>
-    $logoutButton
+    $authenticateButton
     EOT;
   } else {
     $html = <<<"EOT"
@@ -75,7 +90,7 @@ function echoNavbar() {
           <text>Daftar Album</text>
         </nav>
       </a>
-      $logoutButton
+      $authenticateButton
     EOT;
   }
   echo $html;
