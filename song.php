@@ -55,6 +55,8 @@ function echoSongDetail($judul, $penyanyi, $tanggal, $genre, $durasi, $imagePath
 
 function echoSongEdit($judul, $penyanyi, $tanggal, $genre, $durasi, $imagePath, $songPath)
 {
+  $durasiMenit = floor(($durasi / 60) % 60);
+  $durasiDetik = $durasi % 60;
   $html = <<<"EOT"
   <div class="divider"> 
         <div class="image">
@@ -63,8 +65,8 @@ function echoSongEdit($judul, $penyanyi, $tanggal, $genre, $durasi, $imagePath, 
         <div class="info">
         <p>Judul</p><input type="text" name="judul" value="$judul">
           <div class="rest-info">
-          <p>Durasi $durasi</p>
-          <input hidden type="text" name="durasi" value="$durasi">
+          <p>Durasi $durasiMenit menit $durasiDetik detik</p>
+          <input id="duration" hidden type="text" name="durasi" value="$durasi">
           <p>Penyanyi $penyanyi</p>
           <input hidden type="text" name="penyanyi" value="$penyanyi">
             <p>Genre</p><input type="text" name="genre" value="$genre">
@@ -220,6 +222,16 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
   let playedSong = [];
   const isAuthenticated = '<?php echo $isAuthenticated; ?>';
   // empty string if is not authenticated, '1' if authenticated
+
+  let isEditing = <?php 
+  
+  if (isset($_POST['edit-song']) || isset($_POST['save-edit-song'])) {
+    echo 1;
+  } else {
+    echo 0;
+  }
+  ?>;
+
   window.addEventListener("load", function() {
     console.log('session', isAuthenticated === '')
     if (!getCookie('playedSong')) {
@@ -227,7 +239,8 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     } else {
       const arrPlayedSong = JSON.parse(getCookie('playedSong'))
       console.log('current played', arrPlayedSong);
-      if (isAuthenticated !== '1') {
+      
+      if (isAuthenticated !== '1' && !isEditing) {
         if (arrPlayedSong.length > 3) {
           document.getElementById("audio-player").style.pointerEvents = 'none';
           document.getElementById('count-limit').innerHTML = 'Kamu telah mendengarkan lagu sebanyak 3 kali. Coba lagi di hari selanjutnya.';
@@ -235,22 +248,48 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
       }
     }
   })
-  // TODO: prevent from running if editing
-  document.getElementById("audio-player").addEventListener("play", function() {
+
+  if (!isEditing) {
+    document.getElementById("audio-player").addEventListener("play", function() {
     const currentSong = document.getElementById("audio-player").src;
     let cookie = JSON.parse(getCookie('playedSong'));
-    if (isAuthenticated !== '1') {
+    if (isAuthenticated !== '1' && !isEditing) {
       if (cookie.length > 3) {
         document.getElementById("audio-player").pause();
         document.getElementById("audio-player").style.pointerEvents = 'none';
         document.getElementById('count-limit').innerHTML = 'Kamu telah mendengarkan lagu sebanyak 3 kali. Coba lagi di hari selanjutnya.';
       }
     }
+
     if (!cookie.includes(currentSong)) {
       cookie.push(currentSong);
       setCookieEndDay('playedSong', JSON.stringify(cookie), 60);
     }
+
+    
   })
+  }
+  
+  if (isEditing) {
+    document.getElementById("songToUpload").addEventListener('change', function() {
+    const file = this.files[0];
+    console.log('path', file)
+    const reader = new FileReader();
+    reader.onload = function(event) {
+      const audioContext = new(window.AudioContext || window.webkitAudioContext)();
+      audioContext.decodeAudioData(event.target.result, function(buffer) {
+        const duration = buffer.duration;
+        document.getElementById("duration").value = parseInt(duration)
+      })
+    }
+    reader.onerror = function(event) {
+      console.error("Error saat membaca file.", event);
+    };
+
+    reader.readAsArrayBuffer(file);
+  });
+  }
+  
 </script>
 
 </html>
