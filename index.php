@@ -14,7 +14,7 @@ session_start();
 
 $logout = null;
 if (!empty($_SESSION)) {
-  print_r($_SESSION);
+  // print_r($_SESSION);
   $logout = '<button type="submit" name="logout">Log out</button>';
 }
 

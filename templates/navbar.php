@@ -19,6 +19,13 @@ function echoNavbar() {
       </nav>
     </a>
     EOT;
+  } else {
+    echo "
+      <script>
+        alert('Silahkan login terlebih dahulu');
+        window.location.href = '/login.php';
+      </script>
+    ";
   }
 
   if (!$isAdmin) {
@@ -47,10 +54,10 @@ function echoNavbar() {
         <text>Daftar Album</text>
       </nav>
     </a>
-    <a href="daftar_user.php">
+    <a href="user_list.php">
       <nav class="nav-link">
         <img src=$list alt="list" />
-        <text>Daftar User</text>
+        <text>User List</text>
       </nav>
     </a>
     $logoutButton
