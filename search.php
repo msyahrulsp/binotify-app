@@ -17,7 +17,7 @@
     echo $html;
   }
 
-  function echoSongCard($song)
+  function echoSongCard($song, $index)
   {
     $song_id = $song['song_id'];
     $judul = $song['judul'];
@@ -29,9 +29,8 @@
     $imagePath = $song['image_path'] ?? DEFAULT_IMG; // nullable
     $album = $song['album_id'];       // nullable
     $html = <<<"EOT"
-        <a href="google.com">
           <tr>
-            <td class="rank">1</td>
+            <td class="rank">$index</td>
             <td>
               <div class="song-profile">
                 <img src="$imagePath" width="50" height="50" />
@@ -43,7 +42,7 @@
             </td>
             <td>{$tanggal}</td>
             <td>{$genre}</td>
-          </tr></a>
+          </tr>
     EOT;
 
     echo $html;
@@ -56,18 +55,17 @@
   <meta charset="UTF-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" type="text/css" href="css/search.css">
   <title>Document</title>
 </head>
 <body>
-  <main>
-    <div>
-      <p>Filter:</p>
-      <p id="judul">Judul</p>
-      <p id="tanggal_terbit">Tahun Terbit</p>
-    </div>
-    <input type="text" placeholder="What do you want to listen to?" name="search" id="search" onkeyup="debounceInput(this.value)" />
-    <select name="genre" id="genre" onchange="onSelectGenre(this.value)">
-      <option value="" selected>Select Genre</option>
+  <main class="container">
+    <header>
+      <h2>Search</h2>
+    </header>
+    <input type="text" placeholder="What do you want to listen to?" name="search" id="search" onkeyup="debounceInput(this.value)" class="input__search" />
+    <select name="genre" id="genre" class="select-genre" onchange="onSelectGenre(this.value)">
+      <option value="" selected>All Genre</option>
       <option value="Pop">Pop</option>
       <option value="Rock">Rock</option>
       <option value="Blues">Blues</option>
@@ -75,12 +73,20 @@
       <option value="Classic">Classic</option>
       <option value="Sedih">Sedih</option>
     </select>
-    <section class="song-list" id="song-list">
-      <?php
-        foreach ($songs as $row) {
-            echoSongCard($row);
-        }
-      ?>
+    <section class="song-list">
+      <table id="song-list">
+        <tr>
+          <th class="rank">No.</th>
+          <th class="sort" onclick="sortOrder('judul')">TITLE</th>
+          <th class="sort" onclick="sortOrder('tanggal_terbit')">DATE ADDED</th>
+          <th>GENRE</th>
+        </tr>
+        <?php
+          for ($i = 1; $i <= $total_songs; $i++) {
+            echoSongCard($songs[$i-1], $i);
+          }
+        ?>
+      </table>
     </section>
     <section class="pagination" id="pagination">
       <?php
@@ -113,19 +119,17 @@
       }
     }
 
-    judul.addEventListener('click', function() {
-      sort.type = 'judul';
-      sort.judul_asc = !sort.judul_asc;
-      sort.tanggal_asc = false;
+    function sortOrder(type) {
+      sort.type = type;
+      if (type === 'judul') {
+        sort.judul_asc = !sort.judul_asc;
+        sort.tanggal_asc = false;
+      } else {
+        sort.tanggal_asc = !sort.tanggal_asc;
+        sort.judul_asc = false;
+      }
       changePage(current_page);
-    })
-
-    tanggal_terbit.addEventListener('click', function() {
-      sort.type = 'tanggal_terbit';
-      sort.tanggal_asc = !sort.tanggal_asc;
-      sort.judul_asc = false;
-      changePage(current_page);
-    })
+    }
 
     function onSelectGenre(genreValue) {
       genre = genreValue;
@@ -167,6 +171,12 @@
             </a>`
             )
           })
+          result.unshift(`<tr>
+          <th class="rank">No.</th>
+          <th class="sort" onclick="sortOrder('judul')">TITLE</th>
+          <th class="sort" onclick="sortOrder('tanggal_terbit')">DATE ADDED</th>
+          <th>GENRE</th>
+          </tr>`)
           const pages = []
           for (let page = 1; page <= response.total_page; page++) {
             pages.push(`<p onclick="changePage(this.innerText)">${page}</p>`);
@@ -207,6 +217,12 @@
             </a>`
             )
           })
+          result.unshift(`<tr>
+          <th class="rank">No.</th>
+          <th class="sort" onclick="sortOrder('judul')">TITLE</th>
+          <th class="sort" onclick="sortOrder('tanggal_terbit')">DATE ADDED</th>
+          <th>GENRE</th>
+          </tr>`)
           const pages = []
           for (let page = 1; page <= response.total_page; page++) {
             pages.push(`<p onclick="changePage(this.innerText)">${page}</p>`);
