@@ -4,12 +4,18 @@
   --tertiary: darkgreen;
 }
 
-* {
-  background-color: var(--primary);
-  color: white;
+.container {
+  display: flex;
+  flex-direction: row;
 }
 
-.container {
+body {
+  background-color: var(--primary);
+  margin:0;
+  padding:0;
+}
+
+.container-song {
   display: flex;
   flex-direction: row;
   align-items: center;
@@ -17,6 +23,7 @@
   height: 100vh;
   padding: 0;
   margin: 0;
+  width:100%;
 }
 
 .divider {
@@ -174,7 +181,8 @@ p {
   }
 
   form {
-    max-width: 80%;
+    max-width: 100%;
+    color:white;
   }
 }
 

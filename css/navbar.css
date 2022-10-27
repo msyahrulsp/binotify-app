@@ -9,6 +9,7 @@
   border-right: 1px solid;
   background: #000;
   min-width:16rem;
+  max-width:16rem;
 }
 
 .navbar a {
