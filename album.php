@@ -50,15 +50,12 @@
     $qty = count($albumSong);
     // TODO: access
     $editButton = !$isAdmin ? "
-      <div class='button-container'>
-        <div class='edit-btn'>
-          <button class='btn primary'>
-            <a href='/edit_album.php?album_id={$_GET['album_id']}'>Edit</a>
+      <div class='edit-btn'>
+        <a href='/edit_album.php?album_id={$_GET['album_id']}'>
+          <button class='btn'>
+            Edit
           </button>
-          <button class='btn secondary' onClick='deleteAlbum({$_GET['album_id']})'>
-            Hapus Album
-          </button>
-        </div>
+        </a>
       </div>
     " : null;
     $songList = "
@@ -138,27 +135,5 @@
       echoAlbumDetail($judul, $penyanyi, $total_duration, $image_path, $tanggal_terbit, $genre, $albumSong);
     ?>
   </div>
-  <script>
-    function deleteAlbum(album_id) {
-      const formData = new FormData();
-      formData.append('album_id', album_id);
-      const xhttp = new XMLHttpRequest();
-      xhttp.onreadystatechange = function() {
-        if (this.readyState == 4 && this.status == 200) {
-          const res = this.responseText.includes("<br>") ? 
-            this.responseText.split("<br>")[1] : this.responseText;
-          const response = JSON.parse(res);
-          if (response.status == 200) {
-            alert(response.message);
-            window.location.href = '/album_list.php';
-          } else {
-            alert(response.message);
-          }
-        }
-      };
-      xhttp.open("DELETE", `/api/delete_album.php?album_id=${album_id}`, true);
-      xhttp.send(formData);
-    }
-  </script>
 </body>
 </html>

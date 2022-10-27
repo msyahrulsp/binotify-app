@@ -48,14 +48,7 @@
         </div>
         <div class="input-container">
           <label>Genre</label>
-          <select name="genre" class="select-genre">
-            <option value="Pop">Pop</option>
-            <option value="Rock">Rock</option>
-            <option value="Blues">Blues</option>
-            <option value="Electronic">Electronic</option>
-            <option value="Classic">Classic</option>
-            <option value="Sedih">Sedih</option>
-          </select>
+          <input type="text" placeholder="Pop" name="genre" />
         </div>
         <div class="input-container">
           <label>Tanggal Terbit</label>
