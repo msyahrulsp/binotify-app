@@ -10,14 +10,14 @@
 
     $judul = $_POST['judul'] ?? null;
     $penyanyi = $_POST['penyanyi'] ?? null;
-    $tanggal_terbit = $_POST['tanggal_terbit'];
+    $tanggal_terbit = $_POST['tanggal_terbit'] ?? null;
     $total_duration = 0;
-    $genre = $_POST['genre'];
+    $genre = $_POST['genre'] ?? null;
     $res = null;
     $ext = array("jpg", "jpeg", "png");
 
     if (isset($_POST)) {
-      if (!$judul || !$penyanyi) {
+      if (!$judul || !$penyanyi || !$tanggal_terbit || !$genre) {
         $res['status'] = 400;
         $res['message'] = 'Lengkapi semua field';
         echo json_encode($res);
