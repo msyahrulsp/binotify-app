@@ -1,30 +1,13 @@
 <?php
-  require 'controllers/MainController.php';
+  $curDate = date('Y-m-d');
 
-  if ($_SERVER['REQUEST_METHOD'] == 'POST') {
-    $album = new AlbumController($db);
-
-    $lastAlbumId = $album->getLastAlbumID();
-    $target_dir_image = "./assets/images/album/";
-    $target_file_image = $target_dir_image  . $lastAlbumId+1 . '.' . pathinfo($_FILES['imageToUpload']['name'], PATHINFO_EXTENSION);
-
-    $judul = $_POST['judul'];
-    $penyanyi = $_POST['penyanyi'];
-    $tanggal_terbit = date('Y-m-d');
-    $total_duration = 0;
-    $genre = $_POST['genre'];
-
-    if (isset($_POST['upload-album'])) {
-      $movedImage = move_uploaded_file($_FILES['imageToUpload']['tmp_name'], $target_file_image) ?? null;
-
-      try {
-        if ($movedImage) {
-          $album->insertAlbum($judul, $penyanyi, $total_duration, $target_file_image, $tanggal_terbit, $genre);
-        }
-      } catch (PDOException $e) {
-        echo $e->getMessage();
-      }
-    }
+  $isAdmin = $_SESSION['isAdmin'] ?? false;
+  if ($isAdmin) {
+    echo "
+    <script>
+      alert('Unauthorized access');
+      window.location.href='/';
+    </script>";
   }
 ?>
 
@@ -51,7 +34,7 @@
       <div class="form-header">
         <h1>Tambah Album</h1>
       </div>
-      <form method="POST" id="form-upload" enctype="multipart/form-data" class="form-wrapper">
+      <form method="POST" id="form-upload" action="" class="form-wrapper">
         <div id="error-container">
         </div>
         <div class="input-container">
@@ -74,14 +57,45 @@
           </select>
         </div>
         <div class="input-container">
+          <label>Tanggal Terbit</label>
+          <input type="date" name="tanggal_terbit" value=<?php echo $curDate ?> />
+        </div>
+        <div class="input-container">
           <label>Image</label>
-          <input type="file" accept="image/*" placeholder="Yoasobi" id="imageToUpload" name="imageToUpload" />
+          <input type="file" accept="image/*" id="imageToUpload" name="imageToUpload" />
         </div>
         <div class="button-container">
-          <input type="submit" value="Upload Album" name="upload-album">
+          <button class="form-button" type="submit" name="upload-album">Upload Album</button>
         </div>
       </form>
     </div>
   </div>
+  <script>
+    document.getElementById("form-upload").addEventListener("submit", function(e) {
+      e.preventDefault();
+      const formData = new FormData(document.getElementById("form-upload"));
+      const xhttp = new XMLHttpRequest();
+      xhttp.onreadystatechange = function() {
+        if (this.readyState === 4 && this.status === 200) {
+          const res = this.responseText.includes("<br>") ? 
+            this.responseText.split("<br>")[1] : this.responseText;
+          const response = JSON.parse(res);
+          if (response.status === 200) {
+            alert(response.message);
+            document.getElementById("form-upload").reset();
+            window.location.href = "/album_list.php";
+          } else {
+            document.getElementById("error-container").innerHTML = `
+              <div class="error-message">
+                <p>${response.message}</p>
+              </div>
+            `;
+          }
+        }
+      };
+      xhttp.open("POST", "api/upload_album.php", true);
+      xhttp.send(formData);
+    })
+  </script>
 </body>
 </html>
