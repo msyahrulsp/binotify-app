@@ -96,7 +96,7 @@
   cursor: pointer;
 }
 
-/* .error-message {
+.error-message {
   background: #e91429;
   width: 100%;
   padding: 2px 0;
@@ -108,4 +108,4 @@
   padding-bottom: 1ch;
   align-self: center;
   border-radius: 500px;
-} */
+}

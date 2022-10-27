@@ -3,6 +3,7 @@ require 'controllers/MainController.php';
 session_start();
 
 $isAdmin = $_SESSION['isAdmin'] ?? false;
+// $isAdmin = true;
 
 if (!$isAdmin) {
   echo "<script>
@@ -11,30 +12,7 @@ window.location.href='/';
 </script>";
 }
 
-if ($_SERVER['REQUEST_METHOD'] == 'POST') {
-  if (isset($_POST["upload-song"])) {
-    $lastSongID = $song->getLastSongID();
 
-    $target_dir_song = "./assets/musics/";
-    $target_dir_image = "./assets/images/";
-    $target_file_song = $target_dir_song . 'song' . $lastSongID . '.' . pathinfo($_FILES["songToUpload"]["name"], PATHINFO_EXTENSION);
-    $target_file_image = $target_dir_image . 'image' . $lastSongID . '.' . pathinfo($_FILES["imageToUpload"]["name"], PATHINFO_EXTENSION);
-  
-    // payload
-    $judul = $_POST['judul'];
-    $penyanyi = $_POST['penyanyi'];
-    $tanggal = $_POST['tanggal'];
-    $genre = $_POST['genre'];
-    $duration = $_POST['duration'];
-
-    $movedSong = move_uploaded_file($_FILES["songToUpload"]["tmp_name"], $target_file_song) ?? null;
-    $movedImage = move_uploaded_file($_FILES["imageToUpload"]["tmp_name"], $target_file_image) ?? null;
-
-    if ($movedSong && $movedImage) {
-      $song->insertSong($judul, $penyanyi, $tanggal, $genre, $duration, $target_file_song, $target_file_image, null);
-    }
-  }
-}
 ?>
 
 <!DOCTYPE html>
@@ -63,37 +41,38 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
       <div class="form-header">
         <h1>Tambah Lagu</h1>
       </div>
-      <form id="upload-form" method="post" enctype="multipart/form-data" class="form-wrapper">
+      <form id="upload-form" method="POST" enctype="multipart/form-data" class="form-wrapper" action="">
         <div class="input-container">
           <label>Judul</label>
-          <input required type="text" name='judul'>
+          <input type="text" name='judul'>
         </div>
         <div class="input-container">
           <label>Penyanyi</label>
-          <input required type="text" name='penyanyi'>
+          <input type="text" name='penyanyi'>
         </div>
         <div class="input-container">
           <label>Tanggal</label>
-          <input required type="date" name='tanggal'>
+          <input type="date" name='tanggal'>
         </div>
         <div class="input-container">
           <label>Genre</label>
-          <input required type="text" name='genre'>
+          <input type="text" name='genre'>
         </div>
 
         <div class="input-container">
           <label>File lagu</label>
-          <input required type="file" name="songToUpload" id="songToUpload" accept="audio/*">
+          <input type="file" name="songToUpload" id="songToUpload" accept="audio/*">
         </div>
         <div class="input-container">
           <label>File gambar</label>
-          <input required type="file" name="imageToUpload" id="imageToUpload" accept="image/*">
+          <input type="file" name="imageToUpload" id="imageToUpload" accept="image/*">
         </div>
         <input type="text" hidden name="duration" id="duration">
         <div class="button-container">
-          <button class="form-button" onClick="uploadSong()" value="Upload Song" name="upload-song">Upload Song</button>
+          <button type="submit" class="form-button" value="Upload Song" name="upload-song">Upload Song</button>
         </div>
-
+        <div id="error-container">
+      </div>
       </form>
     </div>
   </div>
@@ -117,6 +96,40 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 
     reader.readAsArrayBuffer(file);
   });
+
+  document.getElementById("upload-form").addEventListener("submit", function(e) {
+    e.preventDefault();
+    const formData = new FormData(document.getElementById("upload-form"));
+    const xhttp = new XMLHttpRequest();
+    xhttp.onreadystatechange = function() {
+      if (this.readyState === 4 && this.status === 200) {
+        console.log('res', this.responseText)
+        const res = this.responseText.includes("<br>") ?
+          this.responseText.split("<br>")[1] : this.responseText;
+        const response = JSON.parse(res);
+
+        if (response.status === 200) {
+          alert(response.message);
+          document.getElementById("upload-form").reset();
+        } else {
+          let errorElmt = document.getElementById("error-container");
+          if (errorElmt.style.visibility === 'hidden') {
+            errorElmt.style.visibility = 'visible';
+          }
+          errorElmt.innerHTML = `
+              <div class="error-message">
+                <p>${response.message}</p>
+              </div>
+            `;
+          setTimeout(function() {
+            errorElmt.style.visibility = 'hidden';
+          }, 3000)
+        }
+      }
+    };
+    xhttp.open("POST", "api/upload_song.php", true);
+    xhttp.send(formData);
+  })
 </script>
 
 </html>
