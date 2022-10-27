@@ -24,13 +24,14 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
   $tanggal = $_POST['tanggal'];
   $genre = $_POST['genre'];
   $duration = $_POST['duration'];
+  $albumID = $_POST['albumID'];
 
   if (isset($_POST["upload-song"])) {
     $movedSong = move_uploaded_file($_FILES["songToUpload"]["tmp_name"], $target_file_song) ?? null;
     $movedImage = move_uploaded_file($_FILES["imageToUpload"]["tmp_name"], $target_file_image) ?? null;
 
     if ($movedSong && $movedImage) {
-      $song->insertSong($judul, $penyanyi, $tanggal, $genre, $duration, $target_file_song, $target_file_image);
+      $song->insertSong($judul, $penyanyi, $tanggal, $genre, $duration, $target_file_song, $target_file_image, $albumID);
     }
   }
 }
@@ -65,34 +66,37 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
       <form id="upload-form" method="post" enctype="multipart/form-data" class="form-wrapper">
         <div class="input-container">
           <label>Judul:</label>
-          <input type="text" name='judul'>
+          <input required type="text" name='judul'>
         </div>
         <div class="input-container">
           <label>Penyanyi:</label>
-          <input type="text" name='penyanyi'>
+          <input required type="text" name='penyanyi'>
         </div>
         <div class="input-container">
           <label>Tanggal:</label>
-          <input type="date" name='tanggal'>
+          <input required type="date" name='tanggal'>
         </div>
         <div class="input-container">
           <label>Genre:</label>
-          <input type="text" name='genre'>
+          <input required type="text" name='genre'>
         </div>
 
         <div class="input-container">
           <label>File lagu:</label>
-          <input type="file" name="songToUpload" id="songToUpload" accept="audio/*">
+          <input required type="file" name="songToUpload" id="songToUpload" accept="audio/*">
         </div>
         <div class="input-container">
           <label>File gambar:</label>
-          <input type="file" name="imageToUpload" id="imageToUpload" accept="image/*">
+          <input required type="file" name="imageToUpload" id="imageToUpload" accept="image/*">
         </div>
 
 
         <div class="input-container">
           <label>Album:</label>
-          <label>TBD s input selection for available album</label>
+          <select required name="albumID">
+            <option value="1">Album 1</option>
+            <option value="2">Album 2</option>
+          </select>
         </div>
 
         <input type="text" hidden name="duration" id="duration">

@@ -34,13 +34,12 @@ class SongController
       echo 'db not set';
     }
   }
-  public function insertSong($judul, $penyanyi, $tanggal, $genre, $durasi, $audio_path, $image_path)
-  // fix album id
+  public function insertSong($judul, $penyanyi, $tanggal, $genre, $durasi, $audio_path, $image_path, $albumID)
   {
     $this->db->con->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
     $sql = "INSERT INTO song (judul, penyanyi, tanggal_terbit, genre, duration, audio_path, image_path, album_id)
-      VALUES (:judul, :penyanyi, :tanggal, :genre, :duration, :audio_path, :image_path, 1);
-      UPDATE album SET total_duration=total_duration+:duration WHERE album_id=1";
+      VALUES (:judul, :penyanyi, :tanggal, :genre, :duration, :audio_path, :image_path, :albumID);
+      UPDATE album SET total_duration=total_duration+:duration WHERE album_id=:albumID";
     $this->db->con->prepare($sql)->execute(array(
       ':judul' => $judul,
       ':penyanyi' => $penyanyi,
@@ -48,7 +47,8 @@ class SongController
       ':genre' => $genre,
       ':duration' => $durasi,
       ':audio_path' => $audio_path,
-      ':image_path' => $image_path
+      ':image_path' => $image_path,
+      ':albumID' => $albumID
     ));
     echo "New record created successfully<br>";
   }
