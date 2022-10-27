@@ -5,8 +5,12 @@ $songData = $song->getSingleSong($_GET['song_id']);
 // FOR AUTENTIKASI ADMIN
 session_start();
 $isAdmin = $_SESSION['isAdmin'] ?? false;
+// $isAdmin = true;
 
 $isAuthenticated = !empty($_SESSION['user_id']); // 1 when session is defined
+// $isAuthenticated = 1;
+// echo 'isAdmin'.$isAdmin."<br>";
+// echo 'isAuthenticated'.$isAuthenticated;
 
 $judul = $songData['judul'] ?? null;
 $penyanyi = $songData['penyanyi'] ?? null;
@@ -22,7 +26,8 @@ function echoSongDetail($judul, $penyanyi, $tanggal, $genre, $durasi, $imagePath
 {
   $durasiMenit = floor(($durasi / 60) % 60);
   $durasiDetik = $durasi % 60;
-
+  $time = strtotime($tanggal);
+  $newDate = date('d-m-Y',$time);
   $html = <<<"EOT"
   <div class="divider"> 
         <div class="image">
@@ -34,7 +39,7 @@ function echoSongDetail($judul, $penyanyi, $tanggal, $genre, $durasi, $imagePath
             <p>$penyanyi</p>
             <p>$durasiMenit menit $durasiDetik detik</p>
             <p>$genre</p>
-            <p>$tanggal</p>
+            <p>$newDate</p>
           </div>
           <div id="audio-player-wrapper">
             <audio id="audio-player" controls source src="{$songPath}" type="audio/ogg">
@@ -119,6 +124,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
       }
 
       $song->updateSong($judul, $penyanyi, $tanggal, $genre, $durasi, $target_file_song, $target_file_image, $_GET['song_id'], $albumID);
+      echo "<script type='text/javascript'>alert('Lagu berhasil diubah.');</script>";
     } catch (PDOException $e) {
       echo $e->getMessage();
     }
