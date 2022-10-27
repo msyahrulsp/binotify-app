@@ -7,11 +7,12 @@
   gap: 25px;
   height: 100vh;
   border-right: 1px solid;
+  background: #000;
 }
 
 .navbar a {
   text-decoration: none;
-  color: black;
+  color: white;
   width: fit-content;
 }
 
@@ -28,6 +29,7 @@
   height: 24px;
   object-fit: contain;
   opacity: 0.6;
+  filter: invert(1);
 }
 
 .nav-link > text {
@@ -62,5 +64,6 @@
 
 .logo-text {
   font-weight: 800;
-  font-size: xx-large;
+  font-size: x-large;
+  align-self: center;
 }

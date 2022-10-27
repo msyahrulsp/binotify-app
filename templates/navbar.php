@@ -16,19 +16,19 @@ function echoNavbar() {
         <text class="logo-text">Binotify</text>
       </nav>
     </a>
-    <a href="index.php">
+    <a href="upload_song.php">
       <nav class="nav-link">
         <img src=$add alt="home" />
         <text>Tambah Lagu</text>
       </nav>
     </a>
-    <a href="index.php">
+    <a href="upload_album.php">
       <nav class="nav-link">
         <img src=$add alt="list" />
         <text>Tambah Album</text>
       </nav>
     </a>
-    <a href="index.php">
+    <a href="album_list.php">
       <nav class="nav-link">
         <img src=$list alt="list" />
         <text>Daftar Album</text>
@@ -49,13 +49,13 @@ function echoNavbar() {
           <text class="logo-text">Binotify</text>
         </nav>
       </a>
-      <a href="index.php">
+      <a href="search.php">
         <nav class="nav-link">
           <img src=$search alt="search" />
           <text>Search</text>
         </nav>
       </a>
-      <a href="index.php">
+      <a href="album_list.php">
         <nav class="nav-link">
           <img src=$list alt="list" />
           <text>Daftar Album</text>
