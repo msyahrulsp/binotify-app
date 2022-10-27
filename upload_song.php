@@ -11,22 +11,22 @@ window.location.href='/';
 }
 
 if ($_SERVER['REQUEST_METHOD'] == 'POST') {
-  $lastSongID = $song->getLastSongID();
-
-  $target_dir_song = "./assets/musics/";
-  $target_dir_image = "./assets/images/";
-  $target_file_song = $target_dir_song . 'song' . $lastSongID . '.' . pathinfo($_FILES["songToUpload"]["name"], PATHINFO_EXTENSION);
-  $target_file_image = $target_dir_image . 'image' . $lastSongID . '.' . pathinfo($_FILES["imageToUpload"]["name"], PATHINFO_EXTENSION);
-
-  // payload
-  $judul = $_POST['judul'];
-  $penyanyi = $_POST['penyanyi'];
-  $tanggal = $_POST['tanggal'];
-  $genre = $_POST['genre'];
-  $duration = $_POST['duration'];
-  $albumID = $_POST['albumID'];
-
   if (isset($_POST["upload-song"])) {
+    $lastSongID = $song->getLastSongID();
+
+    $target_dir_song = "./assets/musics/";
+    $target_dir_image = "./assets/images/";
+    $target_file_song = $target_dir_song . 'song' . $lastSongID . '.' . pathinfo($_FILES["songToUpload"]["name"], PATHINFO_EXTENSION);
+    $target_file_image = $target_dir_image . 'image' . $lastSongID . '.' . pathinfo($_FILES["imageToUpload"]["name"], PATHINFO_EXTENSION);
+  
+    // payload
+    $judul = $_POST['judul'];
+    $penyanyi = $_POST['penyanyi'];
+    $tanggal = $_POST['tanggal'];
+    $genre = $_POST['genre'];
+    $duration = $_POST['duration'];
+    $albumID = $_POST['albumID'];
+
     $movedSong = move_uploaded_file($_FILES["songToUpload"]["tmp_name"], $target_file_song) ?? null;
     $movedImage = move_uploaded_file($_FILES["imageToUpload"]["tmp_name"], $target_file_image) ?? null;
 
