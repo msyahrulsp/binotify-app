@@ -147,5 +147,16 @@ class SongController
     } catch (PDOException $e) {
       echo $sql . "<br>" . $e->getMessage();
     }
-  }  
+  }
+
+  public function removeAlbum($album_id) {
+    try {
+      $this->db->con->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+      $sql = "UPDATE song SET album_id=NULL WHERE album_id={$album_id}";
+      $stmt = $this->db->con->prepare($sql);
+      $stmt->execute();
+    } catch (PDOException $e) {
+      echo $sql . "<br>" . $e->getMessage();
+    }
+  }
 }

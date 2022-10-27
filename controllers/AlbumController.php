@@ -93,5 +93,20 @@
         echo $sql . "<br>" . $e->getMessage();
       }
     }
+
+    public function deleteAlbum($album_id) {
+      try {
+        $conn = $this->db->getConnection();
+        $conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+        $sql = "DELETE FROM album WHERE album_id = :album_id";
+        $stmt = $conn->prepare($sql);
+        $stmt->execute(array(
+          ':album_id' => $album_id
+        ));
+        echo "Record deleted successfully<br>";
+      } catch (PDOException $e) {
+        echo $sql . "<br>" . $e->getMessage();
+      }
+    }
   }
 ?>
