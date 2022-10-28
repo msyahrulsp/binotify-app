@@ -10,7 +10,7 @@
 }
 
 .song-profile > img {
-  margin-right: 0.5rem;
+  margin-right: 1rem;
   margin-top: 0.5rem;
   margin-bottom: 0.5rem;
 }
@@ -24,12 +24,14 @@ th {
   background-color: #1ed760;
   color: black;
   text-align: left;
-  padding-top: 0.7rem;
-  padding-bottom: 0.7rem;
 }
 
-th {
-  padding: 1.2rem 0;
+.date {
+  padding: 0.8rem 2rem;
+}
+
+.genre {
+  padding: 0.8rem 1.5rem;
 }
 
 td {

@@ -14,7 +14,7 @@
 .navbar {
   padding-top: 3ch;
   padding-left: 4ch;
-  padding-right: 10ch;
+  padding-right: 6ch;
   display: flex;
   flex-direction: row;
   gap: 25px;
@@ -33,8 +33,8 @@
 
 @media screen and (min-width: 768px) {
   .navbar {
-    min-width: 18rem;
-    max-width: 18rem;
+    min-width: 14.5rem;
+    max-width: 14.5rem;
     min-height: 100vh;
     flex-direction: column;
     justify-content: unset;

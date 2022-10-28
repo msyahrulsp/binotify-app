@@ -15,7 +15,6 @@ window.location.href='/';
 $listSelect = null;
 
 if (count($albums) > 0) {
-  echo '<br>masuk';
   $listSelect = "
     <div class='valid-album-wrapper' id='dropdown-wrapper'>
       <select name='songAlbum' id='songAlbum' class='album-select'>

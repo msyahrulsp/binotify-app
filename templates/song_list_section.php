@@ -18,15 +18,15 @@ function echoSongCard($index, $song)
           <td class="rank">$index</td>
           <td>
             <div class="song-profile">
-              <img src="$imagePath" width="50" height="50" />
+              <img src="$imagePath" width="60" height="60" />
               <div class="profile-text">
                 <p class="title"><a href="/song.php?song_id={$song_id}">{$judul}</a></p>
                 <p class="singer">{$penyanyi}</p>
               </div>
             </div>
           </td>
-          <td>{$tanggal}</td>
-          <td>{$genre}</td>
+          <td class="date">{$tanggal}</td>
+          <td class="genre">{$genre}</td>
         </tr>
   EOT;
 
@@ -39,8 +39,8 @@ function echoSongCard($index, $song)
     <tr>
       <th class="rank">#</th>
       <th>TITLE</th>
-      <th>DATE ADDED</th>
-      <th>GENRE</th>
+      <th class="date">DATE ADDED</th>
+      <th class="genre">GENRE</th>
     </tr>
     <?php
     foreach ($songData as $key => $value) {
