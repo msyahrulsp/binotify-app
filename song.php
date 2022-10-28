@@ -77,8 +77,6 @@ function echoSongEdit($judul, $penyanyi, $tanggal, $genre, $durasi, $imagePath, 
     <input type="file" name="songToUpload" id="songToUpload"><br>
     <p>File gambar:</p>
     <input type="file" name="imageToUpload" id="imageToUpload"><br>
-    <p>Album:</p>
-    <span>TBD s input selection for available album</span><br>
         </div>
       </div>
   EOT;
