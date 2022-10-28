@@ -38,12 +38,6 @@ function echoNavbar() {
         <text class="logo-text">Binotify</text>
       </nav>
     </a>
-    <a href="search.php">
-    <nav class="nav-link">
-      <img src=$search alt="search" />
-      <text>Search</text>
-    </nav>
-    </a>
     <a href="upload_song.php">
       <nav class="nav-link">
         <img src=$add alt="home" />
