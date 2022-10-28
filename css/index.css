@@ -11,6 +11,10 @@ html {
   flex-direction: column;
 }
 
+.song-list {
+  overflow-x: auto;
+}
+
 @media screen and (min-width: 768px) {
   .container {
     flex-direction: row;
