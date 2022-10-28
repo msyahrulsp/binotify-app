@@ -163,6 +163,10 @@ a {
   display: none;
 }
 
+.sort:hover {
+  background: #09c74c;
+}
+
 @media only screen and (min-width: 768px) {
   .nav {
     width: 100%;
