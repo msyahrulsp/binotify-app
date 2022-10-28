@@ -24,6 +24,21 @@ Terdapat 2 link yang bisa diakses langsung, berikut link tersebut:
 > username dan password menyesuaikan dengan isi `docker-compose.yml`. Dalam kasus ini `root` dan `123456`
 
 ## Screenshot Halaman
+### Login
+![image](https://user-images.githubusercontent.com/69589003/198531250-3613336d-bcac-4c06-9762-942d888df272.png)
+### Register
+![image](https://user-images.githubusercontent.com/69589003/198531415-976809a2-ba78-44a1-80d7-f442b34ab488.png)
+### Home User
+![image](https://user-images.githubusercontent.com/69589003/198531586-6ccd201f-b268-460a-8d7c-ef733262e76b.png)
+### Home Admin
+![image](https://user-images.githubusercontent.com/69589003/198531702-c89752b8-38aa-472b-b992-de6f5b813ab1.png)
+### Daftar Album
+![image](https://user-images.githubusercontent.com/69589003/198531799-bd727b3b-f769-4783-8d94-c0387ffc3858.png)
+### Search, Sort, Filter
+![image](https://user-images.githubusercontent.com/69589003/198531917-0a1a7945-23db-4147-aefd-5ec407ebfd7a.png)
+### Detail Lagu (Admin)
+![image](https://user-images.githubusercontent.com/69589003/198532037-7543b788-a82f-48bd-a439-6fa506edb0c5.png)
+### Edit Lagu (Admin)
 
 ## Pembagian Tugas 
 Server-side  
