@@ -126,7 +126,7 @@ class SongController
     $page = $page - 1;
     try {
       $this->db->con->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-      $sql = "SELECT * from song WHERE judul LIKE '%{$keyword}%' OR penyanyi LIKE '%{$keyword}%' OR tanggal_terbit LIKE '%{$keyword}%' AND genre LIKE '%{$genre}%' ORDER BY {$sort} {$order_type} LIMIT {$page}, {$limit}";
+      $sql = "SELECT * from song WHERE (judul LIKE '%{$keyword}%' OR penyanyi LIKE '%{$keyword}%' OR tanggal_terbit LIKE '%{$keyword}%') AND genre LIKE '%{$genre}%' ORDER BY {$sort} {$order_type} LIMIT {$page}, {$limit}";
       $stmt = $this->db->con->prepare($sql);
       $stmt->execute();
       $songs = $stmt->fetchAll(PDO::FETCH_ASSOC);
