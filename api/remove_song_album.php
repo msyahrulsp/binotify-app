@@ -3,6 +3,7 @@
 
   if ($_SERVER['REQUEST_METHOD'] == 'UPDATE') {
     $songId = $_GET['song_id'] ?? null;
+    $albumId = $_GET['album_id'] ?? null;
 
     if (!$songId) {
       $res['status'] = 400;
@@ -12,7 +13,7 @@
     }
 
     try {
-      $song->removeSongFromAlbum($songId);
+      $song->removeSongFromAlbum($songId, $albumId);
       $res['status'] = 200;
       $res['message'] = 'Lagu berhasil dihapus dari album';
       echo json_encode($res);

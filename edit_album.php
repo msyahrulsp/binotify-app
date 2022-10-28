@@ -183,6 +183,7 @@
     }
 
     function addSong() {
+      const albumId = <?php echo $_GET['album_id'] ?>;
       const songId = document.getElementById('songAlbum').value;
       const formData = new FormData();
       formData.append('song_id', songId);
@@ -219,16 +220,18 @@
           }
         }
       };
-      xhttp.open("POST", `/api/add_song_album.php?song_id=${songId}`, true);
+      xhttp.open("POST", `/api/add_song_album.php?song_id=${songId}&album_id=${albumId}`, true);
       xhttp.send(formData);
     }
 
     function removeSong(song_id, judul, penyanyi) {
+      const albumId = <?php echo $_GET['album_id']; ?>;
       const formData = new FormData();
       formData.append('song_id', song_id);
       const xhttp = new XMLHttpRequest();
       xhttp.onreadystatechange = function() {
         if (this.readyState == 4 && this.status == 200) {
+          console.log(this.responseText);
           const res = this.responseText.includes("<br>") ? 
             this.responseText.split("<br>")[1] : this.responseText;
           const response = JSON.parse(res);
@@ -267,7 +270,7 @@
           alert(response.message);
         }
       };
-      xhttp.open("UPDATE", `/api/remove_song_album.php?song_id=${song_id}`, true);
+      xhttp.open("UPDATE", `/api/remove_song_album.php?song_id=${song_id}&album_id=${albumId}`, true);
       xhttp.send(formData);
     }
   </script>
