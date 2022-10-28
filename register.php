@@ -41,7 +41,7 @@
       </div>
       <div class="input-container">
         <label>Create a username</label>
-        <input type="text" placeholder="Create a username." name="username" id="username" onkeyup="debounceInput(this.value, 'username')" />
+        <input type="text" placeholder="Create a username." name="username" id="username" oninput="debounceInput(this.value, 'username')" />
         <span class="error-message" id="error-username"></span>
       </div>
       <div class="input-container">
@@ -97,10 +97,12 @@
               if (response.empty_email.is_empty) {
                 error_email.innerText = response.empty_email.message;
                 email_input.classList.add('error');
+                email_input.classList.remove('unique');
               } else {
                 if (response.email_error) {
-                error_email.innerText = response.email_error;
-                email_input.classList.add('error');
+                  error_email.innerText = response.email_error;
+                  email_input.classList.add('error');
+                  email_input.classList.remove('unique');
                 } else {
                   error_email.innerText = '';
                   email_input.classList.remove('error');
@@ -109,10 +111,12 @@
               if (response.empty_username.is_empty) {
                 error_username.innerText = response.empty_username.message;
                 username_input.classList.add('error');
+                username_input.classList.remove('unique');
               } else {
                 if (response.username_error) {
                   error_username.innerText = response.username_error;
                   username_input.classList.add('error');
+                  username_input.classList.remove('unique');
                 } else {
                   error_username.innerText = '';
                   username_input.classList.remove('error');
@@ -149,7 +153,6 @@
     function checkUnique(str, field) {
       const input = document.getElementById(field);
       const error_input = document.getElementById(`error-${field}`);
-
       const xhttp = new XMLHttpRequest();
       xhttp.onreadystatechange = function() {
         if (this.readyState === 4 && this.status === 200) {
@@ -157,9 +160,11 @@
           if (response.status === 400) {
             error_input.innerText = response.message;
             input.classList.add('error');
+            input.classList.remove('unique');
           } else {
             error_input.innerText = '';
             input.classList.remove('error');
+            input.classList.add('unique');
           }
         }
       };
