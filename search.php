@@ -18,10 +18,20 @@
     $total_page += 1;
   }
   $songs = $song->searchSongs('', '', 1, 10, 'judul', 'asc');
-  
+  $genres = $song->getGenre();
+
   function createPagination($page) {
     $html = <<<"EOT"
       <p onclick="changePage(this.innerText)">{$page}</p>
+    EOT;
+
+    echo $html;
+  }
+
+  function echoGenreOptions($genre) {
+    $genre = ucfirst($genre);
+    $html = <<<"EOT"
+      <option value="$genre">$genre</option>
     EOT;
 
     echo $html;
@@ -85,12 +95,11 @@
       <input type="text" placeholder="What do you want to listen to?" name="search" id="search" onkeyup="debounceInput(this.value)" class="input__search" />
       <select name="genre" id="genre" class="select-genre" onchange="onSelectGenre(this.value)">
         <option value="" selected>All Genre</option>
-        <option value="Pop">Pop</option>
-        <option value="Rock">Rock</option>
-        <option value="Blues">Blues</option>
-        <option value="Electronic">Electronic</option>
-        <option value="Classic">Classic</option>
-        <option value="Sedih">Sedih</option>
+        <?php
+          foreach($genres as $genre) {
+            echoGenreOptions($genre['genre']);
+          }
+        ?>
       </select>
       <section class="song-list">
         <table id="song-list">
@@ -174,6 +183,7 @@
 
     function search(key) {
       keyword = key;
+      current_page = 1;
       const xhttp = new XMLHttpRequest()
       xhttp.onreadystatechange = function() {
         if (this.readyState === 4 && this.status === 200) {
@@ -182,7 +192,7 @@
             return (
             `<a href="google.com">
               <tr>
-                <td class="rank">${((page - 1) * 10) + index + 1}</td>
+                <td class="rank">${index + 1}</td>
                 <td>
                   <div class="song-profile">
                     <img src="${el.image_path}" width="50" height="50" />

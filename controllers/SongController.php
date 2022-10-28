@@ -173,6 +173,19 @@ class SongController
     }
   }
 
+  public function getGenre() {
+    try {
+      $this->db->con->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+      $sql = "SELECT DISTINCT genre from song";
+      $stmt = $this->db->con->prepare($sql);
+      $stmt->execute();
+      $genre = $stmt->fetchAll(PDO::FETCH_ASSOC);
+      return $genre;
+    } catch (PDOException $e) {
+      echo $sql . "<br>" . $e->getMessage();
+    }
+  }
+
   public function addSongToAlbum($song_id, $album_id) {
     try {
       $this->db->con->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
