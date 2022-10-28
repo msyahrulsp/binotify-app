@@ -34,7 +34,7 @@ function echoSongDetail($judul, $penyanyi, $tanggal, $genre, $durasi, $imagePath
           <img src="{$imagePath}" height="200" width="200" />
         </div>
         <div class="info">
-          <p class="title">$judul $albumID</p>
+          <p class="title">$judul</p>
           <div class="rest-info">
             <p>$penyanyi</p>
             <p>$durasiMenit menit $durasiDetik detik</p>
