@@ -19,7 +19,7 @@ if (count($albums) > 0) {
   $listSelect = "
     <div class='valid-album-wrapper' id='dropdown-wrapper'>
       <select name='songAlbum' id='songAlbum' class='album-select'>
-        <option selected='selected' value=0>Pilih Lagu</option>
+        <option selected='selected' value=0>Pilih Album</option>
   ";
 
   foreach ($albums as $song) {
