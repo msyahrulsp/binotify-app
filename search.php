@@ -29,33 +29,35 @@
 
   function echoSongCard($song, $index)
   {
-    $song_id = $song['song_id'];
-    $judul = $song['judul'];
-    $penyanyi = $song['penyanyi'];    // nullable
-    $tanggal = $song['tanggal_terbit']; // di spek mintanya tahun
-    $genre = $song['genre'];          // nullable
-    $duration = $song['duration'];
-    $audioPath = $song['audio_path'];
-    $imagePath = $song['image_path'] ?? DEFAULT_IMG; // nullable
-    $album = $song['album_id'];       // nullable
-    $html = <<<"EOT"
-          <tr>
-            <td class="rank">$index</td>
-            <td>
-              <div class="song-profile">
-                <img src="$imagePath" width="50" height="50" />
-                <div class="profile-text">
-                  <p class="title"><a href="/song.php?song_id={$song_id}">{$judul}</a></p>
-                  <p class="singer">{$penyanyi}</p>
+    if (isset($song)) {
+      $song_id = $song['song_id'];
+      $judul = $song['judul'];
+      $penyanyi = $song['penyanyi'];    // nullable
+      $tanggal = $song['tanggal_terbit']; // di spek mintanya tahun
+      $genre = $song['genre'];          // nullable
+      $duration = $song['duration'];
+      $audioPath = $song['audio_path'];
+      $imagePath = $song['image_path'] ?? DEFAULT_IMG; // nullable
+      $album = $song['album_id'];       // nullable
+      $html = <<<"EOT"
+            <tr>
+              <td class="rank">$index</td>
+              <td>
+                <div class="song-profile">
+                  <img src="$imagePath" width="50" height="50" />
+                  <div class="profile-text">
+                    <p class="title"><a href="/song.php?song_id={$song_id}">{$judul}</a></p>
+                    <p class="singer">{$penyanyi}</p>
+                  </div>
                 </div>
-              </div>
-            </td>
-            <td>{$tanggal}</td>
-            <td>{$genre}</td>
-          </tr>
-    EOT;
-
-    echo $html;
+              </td>
+              <td>{$tanggal}</td>
+              <td>{$genre}</td>
+            </tr>
+      EOT;
+  
+      echo $html;
+    } 
   }
 ?>
 
