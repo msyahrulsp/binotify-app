@@ -1,9 +1,9 @@
 <?php
 require 'controllers/MainController.php';
 $curDate = date('Y-m-d');
+$albums = $album->getAllAlbums();
 
 $isAdmin = $_SESSION['isAdmin'] ?? false;
-// $isAdmin = true;
 
 if (!$isAdmin) {
   echo "<script>
@@ -12,6 +12,28 @@ window.location.href='/';
 </script>";
 }
 
+$listSelect = null;
+
+if (count($albums) > 0) {
+  echo '<br>masuk';
+  $listSelect = "
+    <div class='valid-album-wrapper' id='dropdown-wrapper'>
+      <select name='songAlbum' id='songAlbum' class='album-select'>
+        <option selected='selected' value=0>Pilih Lagu</option>
+  ";
+
+  foreach ($albums as $song) {
+    $listSelect .= "
+      <option value={$song['album_id']} id={$song['album_id']}>{$song['judul']}</option>
+    ";
+  }
+
+  $listSelect .= "
+          </option>
+        </select>
+    </div>
+    ";
+}
 
 ?>
 
@@ -66,16 +88,19 @@ window.location.href='/';
           <label>File gambar</label>
           <input type="file" name="imageToUpload" id="imageToUpload" accept="image/*">
         </div>
+        <div class="input-container">
+          <label>Album</label>
+          <?php echo $listSelect ?>
+        </div>
         <input type="text" hidden name="duration" id="duration">
         <div class="button-container">
           <button type="submit" class="form-button" value="Upload Song" name="upload-song">Upload Song</button>
         </div>
         <div id="error-container">
-      </div>
+        </div>
       </form>
     </div>
   </div>
-
 </body>
 <script>
   document.getElementById("songToUpload").addEventListener('change', function() {

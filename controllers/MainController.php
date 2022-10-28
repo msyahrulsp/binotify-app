@@ -20,6 +20,7 @@ $db = new DBController($host, $dbname, $user, $password);
 
 // Song Object
 $song = new SongController($db);
+$album = new AlbumController($db);
 
 // Redirect function
 function redirect($url) {

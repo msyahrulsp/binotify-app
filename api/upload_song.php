@@ -9,6 +9,10 @@
       $tanggal = $_POST['tanggal'] ?? null;
       $genre = $_POST['genre'] ?? null;
       $duration = $_POST['duration'] ?? null;
+      $songAlbum = $_POST['songAlbum'];
+      if ($_POST['songAlbum'] == 0) {
+        $songAlbum = null;
+      }
       $res = null;
       $songExt = array("mp3");
       $imageExt = array("jpg", "jpeg", "png");
@@ -55,7 +59,7 @@
   
       try {
         if ($movedSong && $movedImage) {
-          $song->insertSong($judul, $penyanyi, $tanggal, $genre, $duration, $target_file_song, $target_file_image, null);
+          $song->insertSong($judul, $penyanyi, $tanggal, $genre, $duration, $target_file_song, $target_file_image, $songAlbum);
           $res['status'] = 200;
           $res['message'] = 'Lagu berhasil ditambahkan';
           echo json_encode($res);

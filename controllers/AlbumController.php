@@ -6,6 +6,15 @@
       $this->db = $db;
     }
 
+    public function getAllAlbums() {
+      // return array
+      $conn = $this->db->getConnection();
+      $stmt = $conn->prepare("SELECT * FROM album");
+      $stmt->execute();
+      $albums = $stmt->fetchAll(PDO::FETCH_ASSOC);
+      return $albums;
+    }
+
     public function getAlbums() {
       $conn = $this->db->getConnection();
       $stmt = $conn->prepare("SELECT * FROM album");
