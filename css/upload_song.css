@@ -2,6 +2,7 @@
   margin: 0;
   padding: 0;
   box-sizing: border-box;
+  font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
 }
 
 .container {
@@ -54,6 +55,23 @@
   outline: none;
   border: 1px solid #000;
 } */
+
+.valid-album-wrapper {
+  display: flex;
+  flex-direction: row;
+  gap: 1ch;
+  padding-bottom: 1.5em;
+}
+
+.album-select {
+  box-sizing: border-box;
+  padding: 1ch;
+  font-size: 1rem;
+  border-radius: 4px;
+  outline: none;
+  flex: 1;
+  border: 1px solid #000;
+}
 
 .input-container input {
   box-sizing: border-box;
