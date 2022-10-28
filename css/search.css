@@ -61,6 +61,7 @@ header h2 {
   display: flex;
   align-items: center;
   gap: 14px;
+  width: 100%;
 }
 
 table {
@@ -83,10 +84,11 @@ td {
 }
 
 th:first-child {
-  padding: 0.7rem;
+  padding: 0.5rem;
 }
 
 .rank {
+  width: 3.5em;
   text-align: center;
 }
 
@@ -117,10 +119,6 @@ a {
 .singer {
   font-size: 14px;
   color: #c5c5c5;
-}
-
-th:first-child {
-  padding: 5px;
 }
 
 .sort {
