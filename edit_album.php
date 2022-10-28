@@ -230,7 +230,6 @@
       const xhttp = new XMLHttpRequest();
       xhttp.onreadystatechange = function() {
         if (this.readyState == 4 && this.status == 200) {
-          console.log(this.responseText);
           const res = this.responseText.includes("<br>") ? 
             this.responseText.split("<br>")[1] : this.responseText;
           const response = JSON.parse(res);
