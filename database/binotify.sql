@@ -32,11 +32,11 @@ SET PERSIST information_schema_stats_expiry=0;
 INSERT INTO `binotify`.`song` VALUES
 (1,'Tokyo Drift','Ardhito Pramono','2000-10-16','sedih',257,'./assets/musics/song1.mp3','./assets/images/image1.png',1),
 (2,'Goosebumps','Ardhito Pramono', '2000-10-11','sedih',164,'./assets/musics/song2.mp3','./assets/images/image2.png',1),
-(3,'Semoga, Ya', 'Ardhito Pramono','2000-10-12','sedih',164,'./assets/musics/song3.mp3','./assets/images/image3.png',1),
-(4,'cigarretes of ours','Ardhito Pramono', '2000-10-13','sedih',164,'./assets/musics/song4.mp3','./assets/images/image4.png',1),
-(5,'Sesuatu Di Jogja','Badlife', '2000-10-14','sedih',164,'./assets/musics/song5.mp3','./assets/images/image5.png',2),
-(6,'Rehat','Badlife','2000-10-15','sedih',257,'./assets/musics/song6.mp3','./assets/images/image6.png',2),
-(7,'Untuk Perempuan Yang Sedang Di Pelukan', 'Badlife','2000-10-10','sedih',257,'./assets/musics/song7.mp3','./assets/images/image7.png',2),
+(3,'Semoga, Ya', 'Ardhito Pramono','2000-10-12','sedih',268,'./assets/musics/song3.mp3','./assets/images/image3.png',1),
+(4,'cigarretes of ours','Ardhito Pramono', '2000-10-13','sedih',230,'./assets/musics/song4.mp3','./assets/images/image4.png',1),
+(5,'Sesuatu Di Jogja','Badlife', '2000-10-14','sedih',307,'./assets/musics/song5.mp3','./assets/images/image5.png',2),
+(6,'Rehat','Badlife','2000-10-15','sedih',361,'./assets/musics/song6.mp3','./assets/images/image6.png',2),
+(7,'Untuk Perempuan Yang Sedang Di Pelukan', 'Badlife','2000-10-10','sedih',342,'./assets/musics/song7.mp3','./assets/images/image7.png',2),
 (8,'Langit Abu-Abu','Badlife', '2000-10-11','sedih',257,'./assets/musics/song8.mp3','./assets/images/image8.png',2),
 (9,'HAHA HIHI','Badlife', '2000-10-11','sedih',257,'./assets/musics/song9.mp3','./assets/images/image9.jpg',NULL);
 
