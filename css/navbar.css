@@ -12,7 +12,6 @@
 }
 
 .navbar {
-  padding-top: 3ch;
   padding-left: 4ch;
   padding-right: 6ch;
   display: flex;
@@ -24,12 +23,10 @@
   background: #000;
   min-width: 100%;
   max-width:100%;
-  min-height: 100vh;
+  min-height:5rem;
+  max-height:5rem;
 }
 
-.nav-link > img {
-  display:none;
-}
 
 @media screen and (min-width: 768px) {
   .navbar {
@@ -39,6 +36,11 @@
     flex-direction: column;
     justify-content: unset;
     align-items: unset;
+    min-height: 100vh;
+    padding-top: 3ch;
+  }
+  .nav-logo {
+    margin-bottom: 20px;
   }
   .nav-link > img {
     display:unset;
@@ -78,10 +80,6 @@
 
 .nav-link > img:hover {
   opacity: 1;
-}
-
-.nav-logo {
-  margin-bottom: 20px;
 }
 
 .nav-logo > img {
