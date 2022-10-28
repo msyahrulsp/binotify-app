@@ -7,7 +7,8 @@ function echoSongCard($index, $song)
   $song_id = $song['song_id'];
   $judul = $song['judul'];
   $penyanyi = $song['penyanyi'];    // nullable
-  $tanggal = $song['tanggal_terbit']; // di spek mintanya tahun
+  $tanggal = date_create($song['tanggal_terbit']); // di spek mintanya tahun
+  $tanggal = date_format($tanggal, "d-m-Y");
   $genre = $song['genre'];          // nullable
   $duration = $song['duration'];
   $audioPath = $song['audio_path'];
