@@ -5,6 +5,7 @@
   if (!empty($_SESSION)) {
     redirect('/');
   }
+
 ?>
 
 <!DOCTYPE html>
@@ -23,6 +24,7 @@
 <body>
   <header>
     <a href="/">
+      <img src="./assets/images/component/spotify.png" alt="Logo" />
       <h1>Binotify</h1>
     </a>
   </header>

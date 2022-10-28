@@ -4,8 +4,17 @@ body {
   padding: 0;
 }
 
+header img {
+  width: 3.5em;
+  height: 3.5em;
+}
+
 header a {
+  justify-content: center;
+  gap: 1em;
+  display: flex;
   text-decoration: none;
+  align-items: center;
 }
 
 header h1 {
@@ -90,6 +99,18 @@ header h1 {
 
 .input-container .error:focus {
   box-shadow: inset 0 0 0 2px #e91429;
+}
+
+.input-container .unique {
+  border: 1px solid #23e066;
+}
+
+.input-container .unique:hover {
+  border: 1px solid #23e066;
+}
+
+.input-container .unique:focus {
+  box-shadow: inset 0 0 0 2px #23e066;
 }
 
 .error-message {

@@ -126,7 +126,7 @@ class SongController
     $page = $page - 1;
     try {
       $this->db->con->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-      $sql = "SELECT * from song WHERE judul LIKE '%{$keyword}%' AND genre LIKE '%{$genre}%' ORDER BY {$sort} {$order_type} LIMIT {$page}, {$limit}";
+      $sql = "SELECT * from song WHERE (judul LIKE '%{$keyword}%' OR penyanyi LIKE '%{$keyword}%' OR tanggal_terbit LIKE '%{$keyword}%') AND genre LIKE '%{$genre}%' ORDER BY {$sort} {$order_type} LIMIT {$page}, {$limit}";
       $stmt = $this->db->con->prepare($sql);
       $stmt->execute();
       $songs = $stmt->fetchAll(PDO::FETCH_ASSOC);
@@ -168,6 +168,19 @@ class SongController
       $stmt->execute();
       $songs = $stmt->fetchAll(PDO::FETCH_ASSOC);
       return $songs;
+    } catch (PDOException $e) {
+      echo $sql . "<br>" . $e->getMessage();
+    }
+  }
+
+  public function getGenre() {
+    try {
+      $this->db->con->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+      $sql = "SELECT DISTINCT genre from song";
+      $stmt = $this->db->con->prepare($sql);
+      $stmt->execute();
+      $genre = $stmt->fetchAll(PDO::FETCH_ASSOC);
+      return $genre;
     } catch (PDOException $e) {
       echo $sql . "<br>" . $e->getMessage();
     }

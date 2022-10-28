@@ -46,6 +46,9 @@
   function echoAlbumDetail($judul, $penyanyi, $total_duration, $image_path, $tanggal_terbit, $genre, $albumSong) {
     $isAdmin = $_SESSION['isAdmin'] ?? false;
     $total_time = convertSecToFullTime($total_duration);
+    if ($total_time != '') {
+      $total_time = ', ' . $total_time;
+    }
     $qty = count($albumSong);
     // TODO: access
     $editButton = $isAdmin ? "
@@ -95,11 +98,7 @@
             <div class="album-header-info-inline">
               <p class="penyanyi">$penyanyi · </p>
               <p>$tanggal_terbit · </p>
-              <p>$qty,
-                <p class="duration">
-                  $total_time
-                </p>
-              </p>
+              <p class="duration">$qty $total_time</p>
             </div>
             $editButton
           </div>

@@ -18,10 +18,20 @@
     $total_page += 1;
   }
   $songs = $song->searchSongs('', '', 1, 10, 'judul', 'asc');
-  
+  $genres = $song->getGenre();
+
   function createPagination($page) {
     $html = <<<"EOT"
       <p onclick="changePage(this.innerText)">{$page}</p>
+    EOT;
+
+    echo $html;
+  }
+
+  function echoGenreOptions($genre) {
+    $genre = ucfirst($genre);
+    $html = <<<"EOT"
+      <option value="$genre">$genre</option>
     EOT;
 
     echo $html;
@@ -78,48 +88,52 @@
     <?php
       include('templates/navbar.php');
     ?>
-    <section class="content">
-      <header>
-        <h2>Search</h2>
-      </header>
-      <input type="text" placeholder="What do you want to listen to?" name="search" id="search" onkeyup="debounceInput(this.value)" class="input__search" />
-      <select name="genre" id="genre" class="select-genre" onchange="onSelectGenre(this.value)">
-        <option value="" selected>All Genre</option>
-        <option value="Pop">Pop</option>
-        <option value="Rock">Rock</option>
-        <option value="Blues">Blues</option>
-        <option value="Electronic">Electronic</option>
-        <option value="Classic">Classic</option>
-        <option value="Sedih">Sedih</option>
-      </select>
-      <section class="song-list">
-        <table id="song-list">
-          <tr>
-            <th class="rank">No.</th>
-            <th class="sort" onclick="sortOrder('judul')">TITLE</th>
-            <th class="sort" onclick="sortOrder('tanggal_terbit')">DATE ADDED</th>
-            <th>GENRE</th>
-          </tr>
+    <section class="content-container">
+      <nav class="nav">
+        <input type="text" placeholder="What do you want to listen to?" name="search" id="search" onkeyup="debounceInput(this.value)" class="input__search" />
+      </nav>
+      <section class="content">
+        <header>
+          <h2>Search</h2>
+        </header>
+        <input type="text" placeholder="What do you want to listen to?" name="search" id="search" onkeyup="debounceInput(this.value)" class="input__search" />
+        <select name="genre" id="genre" class="select-genre" onchange="onSelectGenre(this.value)">
+          <option value="" selected>All Genre</option>
           <?php
-            for ($i = 1; $i <= 10; $i++) {
-              if (isset($songs[$i-1])) {
-                echoSongCard($songs[$i-1], $i);
+            foreach($genres as $genre) {
+              echoGenreOptions($genre['genre']);
+            }
+          ?>
+        </select>
+        <section class="song-list">
+          <table id="song-list">
+            <tr>
+              <th class="rank">No.</th>
+              <th class="sort" onclick="sortOrder('judul')">TITLE</th>
+              <th class="sort" onclick="sortOrder('tanggal_terbit')">DATE ADDED</th>
+              <th>GENRE</th>
+            </tr>
+            <?php
+              for ($i = 1; $i <= 10; $i++) {
+                if (isset($songs[$i-1])) {
+                  echoSongCard($songs[$i-1], $i);
+                }
               }
-            }
-          ?>
-        </table>
-      </section>
-      <div class="pagination-container">
-        <span id="prev"><</span>
-        <section class="pagination" id="pagination">
-          <?php
-            for ($i = 1; $i <= $total_page; $i++) {
-              createPagination($i);
-            }
-          ?>
+            ?>
+          </table>
         </section>
-        <span id="next">></span>
-      </div>
+        <div class="pagination-container">
+          <span id="prev"><</span>
+          <section class="pagination" id="pagination">
+            <?php
+              for ($i = 1; $i <= $total_page; $i++) {
+                createPagination($i);
+              }
+            ?>
+          </section>
+          <span id="next">></span>
+        </div>
+      </section>
     </section>
   </main>
 
@@ -174,6 +188,7 @@
 
     function search(key) {
       keyword = key;
+      current_page = 1;
       const xhttp = new XMLHttpRequest()
       xhttp.onreadystatechange = function() {
         if (this.readyState === 4 && this.status === 200) {
@@ -182,7 +197,7 @@
             return (
             `<a href="google.com">
               <tr>
-                <td class="rank">${((page - 1) * 10) + index + 1}</td>
+                <td class="rank">${index + 1}</td>
                 <td>
                   <div class="song-profile">
                     <img src="${el.image_path}" width="50" height="50" />

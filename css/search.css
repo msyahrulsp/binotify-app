@@ -17,11 +17,15 @@ body {
   margin: 0;
 }
 
+.content-container {
+  width: 100%;
+}
+
 .content {
   display: flex;
   flex-direction: column;
   padding: 1.5em 1.25em;
-  gap: 8px;
+  gap: 13px;
   width: 100%;
 }
 
@@ -39,13 +43,14 @@ header h2 {
 }
 
 .input__search::placeholder {
-  font-weight: 700;
-  color: #424242;
+  color: #5e5e5e;
 }
 
 .select-genre {
-  padding: 3px;
+  padding: 5px;
   outline: none;
+  border: none;
+  border-radius: 5px;
 }
 
 .filter {
@@ -151,4 +156,37 @@ a {
   cursor: pointer;
   border: 1px solid #1ed760;
   border-radius: 3px;
+}
+
+.nav {
+  display: none;
+}
+
+@media only screen and (min-width: 768px) {
+  .nav {
+    width: 100%;
+    display: block;
+    background: #000;
+    padding: 15px;
+    padding-left: 2em;
+    position: sticky;
+    top: 0;
+  }
+
+  .nav .input__search {
+    display: block;
+    border-radius: 500px;
+    width: 23em;
+    padding-inline: 2em;
+    padding-block: 0.75em;
+    margin-top: 0;
+  }
+
+  .input__search {
+    display: none;
+  }
+
+  .content {
+    padding-top: 0.5em;
+  }
 }

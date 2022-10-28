@@ -15,8 +15,17 @@ header {
   padding-block: 1em;
 }
 
+header img {
+  width: 3.5em;
+  height: 3.5em;
+}
+
 header a {
+  justify-content: center;
+  gap: 1em;
+  display: flex;
   text-decoration: none;
+  align-items: center;
 }
 
 header h1 {
