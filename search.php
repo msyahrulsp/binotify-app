@@ -102,7 +102,9 @@
           </tr>
           <?php
             for ($i = 1; $i <= 10; $i++) {
-              echoSongCard($songs[$i-1], $i);
+              if (isset($songs[$i-1])) {
+                echoSongCard($songs[$i-1], $i);
+              }
             }
           ?>
         </table>

@@ -176,7 +176,11 @@ class SongController
   public function addSongToAlbum($song_id, $album_id) {
     try {
       $this->db->con->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-      $sql = "UPDATE song SET album_id={$album_id} WHERE song_id = {$song_id}";
+      $sql = "UPDATE album SET total_duration=total_duration+(SELECT duration FROM song WHERE song_id={$song_id}) WHERE album_id={$album_id}";
+      $stmt = $this->db->con->prepare($sql);
+      $stmt->execute();
+
+      $sql = "UPDATE song SET album_id={$album_id} WHERE song_id ={$song_id}";
       $stmt = $this->db->con->prepare($sql);
       $stmt->execute();
     } catch (PDOException $e) {
@@ -184,9 +188,13 @@ class SongController
     }
   }
 
-  public function removeSongFromAlbum($song_id) {
+  public function removeSongFromAlbum($song_id, $album_id) {
     try {
       $this->db->con->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+      $sql = "UPDATE album SET total_duration=total_duration-(SELECT duration FROM song WHERE song_id={$song_id}) WHERE album_id={$album_id}";
+      $stmt = $this->db->con->prepare($sql);
+      $stmt->execute();
+
       $sql = "UPDATE song SET album_id=NULL WHERE song_id={$song_id}";
       $stmt = $this->db->con->prepare($sql);
       $stmt->execute();

@@ -81,7 +81,7 @@
       $listSelect = NULL;
     }
     $html = <<<"EOT"
-      <div class="edit-container">
+      <div class="edit-container" id='main-edit'>
         <div class="edit-header">
           <img src=$image_path height="200" alt="cover" id='image-content' />
           <div class="edit-header-info">
@@ -160,7 +160,7 @@
       echoEditAlbum($judul, $penyanyi, $total_duration, $image_path, $tanggal_terbit, $genre, $albumSong, $listValidSong);
     ?>
   </div>
-  <script>
+  <script async defer>
     function deleteAlbum(album_id) {
       const formData = new FormData();
       formData.append('album_id', album_id);
@@ -183,6 +183,7 @@
     }
 
     function addSong() {
+      const albumId = <?php echo $_GET['album_id'] ?>;
       const songId = document.getElementById('songAlbum').value;
       const formData = new FormData();
       formData.append('song_id', songId);
@@ -210,8 +211,7 @@
             `;
             document.getElementById('song-wrapper').appendChild(newDiv);
             if (document.getElementById('songAlbum').length == 1) {
-              document.getElementById('songAlbum').remove();
-              document.getElementById('butPlus').remove();
+              document.getElementById('dropdown-wrapper').remove();
             }
           }
           if (response.message !== 'Song ID tidak boleh kosong') {
@@ -219,16 +219,18 @@
           }
         }
       };
-      xhttp.open("POST", `/api/add_song_album.php?song_id=${songId}`, true);
+      xhttp.open("POST", `/api/add_song_album.php?song_id=${songId}&album_id=${albumId}`, true);
       xhttp.send(formData);
     }
 
     function removeSong(song_id, judul, penyanyi) {
+      const albumId = <?php echo $_GET['album_id']; ?>;
       const formData = new FormData();
       formData.append('song_id', song_id);
       const xhttp = new XMLHttpRequest();
       xhttp.onreadystatechange = function() {
         if (this.readyState == 4 && this.status == 200) {
+          console.log(this.responseText);
           const res = this.responseText.includes("<br>") ? 
             this.responseText.split("<br>")[1] : this.responseText;
           const response = JSON.parse(res);
@@ -241,9 +243,7 @@
               newDiv.setAttribute('value', song_id);
               newDiv.setAttribute('id', song_id);
               newDiv.innerHTML = judul;
-              if (document.getElementById('songAlbum') !== null) {
-                document.getElementById('songAlbum').appendChild(newDiv);
-              } else {
+              if (!document.getElementById('songAlbum')) {
                 var selDiv = document.createElement('select');
                 selDiv.setAttribute('id', 'songAlbum');
                 selDiv.setAttribute('name', 'songAlbum');
@@ -259,15 +259,21 @@
                 butDiv.setAttribute('height', '30');
                 butDiv.setAttribute('class', 'song-add');
                 butDiv.setAttribute('onClick', 'addSong()');
-                document.getElementById('dropdown-wrapper').appendChild(selDiv);
-                document.getElementById('dropdown-wrapper').appendChild(butDiv);
+                var dropDiv = document.createElement('div');
+                dropDiv.setAttribute('class', 'valid-song-wrapper');
+                dropDiv.setAttribute('id', 'dropdown-wrapper');
+                dropDiv.appendChild(selDiv);
+                dropDiv.appendChild(butDiv);
+                document.getElementById('main-edit').appendChild(dropDiv);
+              } else {
+                document.getElementById('songAlbum').appendChild(newDiv);
               }
             }
           }
           alert(response.message);
         }
       };
-      xhttp.open("UPDATE", `/api/remove_song_album.php?song_id=${song_id}`, true);
+      xhttp.open("UPDATE", `/api/remove_song_album.php?song_id=${song_id}&album_id=${albumId}`, true);
       xhttp.send(formData);
     }
   </script>
