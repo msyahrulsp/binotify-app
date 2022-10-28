@@ -36,7 +36,7 @@ INSERT INTO `binotify`.`song` VALUES
 (4,'cigarretes of ours','Ardhito Pramono', '2000-10-13','sedih',230,'./assets/musics/song4.mp3','./assets/images/image4.png',1),
 (5,'Sesuatu Di Jogja','Badlife', '2000-10-14','sedih',287,'./assets/musics/song5.mp3','./assets/images/image5.png',2),
 (6,'Rehat','Badlife','2000-10-15','sedih',361,'./assets/musics/song6.mp3','./assets/images/image6.png',2),
-(7,'Untuk Perempuan Yang Sedang Di Pelukan', 'Badlife','2000-10-10','sedih',342,'./assets/musics/song7.mp3','./assets/images/image7.png',2),
+(7,'Untuk Perempuan Yang Sedang Di Pelukan', 'Badlife','2000-10-10','sedih',257,'./assets/musics/song7.mp3','./assets/images/image7.png',2),
 (8,'Langit Abu-Abu','Badlife', '2000-10-11','sedih',218,'./assets/musics/song8.mp3','./assets/images/image8.png',2),
 (9,'HAHA HIHI','Badlife', '2000-10-11','sedih',257,'./assets/musics/song9.mp3','./assets/images/image9.jpg',NULL),
 (10, 'Tracing That Dream','Yoasobi','2020-10-18','Pop',239,'./assets/musics/song10.mp3','./assets/images/image10.jpeg',NULL),
