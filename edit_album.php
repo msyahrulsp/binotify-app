@@ -81,7 +81,7 @@
       $listSelect = NULL;
     }
     $html = <<<"EOT"
-      <div class="edit-container">
+      <div class="edit-container" id='main-edit'>
         <div class="edit-header">
           <img src=$image_path height="200" alt="cover" id='image-content' />
           <div class="edit-header-info">
@@ -160,7 +160,7 @@
       echoEditAlbum($judul, $penyanyi, $total_duration, $image_path, $tanggal_terbit, $genre, $albumSong, $listValidSong);
     ?>
   </div>
-  <script>
+  <script async defer>
     function deleteAlbum(album_id) {
       const formData = new FormData();
       formData.append('album_id', album_id);
@@ -211,8 +211,7 @@
             `;
             document.getElementById('song-wrapper').appendChild(newDiv);
             if (document.getElementById('songAlbum').length == 1) {
-              document.getElementById('songAlbum').remove();
-              document.getElementById('butPlus').remove();
+              document.getElementById('dropdown-wrapper').remove();
             }
           }
           if (response.message !== 'Song ID tidak boleh kosong') {
@@ -244,9 +243,7 @@
               newDiv.setAttribute('value', song_id);
               newDiv.setAttribute('id', song_id);
               newDiv.innerHTML = judul;
-              if (document.getElementById('songAlbum') !== null) {
-                document.getElementById('songAlbum').appendChild(newDiv);
-              } else {
+              if (!document.getElementById('songAlbum')) {
                 var selDiv = document.createElement('select');
                 selDiv.setAttribute('id', 'songAlbum');
                 selDiv.setAttribute('name', 'songAlbum');
@@ -262,8 +259,14 @@
                 butDiv.setAttribute('height', '30');
                 butDiv.setAttribute('class', 'song-add');
                 butDiv.setAttribute('onClick', 'addSong()');
-                document.getElementById('dropdown-wrapper').appendChild(selDiv);
-                document.getElementById('dropdown-wrapper').appendChild(butDiv);
+                var dropDiv = document.createElement('div');
+                dropDiv.setAttribute('class', 'valid-song-wrapper');
+                dropDiv.setAttribute('id', 'dropdown-wrapper');
+                dropDiv.appendChild(selDiv);
+                dropDiv.appendChild(butDiv);
+                document.getElementById('main-edit').appendChild(dropDiv);
+              } else {
+                document.getElementById('songAlbum').appendChild(newDiv);
               }
             }
           }
