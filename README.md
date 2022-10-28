@@ -39,6 +39,16 @@ Terdapat 2 link yang bisa diakses langsung, berikut link tersebut:
 ### Detail Lagu (Admin)
 ![image](https://user-images.githubusercontent.com/69589003/198532037-7543b788-a82f-48bd-a439-6fa506edb0c5.png)
 ### Edit Lagu (Admin)
+![image](https://user-images.githubusercontent.com/69589003/198532614-7d61d2c5-37d2-4c6d-a64e-cb2a7ca52bda.png)
+### Detail Album (Admin)
+![image](https://user-images.githubusercontent.com/69589003/198532759-62c5ac09-6d39-4ed0-8c53-13ff070c4b85.png)
+### Tambah Album
+![image](https://user-images.githubusercontent.com/69589003/198532847-5217718a-2c63-4b14-b3b5-22bbf77f488f.png)
+### Tambah Lagu
+![image](https://user-images.githubusercontent.com/69589003/198532922-9ca64d17-9a7e-4ae3-a6b0-ba0f231f12fe.png)
+### Daftar User
+![image](https://user-images.githubusercontent.com/69589003/198533069-2075c076-742a-4869-945c-93c5ddcd934d.png)
+
 
 ## Pembagian Tugas 
 Server-side  
