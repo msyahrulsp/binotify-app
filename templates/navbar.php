@@ -32,7 +32,7 @@ function echoNavbar() {
 
   if ($isAdmin) {
     $html = <<<"EOT"
-    <a href="index.php">
+    <a href="index.php" class="nav-logo-a">
       <nav class="nav-logo">
         <img src=$logo alt="logo" />
         <text class="logo-text">Binotify</text>

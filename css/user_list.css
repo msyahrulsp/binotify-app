@@ -9,6 +9,7 @@ html {
 .container {
   display: flex;
   color: white;
+  flex-direction: column;
 }
 
 .content {
@@ -52,4 +53,10 @@ td {
   background-color: #121212;
   color: white;
   padding-block: 10px;
+}
+
+@media screen and (min-width: 768px) {
+  .container {
+    flex-direction: row;
+  }
 }

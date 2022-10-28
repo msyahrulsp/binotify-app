@@ -6,7 +6,7 @@
   
 .container {
   display: flex;
-  flex-direction: row;
+  flex-direction: column;
 }
 
 h1 {
@@ -248,4 +248,10 @@ h1 {
   align-self: center;
   margin-left: 1ch;
   cursor: pointer;
+}
+
+@media screen and (min-width: 768px) {
+  .container {
+    flex-direction: row;
+  }
 }

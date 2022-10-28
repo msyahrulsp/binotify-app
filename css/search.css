@@ -7,6 +7,7 @@ html {
 
 .container {
   display: flex;
+  flex-direction: column;
 }
 
 body {
@@ -188,5 +189,9 @@ a {
 
   .content {
     padding-top: 0.5em;
+  }
+
+  .container {
+    flex-direction: row;
   }
 }

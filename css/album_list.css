@@ -90,3 +90,9 @@ h1 {
 .special {
   color: #c5c5c5;
 }
+
+@media screen and (min-width: 768px) {
+  .container {
+    flex-direction: row;
+  }
+}

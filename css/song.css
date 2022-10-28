@@ -13,7 +13,7 @@
 
 .container {
   display: flex;
-  flex-direction: row;
+  flex-direction: column;
 }
 
 body {
@@ -205,6 +205,10 @@ p {
   form {
     max-width: 100%;
     color:white;
+  }
+
+  .container {
+    flex-direction: row;
   }
 }
 
