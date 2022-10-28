@@ -29,35 +29,33 @@
 
   function echoSongCard($song, $index)
   {
-    if (isset($song)) {
-      $song_id = $song['song_id'];
-      $judul = $song['judul'];
-      $penyanyi = $song['penyanyi'];    // nullable
-      $tanggal = $song['tanggal_terbit']; // di spek mintanya tahun
-      $genre = $song['genre'];          // nullable
-      $duration = $song['duration'];
-      $audioPath = $song['audio_path'];
-      $imagePath = $song['image_path'] ?? DEFAULT_IMG; // nullable
-      $album = $song['album_id'];       // nullable
-      $html = <<<"EOT"
-            <tr>
-              <td class="rank">$index</td>
-              <td>
-                <div class="song-profile">
-                  <img src="$imagePath" width="50" height="50" />
-                  <div class="profile-text">
-                    <p class="title"><a href="/song.php?song_id={$song_id}">{$judul}</a></p>
-                    <p class="singer">{$penyanyi}</p>
-                  </div>
+    $song_id = $song['song_id'];
+    $judul = $song['judul'];
+    $penyanyi = $song['penyanyi'];    // nullable
+    $tanggal = $song['tanggal_terbit']; // di spek mintanya tahun
+    $genre = $song['genre'];          // nullable
+    $duration = $song['duration'];
+    $audioPath = $song['audio_path'];
+    $imagePath = $song['image_path'] ?? DEFAULT_IMG; // nullable
+    $album = $song['album_id'];       // nullable
+    $html = <<<"EOT"
+          <tr>
+            <td class="rank">$index</td>
+            <td>
+              <div class="song-profile">
+                <img src="$imagePath" width="50" height="50" />
+                <div class="profile-text">
+                  <p class="title"><a href="/song.php?song_id={$song_id}">{$judul}</a></p>
+                  <p class="singer">{$penyanyi}</p>
                 </div>
-              </td>
-              <td>{$tanggal}</td>
-              <td>{$genre}</td>
-            </tr>
-      EOT;
-  
-      echo $html;
-    } 
+              </div>
+            </td>
+            <td>{$tanggal}</td>
+            <td>{$genre}</td>
+          </tr>
+    EOT;
+
+    echo $html;
   }
 ?>
 
@@ -104,7 +102,9 @@
           </tr>
           <?php
             for ($i = 1; $i <= 10; $i++) {
-              echoSongCard($songs[$i-1], $i);
+              if (isset($songs[$i-1])) {
+                echoSongCard($songs[$i-1], $i);
+              }
             }
           ?>
         </table>
