@@ -88,47 +88,52 @@
     <?php
       include('templates/navbar.php');
     ?>
-    <section class="content">
-      <header>
-        <h2>Search</h2>
-      </header>
-      <input type="text" placeholder="What do you want to listen to?" name="search" id="search" onkeyup="debounceInput(this.value)" class="input__search" />
-      <select name="genre" id="genre" class="select-genre" onchange="onSelectGenre(this.value)">
-        <option value="" selected>All Genre</option>
-        <?php
-          foreach($genres as $genre) {
-            echoGenreOptions($genre['genre']);
-          }
-        ?>
-      </select>
-      <section class="song-list">
-        <table id="song-list">
-          <tr>
-            <th class="rank">No.</th>
-            <th class="sort" onclick="sortOrder('judul')">TITLE</th>
-            <th class="sort" onclick="sortOrder('tanggal_terbit')">DATE ADDED</th>
-            <th>GENRE</th>
-          </tr>
+    <section class="content-container">
+      <nav class="nav">
+        <input type="text" placeholder="What do you want to listen to?" name="search" id="search" onkeyup="debounceInput(this.value)" class="input__search" />
+      </nav>
+      <section class="content">
+        <header>
+          <h2>Search</h2>
+        </header>
+        <input type="text" placeholder="What do you want to listen to?" name="search" id="search" onkeyup="debounceInput(this.value)" class="input__search" />
+        <select name="genre" id="genre" class="select-genre" onchange="onSelectGenre(this.value)">
+          <option value="" selected>All Genre</option>
           <?php
-            for ($i = 1; $i <= 10; $i++) {
-              if (isset($songs[$i-1])) {
-                echoSongCard($songs[$i-1], $i);
+            foreach($genres as $genre) {
+              echoGenreOptions($genre['genre']);
+            }
+          ?>
+        </select>
+        <section class="song-list">
+          <table id="song-list">
+            <tr>
+              <th class="rank">No.</th>
+              <th class="sort" onclick="sortOrder('judul')">TITLE</th>
+              <th class="sort" onclick="sortOrder('tanggal_terbit')">DATE ADDED</th>
+              <th>GENRE</th>
+            </tr>
+            <?php
+              for ($i = 1; $i <= 10; $i++) {
+                if (isset($songs[$i-1])) {
+                  echoSongCard($songs[$i-1], $i);
+                }
               }
-            }
-          ?>
-        </table>
-      </section>
-      <div class="pagination-container">
-        <span id="prev"><</span>
-        <section class="pagination" id="pagination">
-          <?php
-            for ($i = 1; $i <= $total_page; $i++) {
-              createPagination($i);
-            }
-          ?>
+            ?>
+          </table>
         </section>
-        <span id="next">></span>
-      </div>
+        <div class="pagination-container">
+          <span id="prev"><</span>
+          <section class="pagination" id="pagination">
+            <?php
+              for ($i = 1; $i <= $total_page; $i++) {
+                createPagination($i);
+              }
+            ?>
+          </section>
+          <span id="next">></span>
+        </div>
+      </section>
     </section>
   </main>
 
