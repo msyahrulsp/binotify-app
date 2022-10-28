@@ -20,6 +20,9 @@ cd binotify
 
 Terdapat 2 link yang bisa diakses langsung, berikut link tersebut:
 - Page akan berjalan pada `localhost:8080`
+> User memiliki username `user@gmail.com` dan password `password`
+> Admin memiliki username `admin@gmail.com` dan password `password`
+
 - phpmyadmin akan berjalan pada `localhost:8081`
 > username dan password menyesuaikan dengan isi `docker-compose.yml`. Dalam kasus ini `root` dan `123456`
 
