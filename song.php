@@ -239,7 +239,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
       console.log('current played', arrPlayedSong);
       
       if (isAuthenticated !== '1' && !isEditing) {
-        if (arrPlayedSong.length > 3) {
+        if (arrPlayedSong.length >= 3) {
           document.getElementById("audio-player").style.pointerEvents = 'none';
           document.getElementById('count-limit').innerHTML = 'Kamu telah mendengarkan lagu sebanyak 3 kali. Coba lagi di hari selanjutnya.';
         }
