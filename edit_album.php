@@ -106,7 +106,7 @@
             </div>
           </div>
         </div>
-        <form method="POST" id="form-upload" action="" class="form-wrapper">
+        <form method="POST" id="form-upload" class="form-wrapper" enctype="multipart/form-data">
           <div id="error-container">
           </div>
           <div class="input-container">
