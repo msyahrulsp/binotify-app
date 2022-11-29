@@ -24,14 +24,3 @@ services:
       MYSQL_TCP_PORT: 3306
     container_name: php-database
     restart: always
-
-  php-phpmyadmin:
-    image: phpmyadmin/phpmyadmin
-    container_name: php-phpmyadmin
-    environment:
-      PMA_HOST: php-database
-      MYSQL_ROOT_PASSWORD: 123456
-    ports:
-      - 8080:80
-    depends_on:
-      - php-database
