@@ -4,6 +4,7 @@ require "controllers/MainController.php";
 // @param {int} penyanyi_id GET req from clicked list penyanyi
 $penyanyi_id = $_GET['penyanyi_id'] ?? 1;
 $user_id = $_SESSION['user_id'] ?? null;
+$base_rest_url = getenv('BASE_REST_URL');
 ?>
 
 <!DOCTYPE html>
@@ -36,12 +37,6 @@ $user_id = $_SESSION['user_id'] ?? null;
         </header>
         <section class="song-list" id="song-list">
           <table id="premium-song-list">
-            <tr>
-              <th>No.</th>
-              <th>Judul</th>
-              <th>Penyanyi</th>
-              <th>Audio Path</th>
-            </tr>
           </table>
         </section>
       </section>
@@ -50,12 +45,22 @@ $user_id = $_SESSION['user_id'] ?? null;
 
   <script>
     let res = null
+    let polledRes = null
     let xhttp = new XMLHttpRequest();
     xhttp.onreadystatechange = function() {
       if (this.readyState == 4 && this.status == 200) {
-        res = JSON.parse(this.responseText)
         if (res) {
-          let htmlRows = ''
+          polledRes = JSON.parse(this.responseText)
+          if (polledRes.toString() === res.toString()) {
+            return
+          } else {
+            res = polledRes
+          }
+        } else {
+          res = JSON.parse(this.responseText)
+        }
+        if (res) {
+          let htmlRows = '<tr><th>No.</th><th>Judul</th><th>Penyanyi</th><th>Audio Path</th></tr>'
           res.forEach((song, idx) => {
             htmlRows = htmlRows.concat(`<tr>
                 <td class="rank">${idx}</td>
@@ -70,18 +75,25 @@ $user_id = $_SESSION['user_id'] ?? null;
                 <td>${song.audio_path}</td>
               </tr>`)
           })
-          document.getElementById('premium-song-list').insertAdjacentHTML("beforeend", htmlRows);
+          document.getElementById('premium-song-list').innerHTML = ""
+          document.getElementById('premium-song-list').innerHTML = htmlRows
         } else {
           const notSubcribed = '<p>Kamu belum subscribe penyanyi.</p>'
           document.getElementById('song-list').innerHTML = notSubcribed
         }
       }
     };
-    const baseRestURL = 'http://0.0.0.0:3002';
+    const baseRestURL = <?php echo $base_rest_url ?>;
     const singerID = <?php echo $penyanyi_id ?>;
     const userID = <?php echo $user_id ?>;
-    xhttp.open("GET", `${baseRestURL}/status/singer/${singerID}/user/${singerID}`, true);
+
+    xhttp.open("GET", `${baseRestURL}/status/singer/${singerID}/user/${userID}`, true);
     xhttp.send();
+
+    setInterval(() => {
+      xhttp.open("GET", `${baseRestURL}/status/singer/${singerID}/user/${singerID}`, true);
+      xhttp.send();
+    }, 10000)
   </script>
 </body>
 
