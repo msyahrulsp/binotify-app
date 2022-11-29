@@ -57,3 +57,17 @@ CREATE TABLE `binotify`.`user` (
 INSERT INTO `binotify`.`user` (`user_id`, `email`, `password`, `name`, `username`, `isAdmin`) VALUES
   (1, 'user@gmail.com', '$2y$10$KHFOPrd1l6EjwkNJEkyGx.Kn8tTukczRHFHwZK6eco6OsbAvknp9O', 'halo', 'halohalo', 0),
   (2, 'admin@gmail.com', '$2y$10$KHFOPrd1l6EjwkNJEkyGx.Kn8tTukczRHFHwZK6eco6OsbAvknp9O', 'halo', 'halohalo', 1);
+
+DROP TABLE IF EXISTS `binotify`.`subscription`;
+CREATE TABLE `binotify`.`subscription` (
+  `creator_id` int NOT NULL,
+  `subscriber_id` int NOT NULL,
+  `status` ENUM('PENDING','ACCEPTED','REJECTED') DEFAULT 'PENDING' NOT NULL,
+  PRIMARY KEY (`creator_id`,`subscriber_id`),
+  FOREIGN KEY (`subscriber_id`) REFERENCES `user` (`user_id`)
+);
+
+INSERT INTO `binotify`.`subscription` VALUES
+('3','1','PENDING'),
+('2','1','REJECTED'),
+('1','1','ACCEPTED');
