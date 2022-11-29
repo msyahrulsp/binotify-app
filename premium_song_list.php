@@ -77,7 +77,7 @@ $user_id = $_SESSION['user_id'] ?? null;
         }
       }
     };
-    const baseRestURL = 'http://localhost:3000';
+    const baseRestURL = 'http://0.0.0.0:3002';
     const singerID = <?php echo $penyanyi_id ?>;
     const userID = <?php echo $user_id ?>;
     xhttp.open("GET", `${baseRestURL}/status/singer/${singerID}/user/${singerID}`, true);

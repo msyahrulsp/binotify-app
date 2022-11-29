@@ -1,19 +1,17 @@
 version: '3.8'
 services:
-  web:
+  php:
     build: .
-    container_name: tubes1-php
+    container_name: php-service
     volumes:
       - .:/var/www/html
       - ./uploads.ini:/usr/local/etc/php/conf.d/uploads.ini
-    networks:
-      - app-tier
     ports:
-      - 8080:80
+      - 3001:80
     depends_on:
-      - database
+      - php-database
 
-  database:
+  php-database:
     image: mysql
     command: --default-authentication-plugin=mysql_native_password
     ports:
@@ -23,24 +21,17 @@ services:
     environment:
       MYSQL_ROOT_PASSWORD: 123456
       MYSQL_INITDB_SKIP_TZINFO: 1
-    container_name: tubes1-database
-    networks:
-      - app-tier
+      MYSQL_TCP_PORT: 3306
+    container_name: php-database
     restart: always
 
-  phpmyadmin:
+  php-phpmyadmin:
     image: phpmyadmin/phpmyadmin
-    container_name: tubes1-phpmyadmin
+    container_name: php-phpmyadmin
     environment:
-      PMA_HOST: database
+      PMA_HOST: php-database
       MYSQL_ROOT_PASSWORD: 123456
     ports:
-      - 8081:80
+      - 8080:80
     depends_on:
-      - database
-    networks:
-      - app-tier
-
-networks:
-  app-tier:
-    driver: bridge
+      - php-database
