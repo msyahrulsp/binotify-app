@@ -3,7 +3,7 @@ require "controllers/MainController.php";
 
 // @param {int} penyanyi_id GET req from clicked list penyanyi
 $penyanyi_id = $_GET['penyanyi_id'] ?? 1;
-$user_id = $_SESSION['user_id'] ?? null;
+$user_id = $_SESSION['user_id'] ?? 1;
 $base_rest_url = getenv('BASE_REST_URL');
 ?>
 
@@ -17,6 +17,7 @@ $base_rest_url = getenv('BASE_REST_URL');
   <link rel="stylesheet" type="text/css" href="css/search.css">
   <link rel="stylesheet" type="text/css" href="css/navbar.css">
   <link rel="stylesheet" type="text/css" href="css/premium_song.css">
+  <link rel="icon" href="assets/images/component/spotify.png">
   <title>
     <?php
     echo 'Binotify · Lagu Premium';
@@ -60,19 +61,24 @@ $base_rest_url = getenv('BASE_REST_URL');
           res = JSON.parse(this.responseText)
         }
         if (res) {
-          let htmlRows = '<tr><th>No.</th><th>Judul</th><th>Penyanyi</th><th>Audio Path</th></tr>'
+          let htmlRows = '<tr><th>No.</th><th>Judul</th><th>Penyanyi</th><th>Audio Path</th><th>Music</th></tr>'
           res.forEach((song, idx) => {
-            htmlRows = htmlRows.concat(`<tr>
-                <td class="rank">${idx}</td>
-                <td>
+            htmlRows = htmlRows.concat(`<tr style="background-color:black">
+                <td class="rank">${idx+1}</td>
+                <td style="max-width:10rem;white-space:normal; word-break:break-all;">
                   <div class="song-profile">
                     <div class="profile-text">
                       <p class="title"><a href="/song.php?song_id={el.song_id}">${song.judul}</a></p>
                     </div>
                   </div>
                 </td>
-                <td>${song.penyanyi_id}</td>
-                <td>${song.audio_path}</td>
+                <td style="max-width:10rem; white-space:normal; word-break:break-all;">${song.user.username}</td>
+                <td style="white-space:normal; word-break:break-all; font-size:0.8em; max-width:15rem;">${song.audio_path}</td>
+                <td style="margin:auto; width:20rem; display:flex; justify-content:center;">
+                  <audio controls>
+                    <source src=${song.audio_path} type="audio/mpeg">
+                  </audio>
+                </td>
               </tr>`)
           })
           document.getElementById('premium-song-list').innerHTML = ""
