@@ -17,6 +17,7 @@ $base_rest_url = getenv('BASE_REST_URL');
   <link rel="stylesheet" type="text/css" href="css/search.css">
   <link rel="stylesheet" type="text/css" href="css/navbar.css">
   <link rel="stylesheet" type="text/css" href="css/premium_song.css">
+  <link rel="icon" href="assets/images/component/spotify.png">
   <title>
     <?php
     echo 'Binotify · Lagu Premium';
