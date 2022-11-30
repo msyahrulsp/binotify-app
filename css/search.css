@@ -167,6 +167,24 @@ a {
   background: #09c74c;
 }
 
+.singer-name {
+  width: 5em;
+  text-align: center;
+}
+
+.subscribe {
+  width: 7em;
+  text-align: center;
+}
+
+.subscribe-button {
+  background: #1ed760;
+  border: none;
+  outline: none;
+  padding: 7px 15px;
+  cursor: pointer;
+}
+
 @media only screen and (min-width: 768px) {
   .nav {
     width: 100%;
@@ -192,10 +210,14 @@ a {
   }
 
   .content {
-    padding-top: 0.5em;
+    padding-top: 1em;
   }
 
   .container {
     flex-direction: row;
+  }
+
+  .subscribe-button:hover {
+    background: #09c74c;
   }
 }

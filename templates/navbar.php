@@ -84,6 +84,12 @@ function echoNavbar() {
           <text>Daftar Album</text>
         </nav>
       </a>
+      <a href="singer_list.php">
+        <nav class="nav-link">
+          <img src=$list alt="singer_list" />
+          <text>Singers</text>
+        </nav>
+      </a>
       $authenticateButton
     EOT;
   }
