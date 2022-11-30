@@ -1,7 +1,40 @@
 <?php
-require "controllers/MainController.php";
+  require "controllers/MainController.php";
 
-$base_rest_url = getenv('BASE_REST_URL');
+  $userId = null;
+
+  if (empty($_SESSION)) {
+    echo "
+      <script>
+        alert('Silahkan login terlebih dahulu');
+        window.location.href = '/login.php';
+      </script>
+    ";
+  }
+
+  if (!empty($_SESSION)) {
+    if ($_SESSION['isAdmin']) {
+      echo "
+        <script>
+          alert('User not authorized');
+          window.location.href = '/'
+        </script>
+      ";
+    }
+    $userId = $_SESSION['user_id'];
+  }
+
+  // get subscribed
+  $subscription = new SubscriptionController($db);
+
+  $subscribed = $subscription->getSubscription($userId);
+
+  $json_subscribed = json_encode($subscribed);
+
+  $base_rest_url = getenv('BASE_REST_URL');
+
+  // SOAP request
+  $subscribe_service = "http://localhost:3003/subscribe?wsdl";
 ?>
 
 <!DOCTYPE html>
@@ -40,41 +73,78 @@ $base_rest_url = getenv('BASE_REST_URL');
   </main>
 
   <script>
-    const xhttp = new XMLHttpRequest();
-    const baseRestURL = "<?php echo $base_rest_url ?>";
-    const singerAPI = baseRestURL + "/singers";
-    const singer_list = document.getElementById('singer-list')
+    const userSubscribed = <?php echo $json_subscribed ?>;
 
-
-    xhttp.onload = function () {
-      if (this.readyState === 4 && this.status === 200) {
-        const response = JSON.parse(this.responseText);
-        const result = response.data.map((singer, index) => {
-          const name = singer.name;
-          const user_id = singer.user_id;
-          return (
-            `
-            <tr key='${user_id}'}>
-              <td class='rank'>${index + 1}</td>
-              <td class='singer-name'>${name}</td>
-              <td class='subscribe'><button class='subscribe-button'>Subscribe</button></td>
-            </tr>
-            `
-          )
-        })
-        result.unshift(`
-        <tr>
-            <th class='rank'>No.</th>
-            <th class='singer-name'>NAME</th>
-            <th class='subscribe'>SUBSCRIBE</th>
-          </tr>
-        `)
-        singer_list.innerHTML = result.join('')
+    function returnStatus(status) {
+      if (status === null) {
+        return 'Subscribe';
+      } else if (status === 'PENDING') {
+        return 'Pending';
+      } else if (status === 'ACCEPTED') {
+        return 'Go To Song';
+      } else if (status === 'REJECTED') {
+        return 'REJECTED';
       }
     }
 
-    xhttp.open("GET", singerAPI);
-    xhttp.send();
+    function getSingers() {
+      const xhttp = new XMLHttpRequest();
+      const baseRestURL = "<?php echo $base_rest_url ?>";
+      const singerAPI = baseRestURL + "/singers";
+      const singer_list = document.getElementById('singer-list')
+  
+      xhttp.onload = function () {
+        if (this.readyState === 4 && this.status === 200) {
+          const response = JSON.parse(this.responseText);
+          const result = response.data.map((singer, index) => {
+            const name = singer.name;
+            const singer_id = singer.user_id;
+            const subscription = userSubscribed.find((sub) => parseInt(sub.creator_id) === singer_id);
+            let status = null;
+            if (subscription) {
+              status = subscription.status;
+            }
+            return (
+              `
+              <tr key='${singer_id}'}>
+                <td class='rank'>${index + 1}</td>
+                <td class='singer-name'>${name}</td>
+                <td class='subscribe'>
+                <a href=${status === 'ACCEPTED' ? `/premium_song_list.php?penyanyi_id=${singer_id}` : '#'}>
+                  <button class='subscribe-button' onclick="${status === null ? `getCreatorId(${singer_id})` : ''}">${returnStatus(status)}</button>
+                </a>
+                </td>
+              </tr>
+              `
+            )
+          })
+          result.unshift(`
+          <tr>
+              <th class='rank'>No.</th>
+              <th class='singer-name'>NAME</th>
+              <th class='subscribe'>SUBSCRIBE</th>
+            </tr>
+          `)
+          singer_list.innerHTML = result.join('')
+        }
+      }
+      xhttp.open("GET", singerAPI);
+      xhttp.send();
+    }
+
+    function getCreatorId(creatorId) {
+      const xhttp = new XMLHttpRequest();
+      xhttp.onreadystatechange = function() {
+        if (this.readyState === 4 && this.status === 200) {
+          const response = this.responseText;
+          console.log(response)
+        }
+      }
+      xhttp.open("GET", `api/get_creator_id.php?creator_id=${creatorId}`);
+      xhttp.send();
+    }
+
+    getSingers()
 
   </script>
 </body>
