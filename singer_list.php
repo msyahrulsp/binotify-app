@@ -42,6 +42,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <link rel="stylesheet" type="text/css" href="css/search.css">
   <link rel="stylesheet" type="text/css" href="css/navbar.css">
+  <link rel="icon" href="assets/images/component/spotify.png">
   <title>
     <?php
     echo 'Binotify · Penyanyi';
@@ -96,6 +97,7 @@
       xhttp.onload = function () {
         if (this.readyState === 4 && this.status === 200) {
           const response = JSON.parse(this.responseText);
+          console.log(response);
           singers = response;
           const result = response.data.map((singer, index) => {
             const name = singer.name;
