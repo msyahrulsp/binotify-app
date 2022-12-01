@@ -178,11 +178,26 @@ a {
 }
 
 .subscribe-button {
-  background: #1ed760;
   border: none;
   outline: none;
   padding: 7px 15px;
   cursor: pointer;
+}
+
+.neutral {
+  background: #1ed760;
+}
+
+.pending {
+  background: #3153e7;
+  color: white;
+  pointer-events: none;
+}
+
+.reject {
+  background: #df2c2c;
+  color: white;
+  pointer-events: none;
 }
 
 @media only screen and (min-width: 768px) {
@@ -217,7 +232,7 @@ a {
     flex-direction: row;
   }
 
-  .subscribe-button:hover {
+  .neutral:hover {
     background: #09c74c;
   }
 }

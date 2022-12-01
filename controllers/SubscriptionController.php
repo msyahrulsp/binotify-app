@@ -36,6 +36,26 @@ class SubscriptionController {
       return FALSE;
     }
   }
+
+  public function updateStatus($creatorId, $subscriberId, $status) {
+    if (isset($this->db->con)) {
+      try {
+        $conn = $this->db->getConnection();
+        $conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+        $sql = "UPDATE subscription SET status = :status WHERE creator_id = :creator_id and subscriber_id = :subscriber_id";
+        $conn->prepare($sql)->execute(array(
+          ":creator_id" => $creatorId,
+          ":subscriber_id" => $subscriberId,
+          ":status" => $status
+        ));
+        return TRUE;
+      } catch (PDOException $e) {
+        return FALSE;
+      }
+    } else {
+      return FALSE;
+    }
+  }
 }
 
 ?>

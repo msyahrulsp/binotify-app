@@ -71,6 +71,7 @@
 
   <script>
     const userSubscribed = <?php echo $json_subscribed ?>;
+    let singers = null;
 
     function returnStatus(status) {
       if (status === null) {
@@ -95,6 +96,7 @@
       xhttp.onload = function () {
         if (this.readyState === 4 && this.status === 200) {
           const response = JSON.parse(this.responseText);
+          singers = response;
           const result = response.data.map((singer, index) => {
             const name = singer.name;
             const singer_id = singer.user_id;
@@ -108,10 +110,10 @@
               <tr key='${singer_id}'}>
                 <td class='rank'>${index + 1}</td>
                 <td class='singer-name'>${name}</td>
-                <td class='subscribe'>
-                <a href=${status === 'ACCEPTED' ? `/premium_song_list.php?penyanyi_id=${singer_id}` : '#'}>
-                  <button class='subscribe-button' onclick="${status === null ? `subscribe(${singer_id}, ${user_id}, '${curr_date}')` : ''}">${returnStatus(status)}</button>
-                </a>
+                <td class='subscribe subscribe-content' key=${singer_id}>
+                  <a id='subscribe-link' href=${status === 'ACCEPTED' ? `/premium_song_list.php?penyanyi_id=${singer_id}` : '#'}>
+                    <button id='subscribe-button' class='subscribe-button ${status === 'PENDING' ? 'pending' : status === 'REJECTED' ? 'reject' : 'neutral'}' onclick="${status === null ? `subscribe(${singer_id}, ${user_id}, '${curr_date}')` : ''}">${returnStatus(status)}</button>
+                  </a>
                 </td>
               </tr>
               `
@@ -149,7 +151,44 @@
       xhttp.send(fd);
     }
 
-    getSingers()
+    getSingers();
+
+    function pollingStatus() {
+      const xhttp = new XMLHttpRequest();
+      const user_id = <?php echo $userId ?>;
+      const subscribe_content = document.getElementsByClassName('subscribe-content');
+
+      xhttp.onreadystatechange = function () {
+        if (this.readyState === 4 && this.status === 200) {
+          const response = JSON.parse(this.responseText);
+          if (response) {
+            const singersData = singers.data
+            singersData.forEach((singer) => {
+              const singer_id = singer.user_id;
+              for (let subscribe_el of subscribe_content) {
+                const key = subscribe_el.getAttribute("key")
+                if (singer_id === parseInt(key)) {
+                  if (response.find((res) => res.creator_id === key)) {
+                    const status = response.find((res) => res.creator_id === key).status
+                    subscribe_el.innerHTML = `
+                      <a id='subscribe-link' href=${status === 'ACCEPTED' ? `/premium_song_list.php?penyanyi_id=${singer_id}` : '#'}>
+                        <button id='subscribe-button' class='subscribe-button ${status === 'PENDING' ? 'pending' : status === 'REJECTED' ? 'reject' : 'neutral'}'}">${returnStatus(status)}</button>
+                      </a>
+                    `
+                  }
+                }
+              }
+            })
+          }
+        }
+      }
+      xhttp.open("GET", `api/check_subscription_status.php?user_id=${user_id}`);
+      xhttp.send();
+    }
+
+    setInterval(() => {
+      pollingStatus();
+    }, 40000)
 
   </script>
 </body>
