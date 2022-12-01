@@ -98,7 +98,7 @@ $base_rest_url = getenv('BASE_REST_URL');
       console.log("polling run");
       xhttp.open("GET", `${baseRestURL}/status/singer/${singerID}/user/${singerID}`, true);
       xhttp.send();
-    }, 10000)
+    }, 60000)
   </script>
 </body>
 
