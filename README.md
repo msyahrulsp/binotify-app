@@ -105,8 +105,10 @@ Client-side
 ## Perubahan Tugas Besar 2
 ### Halaman List Penyanyi Premium
 Penambahan halaman baru, dikerjakan oleh 13520080.
+![image](https://user-images.githubusercontent.com/71055612/205099145-b4f2cf8c-073b-4a31-b19f-d0a81f661f90.png)
 ### Halaman List Lagu Premium
 Penambahan halaman baru, dikerjakan oleh 13520002.
+![image](https://user-images.githubusercontent.com/71055612/205099351-3c882b11-3243-422e-93ac-7386912e1764.png)
 ### Revisi Skema Basis Data
 Penambahan tabel subscription, dikerjakan oleh 13520161.
 ### Revisi Pembagian Tugas di Tugas Besar 1
