@@ -61,7 +61,7 @@ $base_rest_url = getenv('BASE_REST_URL');
           res = JSON.parse(this.responseText)
         }
         if (res) {
-          let htmlRows = '<tr><th>No.</th><th>Judul</th><th>Music</th></tr>'
+          let htmlRows = '<tr><th>No.</th><th style="text-align:center">Judul</th><th style="text-align:center">Music</th></tr>'
           res.forEach((song, idx) => {
             htmlRows = htmlRows.concat(`<tr style="background-color:#121212">
                 <td class="rank">${idx+1}</td>
