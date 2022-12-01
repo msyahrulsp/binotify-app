@@ -32,9 +32,6 @@
   $json_subscribed = json_encode($subscribed);
 
   $base_rest_url = getenv('BASE_REST_URL');
-
-  // SOAP request
-  $subscribe_service = "http://localhost:3003/subscribe?wsdl";
 ?>
 
 <!DOCTYPE html>
@@ -92,7 +89,9 @@
       const baseRestURL = "<?php echo $base_rest_url ?>";
       const singerAPI = baseRestURL + "/singers";
       const singer_list = document.getElementById('singer-list')
-  
+      const user_id = <?php echo $userId ?>;
+      const curr_date = new Date().toISOString().replace(/T/, " ").replace(/\..+/, "");
+
       xhttp.onload = function () {
         if (this.readyState === 4 && this.status === 200) {
           const response = JSON.parse(this.responseText);
@@ -111,7 +110,7 @@
                 <td class='singer-name'>${name}</td>
                 <td class='subscribe'>
                 <a href=${status === 'ACCEPTED' ? `/premium_song_list.php?penyanyi_id=${singer_id}` : '#'}>
-                  <button class='subscribe-button' onclick="${status === null ? `getCreatorId(${singer_id})` : ''}">${returnStatus(status)}</button>
+                  <button class='subscribe-button' onclick="${status === null ? `subscribe(${singer_id}, ${user_id}, '${curr_date}')` : ''}">${returnStatus(status)}</button>
                 </a>
                 </td>
               </tr>
@@ -132,16 +131,22 @@
       xhttp.send();
     }
 
-    function getCreatorId(creatorId) {
+    function subscribe(creatorId, userId, currDate) {
       const xhttp = new XMLHttpRequest();
+      const fd = new FormData();
+      fd.append('user_id', userId);
+      fd.append('creator_id', creatorId);
+      fd.append('curr_date', currDate);
       xhttp.onreadystatechange = function() {
         if (this.readyState === 4 && this.status === 200) {
           const response = this.responseText;
-          console.log(response)
+          if (response) {
+            location.reload()
+          }
         }
       }
-      xhttp.open("GET", `api/get_creator_id.php?creator_id=${creatorId}`);
-      xhttp.send();
+      xhttp.open("POST", 'api/subscribe.php', true);
+      xhttp.send(fd);
     }
 
     getSingers()

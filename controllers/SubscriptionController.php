@@ -19,6 +19,23 @@ class SubscriptionController {
       return FALSE;
     }
   }
+
+  public function addNewSubscriber($creatorId, $userId) {
+    if (isset($this->db->con)) {
+      $conn = $this->db->getConnection();
+      $conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+      $sql = "INSERT INTO subscription (creator_id, subscriber_id, status)
+      VALUES (:creator_id, :subscriber_id, :status)";
+      $conn->prepare($sql)->execute(array(
+        ":creator_id" => $creatorId,
+        ":subscriber_id" => $userId,
+        ":status" => "PENDING"
+      ));
+      return TRUE;
+    } else {
+      return FALSE;
+    }
+  }
 }
 
 ?>
