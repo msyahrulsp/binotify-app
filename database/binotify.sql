@@ -56,7 +56,10 @@ CREATE TABLE `binotify`.`user` (
 
 INSERT INTO `binotify`.`user` (`user_id`, `email`, `password`, `name`, `username`, `isAdmin`) VALUES
   (1, 'user@gmail.com', '$2y$10$KHFOPrd1l6EjwkNJEkyGx.Kn8tTukczRHFHwZK6eco6OsbAvknp9O', 'halo', 'halohalo', 0),
-  (2, 'admin@gmail.com', '$2y$10$KHFOPrd1l6EjwkNJEkyGx.Kn8tTukczRHFHwZK6eco6OsbAvknp9O', 'halo', 'halohalo', 1);
+  (2, 'admin@gmail.com', '$2y$10$KHFOPrd1l6EjwkNJEkyGx.Kn8tTukczRHFHwZK6eco6OsbAvknp9O', 'halo', 'halohalo', 1),
+  (3, '1352002@std.stei.itb.ac.id', '$2y$10$KHFOPrd1l6EjwkNJEkyGx.Kn8tTukczRHFHwZK6eco6OsbAvknp9O', 'Ranjabi', '1352002', 0),
+  (4, '1352080@std.stei.itb.ac.id', '$2y$10$KHFOPrd1l6EjwkNJEkyGx.Kn8tTukczRHFHwZK6eco6OsbAvknp9O', 'Jason', '1352080', 0),
+  (5, '13520161@std.stei.itb.ac.id', '$2y$10$KHFOPrd1l6EjwkNJEkyGx.Kn8tTukczRHFHwZK6eco6OsbAvknp9O', 'SP', '13520161', 0);
 
 DROP TABLE IF EXISTS `binotify`.`subscription`;
 CREATE TABLE `binotify`.`subscription` (
@@ -69,5 +72,9 @@ CREATE TABLE `binotify`.`subscription` (
 
 INSERT INTO `binotify`.`subscription` VALUES
 ('3','1','PENDING'),
-('2','1','REJECTED'),
-('1','1','ACCEPTED');
+('4','1','PENDING'),
+('1','1','ACCEPTED'),
+('1', '3', 'PENDING'),
+('3', '4', 'ACCEPTED'),
+('4', '5', 'REJECTED'),
+('1', '4', 'PENDING');
