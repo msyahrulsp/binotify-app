@@ -103,6 +103,10 @@ Client-side
 |Access Level | 13520002, 13520080, 13520161 revisi|
 
 ## Perubahan Tugas Besar 2
+### Fix song limit
+Dikerjakan oleh 13520002.
+### Fix image album on update
+Dikerjakan oleh 13520161
 ### Halaman List Penyanyi Premium
 Penambahan halaman baru, dikerjakan oleh 13520080.
 ![image](https://user-images.githubusercontent.com/71055612/205099145-b4f2cf8c-073b-4a31-b19f-d0a81f661f90.png)
@@ -113,3 +117,11 @@ Penambahan halaman baru, dikerjakan oleh 13520002.
 Penambahan tabel subscription, dikerjakan oleh 13520161.
 ### Revisi Pembagian Tugas di Tugas Besar 1
 Terdapat kesalahan penulisan nim pada pembagian tugas, untuk setiap fitur yang dikerjakan 3 buah nim diubah dari "13520002, 13520002, 13520080" ke "13520002, 13520080, 13520161".
+### Pembagian Tugas di Tugas Besar 2
+| Task        | NIM           |
+| ------------- |-------------|
+|Frontend Halaman List Lagu Premium | 13520080 |
+|Backend Endpoint Callback | 13520080 |
+|Frontend Halaman List Penyanyi Premium | 13520002 |
+|Frontend Fix song limit | 13520002 |
+|Frontend Fix image album on update | 13520161 |
