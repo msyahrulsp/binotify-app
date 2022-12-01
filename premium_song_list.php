@@ -2,8 +2,8 @@
 require "controllers/MainController.php";
 
 // @param {int} penyanyi_id GET req from clicked list penyanyi
-$penyanyi_id = $_GET['penyanyi_id'] ?? 1;
-$user_id = $_SESSION['user_id'] ?? 1;
+$penyanyi_id = $_GET['penyanyi_id'] ?? null;
+$user_id = $_SESSION['user_id'] ?? null;
 $base_rest_url = getenv('BASE_REST_URL');
 ?>
 
@@ -61,9 +61,9 @@ $base_rest_url = getenv('BASE_REST_URL');
           res = JSON.parse(this.responseText)
         }
         if (res) {
-          let htmlRows = '<tr><th>No.</th><th>Judul</th><th>Penyanyi</th><th>Audio Path</th><th>Music</th></tr>'
+          let htmlRows = '<tr><th>No.</th><th>Judul</th><th>Music</th></tr>'
           res.forEach((song, idx) => {
-            htmlRows = htmlRows.concat(`<tr style="background-color:black">
+            htmlRows = htmlRows.concat(`<tr style="background-color:#121212">
                 <td class="rank">${idx+1}</td>
                 <td style="max-width:10rem;white-space:normal; word-break:break-all;">
                   <div class="song-profile">
@@ -72,10 +72,8 @@ $base_rest_url = getenv('BASE_REST_URL');
                     </div>
                   </div>
                 </td>
-                <td style="max-width:10rem; white-space:normal; word-break:break-all;">${song.user.username}</td>
-                <td style="white-space:normal; word-break:break-all; font-size:0.8em; max-width:15rem;">${song.audio_path}</td>
                 <td style="margin:auto; width:20rem; display:flex; justify-content:center;">
-                  <audio controls>
+                  <audio controls preload="none">
                     <source src=${song.audio_path} type="audio/mpeg">
                   </audio>
                 </td>
@@ -89,7 +87,7 @@ $base_rest_url = getenv('BASE_REST_URL');
         }
       }
     };
-    const baseRestURL = <?php echo $base_rest_url ?>;
+    const baseRestURL = "<?php echo $base_rest_url ?>";
     const singerID = <?php echo $penyanyi_id ?>;
     const userID = <?php echo $user_id ?>;
 
@@ -97,6 +95,7 @@ $base_rest_url = getenv('BASE_REST_URL');
     xhttp.send();
 
     setInterval(() => {
+      console.log("polling run");
       xhttp.open("GET", `${baseRestURL}/status/singer/${singerID}/user/${singerID}`, true);
       xhttp.send();
     }, 10000)
