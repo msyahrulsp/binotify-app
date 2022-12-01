@@ -72,9 +72,9 @@ CREATE TABLE `binotify`.`subscription` (
 
 INSERT INTO `binotify`.`subscription` VALUES
 ('4','1','PENDING'),
-('4','1','PENDING'),
-('4','2','ACCEPTED'),
-('5','2','PENDING'),
-('5','3','ACCEPTED'),
-('6','3','REJECTED'),
+('4','2','PENDING'),
+('4','3','ACCEPTED'),
+('5','1','PENDING'),
+('5','2','ACCEPTED'),
+('6','2','REJECTED'),
 ('6','3','PENDING');
