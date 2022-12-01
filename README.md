@@ -1,4 +1,4 @@
- ## Binotify
+# Binotify
 Sebuah website luar biasa saja yang dikerjakan oleh 3 mahasiswa relatif stress yang berfungsi sebagai pemutar lagu (walaupun Spotify lebih bagus) untuk memenuhi salah satu Tugas Besar pada mata kuliah Web Based Development
 
 ## Requirement
@@ -57,7 +57,7 @@ Terdapat 2 link yang bisa diakses langsung, berikut link tersebut:
 Server-side  
 | Task        | NIM           |
 | ------------- |-------------|
-|Home            | 13520002, 13520002, 13520080  |
+|Home            | 13520002, 13520080, 13520161 revisi|
 |Login           | 13520080  |
 |Register        | 13520080  |
 |Search          | 13520080  |
@@ -75,14 +75,14 @@ Server-side
 |Edit Song       | 13520002  |
 |Delete Song     | 13520002  |
 |Song Limit Per Day | 13520002  |
-|Access Level | 13520002, 13520002, 13520080  |
+|Access Level | 13520002, 13520080, 13520161 revisi|
 |Setup Database           | 13520080  |
 |Setup Docker    | 13520161  |
   
 Client-side  
 | Task        | NIM           |
 | ------------- |-------------|
-|Home            | 13520002, 13520002, 13520080  |
+|Home            | 13520002, 13520080, 13520161 revisi| 
 |Login           | 13520080  |
 |Register        | 13520080  |
 |Search          | 13520080  |
@@ -100,4 +100,14 @@ Client-side
 |Edit Song       | 13520002  |
 |Delete Song     | 13520002  |
 |Song Limit Per Day | 13520002  |
-|Access Level | 13520002, 13520002, 13520080  |
+|Access Level | 13520002, 13520080, 13520161 revisi|
+
+## Perubahan Tugas Besar 2
+### Halaman List Penyanyi Premium
+Penambahan halaman baru, dikerjakan oleh 13520080.
+### Halaman List Lagu Premium
+Penambahan halaman baru, dikerjakan oleh 13520002.
+### Revisi Skema Basis Data
+Penambahan tabel subscription, dikerjakan oleh 13520161.
+### Revisi Pembagian Tugas di Tugas Besar 1
+Terdapat kesalahan penulisan nim pada pembagian tugas, untuk setiap fitur yang dikerjakan 3 buah nim diubah dari "13520002, 13520002, 13520080" ke "13520002, 13520080, 13520161".
