@@ -190,7 +190,7 @@
 
     setInterval(() => {
       pollingStatus();
-    }, 40000)
+    }, 15000)
 
   </script>
 </body>
